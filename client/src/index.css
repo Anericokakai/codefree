@@ -1,0 +1,258 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
+a{
+  text-decoration: none;
+}
+:root {
+  --clr-primary: #645cff;
+  --clr-primary-dark: #282566;
+  --clr-primary-light: #a29dff;
+  --clr-grey-1: #102a42;
+  --clr-grey-5: #617d98;
+  --clr-grey-10: #f1f5f8;
+  --clr-white: #fff;
+  --clr-red-dark: hsl(360, 67%, 44%);
+  --clr-red-light: hsl(360, 71%, 66%);
+  --transition: all 0.3s linear;
+  --spacing: 0.25rem;
+  --radius: 0.25rem;
+  --large-screen-width: 1170px;
+  --small-screen-width: 90vw;
+  --fixed-width: 50rem;
+  --navigation_font:18px;
+  --lineargrad1:#b993d6;
+  --lineargrad2:#8ca6db;
+  --lineargradient1b:#4b6cb7;
+  --lineargradient2b:#182848;
+  --lineargradient1c:#870000;
+  --lineargradient2c:#190a05;
+  --btnborderradius:5px;
+  --footerbg:#2f2e41;
+  --smallscreenicons:16px;
+  --largescreenicons:18px;
+  --error:red;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background: var(--clr-grey-10);
+  color: var(--clr-grey-1);
+  line-height: 1.5;
+  font-size: 0.875rem;
+}
+
+/* ! start of navigation  styling for components */
+
+.navigation{
+  display: flex;
+  justify-content: space-between;
+  padding:  .5em 1em;
+  align-items: center;
+}
+.navigation ul{
+  display: flex;
+  gap:  0 2em;
+  font-size: var(--navigation_font);
+
+}
+.logo h1{
+  font-size: 30px;
+  background:linear-gradient(var(--lineargrad1),var(--lineargrad2));
+  color: transparent;
+  background-clip: text;
+  --webkit-background-clip: text;
+}
+/* ! end of navigation  styling for components */
+
+/* !start of home design  for new users */
+.container{
+  display: grid;
+  gap: 2em;
+  overflow-x: hidden;
+  padding:  1em 2em;
+  min-height:60vh ;
+}
+.illastrator img{
+  width: 80%;
+  object-fit: cover;
+
+}
+.information{
+  display: grid;
+  place-content: center;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(var(--lineargradient1b),var(--lineargradient2b));
+  color: transparent;
+  background-clip: text;
+  --webkit-background-clip:text;
+}
+
+.stack-span{
+  background: linear-gradient(var(--lineargradient1c),var(--lineargradient2c));
+  color: transparent;
+  background-clip: text;
+}
+
+/* ! form styling for registration */
+
+
+#form{
+  width: 100%;
+  min-height: 50vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1em 2em;
+ background-color: var(--clr-white);
+ border-radius: 5px;
+
+}
+.eachinput{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.eachinput input{
+  padding: .5em ;
+  border: none ;
+  border-bottom: 1px solid  blue;
+  width: 100%;
+
+}
+
+.eachinput input:focus{
+  outline: none;
+}
+.general-container{
+  padding: 1em 2em;
+}
+
+.registersubmit{
+  margin-top: 1em;
+}
+.error{
+  color: var(--error);
+}
+/* ! form styling for registration */
+
+
+/* !custom buttons styles */
+.submit{
+  min-width: 100px;
+  max-width: 130px;
+  padding: 7px 20px;
+  border: none;
+  background-color: var(--clr-primary);
+  color:var(--clr-white);
+  border-radius: var(--btnborderradius);
+ cursor: pointer;
+
+}
+
+/* ! end custom buttons styles */
+
+/* ! footer design start */
+footer{
+  background-color: var(--footerbg);
+  min-height: 30vh;
+  
+}
+.footer-container {
+  display: flex;
+  gap: 2em;
+align-items: center;
+justify-content: space-around;
+flex-wrap: wrap;
+min-height: 30vh;
+
+}
+.footer1 a{
+ padding:  1em 2em;
+  gap: 1em;
+  color: var(--clr-grey-10);
+}
+.footer1 i{
+  color: var(--clr-grey-10);
+  margin:1em;
+  font-size: var(--smallscreenicons);
+}
+label{
+  color: #102a42;
+}
+/* ! footer design end */
+
+
+/* ! start of login design */
+.loginheader{
+  text-align: center;
+
+}
+/* ! start of login design */
+
+
+
+
+
+@media (min-width:600px) {
+  .container{
+    grid-template-columns: 50% 50%;
+    
+  }
+  .reverse{
+    background-color: var(--clr-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row-reverse;
+    min-height: 80vh;
+  }
+  .reverse .information{
+    width: 50%;
+  }
+  .reverse .illastrator{
+    width: 50%;
+  }
+  #form{
+    padding: 1em 3em;
+    margin-right: 1em;
+    
+  }
+  .footer1 i{
+    font-size: var(--largescreenicons);
+  }
+}
+
+@media (min-width:800px) {
+  .information{
+    font-size: 20px;
+  }
+  
+}
+
+
+
+/* !end of home design  for new users */
