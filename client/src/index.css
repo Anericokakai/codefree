@@ -52,6 +52,12 @@ a{
   --smallscreenicons:16px;
   --largescreenicons:18px;
   --error:red;
+  /* todo admin variables */
+  --navbg:#0112fc;
+  --adminnavtext:#e2e7f3;
+  --adminbg:#bbc4e4;
+  --tabletext:#4e4d56;
+  --admindetailsbg:#5e64a6
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
@@ -66,9 +72,18 @@ body {
 
 .navigation{
   display: flex;
-  justify-content: space-between;
-  padding:  .5em 1em;
-  align-items: center;
+ height: 60px;
+ align-items: center;
+ justify-content: space-between;
+ padding: 0 50px;
+ 
+}
+.sticky{
+  position: fixed;
+ width: 100%;
+ background-color: var(--clr-white);
+ margin-bottom: 2em;
+transition: .3s ease-out;
 }
 .navigation ul{
   display: flex;
@@ -76,13 +91,76 @@ body {
   font-size: var(--navigation_font);
 
 }
+.smallnav{
+  display: none;
+}
+.bars{
+  width: 30px;
+  height: 30px;
+  display: none;
+  
+}
+.bars i{
+  font-size: 20px;
+}
+.fa-xmark{
+  font-size: 20px;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+}
 .logo h1{
   font-size: 30px;
+  
   background:linear-gradient(var(--lineargrad1),var(--lineargrad2));
   color: transparent;
   background-clip: text;
   --webkit-background-clip: text;
 }
+/* todo small screen navigation menu */
+@media (max-width:640px) {
+
+  .navigation ul {
+   display: none;
+  }
+  .bars{
+    display: block;
+  }
+  
+  .smallnav{
+    visibility: visible;
+    z-index: 10;
+    background-color: var(--clr-primary);
+    position: fixed;
+    top: 0;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    width: 50%;
+    color: var(--clr-white);
+    transform: scaleY(-0);
+   
+  }
+  .show{
+    transform: scaleY(1);
+  }
+  .navigation{
+    padding: 0 20px;
+  }
+  .smallnav li{
+    padding: 1em ;
+  }
+  .navigation{
+
+width: 100%;
+    background-color: var(--clr-white);
+  }
+  
+}
+/* todo end of small screen navigation */
 /* ! end of navigation  styling for components */
 
 /* !start of home design  for new users */
@@ -211,13 +289,68 @@ label{
   text-align: center;
 
 }
-/* ! start of login design */
+/* ! end of login design */
+/* !start of home designt */
+     .userinfo{
+background-color:var(--lineargrad2);
+min-height: 40vh;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+     }
+    .avatorimage{
+   height: 120px;
+   }
+   .avatorimage img{
+    height: 100%;
+  }
+   .info h4{
+  text-align: center;
+  }
 
+/* !start of couses styling */
 
+.course_container{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  min-height: 40vh;
 
+}
+.descritpions{
+  padding: 0 10px;
+}
+.courseholder{
+  background-color: var(--clr-white);
+ 
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.courses{
+  width: 260px;
+  height: 150px;
+ 
+}
+.courseimage{
+  height: 90%;
+}
+.courseimage img{
+  width: 100%;
+  height: 100%;
+  
+}
+.course_container a{
+  color: var(--clr-grey-1)
 
+}
+/* !end  of couses styling */
 
-@media (min-width:600px) {
+/* !end of home designt */
+
+@media (min-width:600px )  {
   .container{
     grid-template-columns: 50% 50%;
     
@@ -244,8 +377,30 @@ label{
   .footer1 i{
     font-size: var(--largescreenicons);
   }
+ 
 }
+@media (max-width:640px) {
+   /* todo grid display of couses */
+ .courses{
+  width:100% ;
+  margin: 0;
+ }
+ .courseholder{
+  width: 200px;
+  min-height: 213px;
+ }
+ .descritpions h3{
+  font-size: 14px;
 
+ }
+  
+}
+@media (max-width:413px) {
+  .courseholder{
+    width: 90%;
+  }
+  
+}
 @media (min-width:800px) {
   .information{
     font-size: 20px;
@@ -256,3 +411,293 @@ label{
 
 
 /* !end of home design  for new users */
+
+
+/* todo courses design */
+#overflowTest {
+  background: #4CAF50;
+  color: white;
+  padding: 15px;
+  width: 50%;
+  height: 100px;
+  overflow: scroll;
+  border: 1px solid #ccc;
+}
+
+/* ! admin setction styles beggining */
+
+.admin-container{
+  display: flex;
+}
+.admin-nav{
+  background-color: var(--navbg);
+width: 200px;
+min-height: 100vh;
+padding: 1em;
+box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+
+
+}
+
+.not-active{
+  display: block;
+  text-align: left;
+  padding: 1em 0 ;
+  padding-left: 1em;
+  margin: 1em 0;
+  border-radius: 5px;
+  color: var(--adminnavtext);
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+}
+.not-active:hover {
+  background-color: var(--clr-grey-10);
+  color: var(--navbg);
+}
+
+.not-active:hover{
+color: var(--navbg);
+}
+
+
+.admin-nav ul {
+  text-align: left;
+  padding: 2em 0 ;
+  
+}
+
+.active{
+  display: block;
+  text-align: left;
+  padding: 1em 0 ;
+  padding-left: 1em;
+  margin: 1em 0;
+  border-radius: 5px;
+  color: var(--navbg);
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  background-color: var(--adminnavtext);
+}
+/*! beggining admin details styles */
+.logedin-admin{
+  background-color: var(--admindetailsbg);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 5px 0;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.admin-image{
+  width: 40px;
+  height: 40px;
+}
+.admin-image img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+/* !end of admin details styles */
+
+@media (max-width:640px) {
+  .hidden-small{
+    display: none;
+  }
+  .active ,
+  .not-active{
+    padding-left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .admin-nav{
+    width: 100px;
+    
+  }
+  .not-active,
+  .active{
+    font-size: 23px;
+  }
+  .logedin-admin{
+    background: none;
+  }
+}
+
+
+
+@media (min-width:640px) {
+  .hidden-large{
+    display: none;
+  }
+  .not-active i,
+.active i{
+  padding-right: 5px;
+}
+  
+}
+.admin-logo{
+  color: var(--adminnavtext);
+}
+.admin-logo h1{
+  text-align: center;
+}
+
+
+/*  todo  begining of table styles */
+.table-container{
+  width: 90%;
+}
+.styled-table {
+  border-collapse: collapse;
+ 
+  font-size: 0.9em;
+  font-family: sans-serif;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table thead tr {
+  background-color: #1aa7ec;
+  color: #ffffff;
+  text-align: left;
+}
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+.styled-table tbody tr {
+  border-bottom: 1px solid  #4adede;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #94c8df9f;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+.styled-table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}
+.fa-pen{
+  margin-right: 10px;
+  cursor: pointer;
+}
+.fa-pen:hover{
+  transform: scale(1.28);
+}
+.fa-trash:hover{
+  transform: scale(1.28);
+}
+.fa-trash{
+  color: red;
+  cursor: pointer;
+}
+
+/*  todo  end of table styles */
+
+/* todo blogs form design beggining */
+
+.form-container{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.blogs-form{
+  background-color: var(--clr-white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+justify-content: center;
+  width: 90%;
+  min-height: 90vh;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  border-radius: 10px;
+  
+
+}
+.short-info{
+  display: grid;
+  justify-content: space-around;
+  width: 100%;
+
+}
+.short-info .inputs{
+width: 100%;
+}
+.inputs{
+  width: 100%;
+
+}
+.inputs label{
+  font-size: 18px;
+}
+.inputs textarea{
+  width: 90%;
+  border: 1px solid var(--clr-grey-5);
+  padding: 5px 10px;
+  border-radius: 10px;
+  height: 120px;
+}
+.inputs textarea:focus{
+  outline: none;
+}
+.inputs label{
+  display: block;
+}
+input:focus{
+  outline: none;
+}
+.short-info .inputs input{
+  border-radius: 100vw;
+  padding: 5px 10px;
+  border: 1px solid var(--clr-grey-5);
+}
+.short-info .choose-img input{
+  border: none;
+  
+}
+.select-img{
+  cursor: pointer;
+}
+.select-img:hover{
+  color: var(--navbg);
+}
+.short-info .choose-img {
+  padding-top: 1em;
+  cursor: pointer;
+}
+#image{
+  display: none;
+  
+}
+.fa-image{
+  font-size: 30px;
+}
+.submit-blog{
+  width: 100px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--navbg);
+  color: var(--clr-white);
+  cursor: pointer;
+}
+
+@media (min-width:640px) {
+  .short-info{
+    grid-template-columns: 50% 50%;
+    gap: 1em;
+  }
+ 
+  
+}
+/* todo blogs form design end */
+
+
+/* ! admin setction styles end */

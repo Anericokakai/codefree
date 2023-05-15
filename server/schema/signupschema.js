@@ -10,7 +10,7 @@ const signupSchema = new Schema(
     avator: String,
   },
   {
-    collation: "users",
+    collection: "users",
   }
 );
 

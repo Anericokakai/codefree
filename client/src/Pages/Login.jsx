@@ -1,43 +1,61 @@
 import React from "react";
-
+import { refreshtoken, username } from "../features/UsersSlice";
 import { ToastContainer, toast } from "react-toastify";
-import loginimage from'../images/login.svg'
+import loginimage from "../images/login.svg";
 import { useFormik } from "formik";
-import { regiter } from "../controllers/registrations";
+import { login } from "../controllers/registrations";
+import { userdetails } from "../features/UsersSlice";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 function Login() {
+  // todo state for the user api
+
+  // todo initialise the use dispatch
+  const dispatch = useDispatch();
+
   // todo toaster function
 
   //   ! formik  handling comp tia
 
   const initialValues = {
-    name: "",
-   
+    email: "",
     password: "",
   };
   const onSubmit = async (values) => {
-    regiter(formik.values)
-      .then((data) => {
-        const status = data.data.status;
-        if (status === "ok") {
-          toast.success("user added succsefully");
+    // formik.resetForm({ values: "" });
+    console.log(formik.values);
+    login(formik.values).then((info) => {
+      console.log(info.data);
+      // redirect function
+      function redirect() {
+        return (window.location.href = "/login/lessonsHome");
+      }
+      if (info.data.status === "ok" && info.data.token !== "") {
+        toast.success("user loged in succesfullly");
+        const token_holder = info.data.token;
+        const user_holder = info.data.name;
+        const refresh_token_holder = info.data.refresh_token;
+        dispatch(userdetails(token_holder));
+        dispatch(username(user_holder));
+        dispatch(refreshtoken(refresh_token_holder));
+
+        setTimeout(redirect, 600);
+        {
+          <Link to={"/login/lessonsHome"}></Link>;
         }
-      })
-      .then(() => {
-        setTimeout(() => {
-          window.location.href = "/login";
-        }, 1000);
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("failed to add the user");
-      });
-    formik.resetForm({ values: "" });
+      }
+
+      if (info.data.error) {
+        toast.error(`${info.data.error}`);
+      }
+    });
   };
   const validate = (values) => {
     let errors = {};
 
-    if (!values.name) errors.name = "required";
-   
+    if (!values.email) errors.email = "required";
+
     if (!values.password) errors.password = "required";
     return errors;
   };
@@ -64,23 +82,22 @@ function Login() {
 
               <form action="" id="form" onSubmit={formik.handleSubmit}>
                 <div className="eachinput">
-                  <label htmlFor=""> name </label>
+                  <label htmlFor=""> email </label>
                   <input
                     autoComplete="off"
                     onChange={formik.handleChange}
-                    value={formik.values.name}
+                    value={formik.values.email}
                     type="text"
-                    name="name"
+                    name="email"
                     id="name"
                     onBlur={formik.handleBlur}
                   />
-                  {formik.touched.name && formik.errors.name && (
+                  {formik.touched.email && formik.errors.email && (
                     <div>
-                      <small className="error">{formik.errors.name} </small>
+                      <small className="error">{formik.errors.email} </small>
                     </div>
                   )}
                 </div>
-               
 
                 <div className="eachinput">
                   <label htmlFor=""> password </label>

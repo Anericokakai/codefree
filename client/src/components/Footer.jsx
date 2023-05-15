@@ -1,17 +1,17 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { Github ,Discord,Twitter,Whatsap, Linkedin } from '../icons/Icons'
 function Footer() {
   return (
     <footer>
         <div className="footer-container">
         <div className='footer1'>
-            <NavLink to={''}>contact us</NavLink>
-            <NavLink to={''}>Terms and vondition</NavLink>
-            <NavLink to={''}> join community</NavLink>
+            <Link to={''}>contact us</Link>
+            <Link to={''}>Terms and vondition</Link>
+            <Link to={''}> join community</Link>
         </div>
         <div className="footer1">
-        <Linkedin/>
+       <Link to={'https://www.linkedin.com/in/anerico-kakai-600b80258/'} target='blank'><Linkedin/></Link> 
         <Discord/>
         <Twitter/>
         <Whatsap/>

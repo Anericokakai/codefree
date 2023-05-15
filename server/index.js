@@ -4,14 +4,18 @@ import express from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { signuproute } from "./routes/registrationroute.js";
+import { signuproute ,login_route,validatetoken,refreshToken} from "./routes/registrationroute.js";
+import git_router from "./routes/Admin/Update-git-blogs.js";
 import connection from "./database/connection.js";
+import multer from "multer";
+import githubtutorial from "./routes/LessonsRoutes/gitlessons.js";
+
 // !configuration  of the app
 const app = express();
 dotenv.config();
 console.log(process.env.PORT);
 const connected=connection()
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -23,6 +27,22 @@ connected.then(()=>{
       });
 })
 
+// sign up route
 
 app.post("/api/signup", signuproute);
+
+// login route
+app.post("/api/login",login_route)
+// validate tokens
+
+app.post('/api/dashboard',validatetoken)
+app.post('/api/refreshtoken',refreshToken)
+// set up 
+
+//! admin routes
+app.use(git_router)
+// !lesson routes
+app.use(githubtutorial)
+
+
 

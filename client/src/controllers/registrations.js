@@ -8,3 +8,10 @@ export const regiter = async (userdetails) => {
 
   return response;
 };
+
+
+export const login= async(values)=>{
+
+  const respose_2=await axios.post('http://localhost:8000/api/login',values)
+  return respose_2
+}
