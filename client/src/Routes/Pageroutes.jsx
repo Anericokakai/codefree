@@ -11,7 +11,7 @@ import JsBlogs from "../admin/admingitcontroller/JsBlogs";
 import NodejsBlogs from "../admin/admingitcontroller/NodejsBlogs";
 import ReactBlogs from "../admin/admingitcontroller/ReactBlogs";
 import BlogsForm from "../admin/Admincomponents/BlogsForm";
-
+import DeleteBlog from "../admin/admingitcontroller/DeleteBlog";
 const generalroutes = [
   {
     path: "/",
@@ -55,13 +55,16 @@ const generalroutes = [
     element: <NodejsBlogs />,
   },
   {
-    path:'/admin/react',
-    element:<ReactBlogs/>
+    path: "/admin/react",
+    element: <ReactBlogs />,
   },
   {
-    path:'/admin/blogsform',
-    element:<BlogsForm/>
-    
-  }
+    path: "/admin/blogsform",
+    element: <BlogsForm />,
+  },
+  {
+    path: "/admin/deleteblog",
+    element: <DeleteBlog></DeleteBlog>,
+  },
 ];
 export default generalroutes;

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Navigation from "../../components/Navigation";
+
 import Firstpage from "../../components/home/Firstpage";
 import { useSelector } from "react-redux";
 import { Logout } from "../../features/UsersSlice";
@@ -10,6 +10,7 @@ import { redirectToLogin } from "../../controllers/redirects";
 import { userdetails } from "../../features/UsersSlice";
 import SampleCourses from "../../components/home/SampleCourses";
 import Footer from "../../components/Footer";
+import NavigationComponent from "../../components/NavigationComponent";
 function LesonsHome() {
   const dispatch = useDispatch();
   const { userName, token, refreshToken } = useSelector(
@@ -35,7 +36,7 @@ function LesonsHome() {
 
   return (
     <div>
-      <Navigation />
+     <NavigationComponent></NavigationComponent>
       <Firstpage userName={userName}></Firstpage>
       <div>
         <h1>available courses</h1>

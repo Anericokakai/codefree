@@ -3,14 +3,17 @@ import { useState } from "react";
 import AdminNav from "./AdminNav";
 
 import { apploadedblog } from "../admincontroller/submitBlog";
+import { ToastContainer, toast } from "react-toastify";
 function BlogsForm() {
+  // !use states for the inputs
   const [imageld, setImage] = useState("");
   const [otherinputs, setOtherinputs] = useState({
     author: "",
     topic: "",
-    samplecode: "",
+
     illustration: "",
   });
+  // !handle the change of inputs
   function handleinputchange(e) {
     const value = e.target.value;
     setOtherinputs({
@@ -18,27 +21,52 @@ function BlogsForm() {
       [e.target.name]: value,
     });
   }
-
+  // !function to go back
+  function goback(){
+    window.history.back()
+  }
+  // !acces the query string from the url
+  const queryParams = new URLSearchParams(window.location.search);
+  const endpoint_api = queryParams.get("endpoint_api");
+  console.log(endpoint_api);
+  // todo display the image chisen by the author
   function handleImageChange(e) {
     const im = e.target.files[0];
     setImage(im);
-    console.log(im);
   }
-  const form=document.querySelector('form')
+  const form = document.querySelector("form");
   function handlesubmit(e) {
     e.preventDefault();
 
-const formData= new FormData(form)
+    const formData = new FormData(form);
 
-console.log([...formData]);
+    console.log([...formData]);
 
-    apploadedblog(formData).then(data=>{
-      console.log(data)
+    apploadedblog(formData, endpoint_api).then((data) => {
+      console.log(data);
+      if (data.data.status && data.data.succsess) {
+        toast.success(`${data.data.succsess}`);
+
+      }
+    }).then(()=>{
+
+      setTimeout(goback,800)
+      
+    }).catch(error=>{
+      toast.error('failed to add blogs')
     });
   }
 
   return (
     <div className="admin-container">
+      <ToastContainer
+        position={"top-center"}
+        closeOnClick={false}
+        pauseOnHover={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        autoClose={500}
+      />
       <AdminNav />
       <div className="form-container">
         <h1 className="blog-heading">Edit Blogs</h1>
@@ -58,6 +86,7 @@ console.log([...formData]);
                 autoComplete="off"
                 autoCapitalize="on"
                 onChange={handleinputchange}
+                required
               />
             </div>
             <div className="inputs">
@@ -67,6 +96,7 @@ console.log([...formData]);
                 name="author"
                 autoComplete="off"
                 onChange={handleinputchange}
+                required
               />
             </div>
 
@@ -78,7 +108,7 @@ console.log([...formData]);
                 type="file"
                 name="image"
                 id="image"
-                
+                required
                 onChange={handleImageChange}
               />
               {/* {aploadimage === "" || aploadimage === null ? (
@@ -90,20 +120,12 @@ console.log([...formData]);
           </div>
 
           <div className="inputs">
-            <label htmlFor="">SampleCode </label>
-            <textarea
-              type="text"
-              name="samplecode"
-              onChange={handleinputchange}
-            ></textarea>
-          </div>
-
-          <div className="inputs">
             <label htmlFor="">Illustaration </label>
             <textarea
               type="text"
               name="illustration"
               onChange={handleinputchange}
+              required
             />
           </div>
           <button type="submit" className="submit-blog">

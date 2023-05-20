@@ -52,6 +52,7 @@ a{
   --smallscreenicons:16px;
   --largescreenicons:18px;
   --error:red;
+  --boxshadoe:rgba(0, 0, 0, 0.1) 0px 4px 12px;
   /* todo admin variables */
   --navbg:#0112fc;
   --adminnavtext:#e2e7f3;
@@ -414,15 +415,7 @@ flex-direction: column;
 
 
 /* todo courses design */
-#overflowTest {
-  background: #4CAF50;
-  color: white;
-  padding: 15px;
-  width: 50%;
-  height: 100px;
-  overflow: scroll;
-  border: 1px solid #ccc;
-}
+
 
 /* ! admin setction styles beggining */
 
@@ -549,6 +542,8 @@ color: var(--navbg);
 /*  todo  begining of table styles */
 .table-container{
   width: 90%;
+  height: 100vh;
+  overflow-y: scroll;
 }
 .styled-table {
   border-collapse: collapse;
@@ -596,7 +591,24 @@ color: var(--navbg);
   color: red;
   cursor: pointer;
 }
-
+.add_blog_container_btn{
+  width: 100%;
+  margin:  2em auto;
+  text-align: center;
+  
+}
+.add_blog{
+  padding: 9px 1em;
+  border: none;
+border-radius: 5px;
+cursor: pointer;
+background-color: #009879;
+color:var(--clr-white) ;
+transition: .2s ease;
+}
+.add_blog:hover{
+  background-color: #68bb59;
+}
 /*  todo  end of table styles */
 
 /* todo blogs form design beggining */
@@ -697,7 +709,115 @@ input:focus{
  
   
 }
+
+.mainlesson_container{
+  padding: 2em  0;
+}
+
+.lesson_container{
+  display: flex;
+  width: 90%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: var(--clr-white);
+  margin:  auto;
+  text-align: center;
+  padding: 1em;
+}
+.codesample {
+  background: #242936;
+  color: var(--clr-white);
+  padding: 15px;
+  width: 50%;
+  height: 100px;
+  overflow: scroll;
+  border: 1px solid #ccc;
+}
+.imagesample{
+  width: 50%;
+  background-color: var(--clr-white);
+  margin: 1em auto;
+}
+.imagesample img{
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: var(--boxshadoe);
+  height: 100%;
+
+}
+.illustration{
+  text-align: left;
+}
+.illustration h1{
+  text-align: center;
+}
+
+@media (max-width:640px) {
+  .imagesample{
+    width: 90%;
+  }
+  
+}
 /* todo blogs form design end */
 
 
+/* todo blog delete styles */
+.delete_container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  
+}
+.delete_banner{
+  width: 50%;
+  min-height: 50vh;
+  background-color: var(--clr-white);
+  border-radius: 10px;
+  border: none;
+  box-shadow: var(--boxshadoe);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.delete_banner h3{
+  color: red;
+  font-size: 25px;
+}
+.btn_container{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 2em;
+}
+.btn{
+  width: 100px;
+  padding: 9px 10px;
+  border: none;
+  border-radius: 5px;
+  color: var(--clr-white);
+  box-shadow: var(--boxshadoe);
+  cursor: pointer;
+ 
+
+}
+.green{
+  background-color: #009879;
+  ;
+}
+.red{
+  background-color: red;
+ 
+}
+@media (max-width:640px) {
+  .delete_banner{
+    width: 95%;
+  }
+  .delete_banner h3{
+    font-size: 16px;
+  }
+  
+}
 /* ! admin setction styles end */

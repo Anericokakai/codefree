@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Bars } from '../icons/Icons'
 
-function Navigation() {
+function NavigationComponent() {
   const[shownav,setshownav]=useState(false)
   const [showOnscroll,setshowonscroll]=useState(false)
   const displayNav=()=>{
@@ -59,4 +59,4 @@ shownav?setshownav(false):setshownav(true)
   )
 }
 
-export default Navigation
+export default NavigationComponent

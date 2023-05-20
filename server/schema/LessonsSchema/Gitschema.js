@@ -5,7 +5,7 @@ const GitSchema = new Schema(
   {
     topic: String,
     illustration: String,
-    samplecode: String,
+    
     Image: {
       data:Buffer,
       contentType:String

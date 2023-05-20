@@ -1,11 +1,12 @@
 import React from "react";
-import Navigation from "../components/Navigation";
+
 import Reusablehome from "../components/Reusablehome";
 import website from "../images/website.svg";
 import question from "../images/question.svg";
 import status500 from '../images/status500.svg'
 import status200 from '../images/status200.svg'
 import Footer from "../components/Footer";
+import NavigationComponent from "../components/NavigationComponent";
 function Home() {
   const infodetails = [
     {
@@ -57,7 +58,7 @@ function Home() {
   ];
   return (
     <div>
-      <Navigation></Navigation>
+      <NavigationComponent></NavigationComponent>
       {infodetails.map((child) => (
         <Reusablehome
           infoStart={child?.infoStart}

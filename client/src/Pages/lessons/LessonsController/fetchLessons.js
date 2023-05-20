@@ -1,9 +1,9 @@
 import axios from "axios";
 
 
-export const fetch_github_lessons=async()=>{
+export const fetch_lessons=async(api)=>{
 
 
-    const result=await axios.get('http://localhost:8000/api/git_tutorials')
+    const result=await axios.get(api)
     return result
 }
