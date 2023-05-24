@@ -33,6 +33,7 @@ javascript_router.post("/api/javascriptroute", upload.single("image"), async (re
       data: fs.readFileSync(req.file.path),
       contentType: req.file.mimetype,
     },
+    imagepath:req.file.path,
     createdate: Date.now(),
   });
   if (newBlog) {

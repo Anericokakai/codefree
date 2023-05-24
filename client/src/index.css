@@ -210,6 +210,20 @@ width: 100%;
  border-radius: 5px;
 
 }
+.form{
+  width: 50%;
+  border-color: #009879;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1em 2em;
+ background-color: var(--clr-white);
+ border-radius: 5px;
+ box-shadow: var(--boxshadoe);
+
+}
 .eachinput{
   display: flex;
   flex-direction: column;
@@ -236,6 +250,15 @@ width: 100%;
 .error{
   color: var(--error);
 }
+/* !style forfm for sign up */
+.text_center{
+  text-align: center;
+}
+.signupform{
+  box-shadow: var(--boxshadoe);
+}
+/* ! end of style forfm for sign up */
+
 /* ! form styling for registration */
 
 
@@ -289,6 +312,12 @@ label{
 .loginheader{
   text-align: center;
 
+}
+.goback{
+  color: var(--navbg);
+}
+.err{
+  color: red;
 }
 /* ! end of login design */
 /* !start of home designt */
@@ -386,6 +415,9 @@ flex-direction: column;
   width:100% ;
   margin: 0;
  }
+ .form{
+  width: 90%;
+ }
  .courseholder{
   width: 200px;
   min-height: 213px;
@@ -453,7 +485,32 @@ box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 .not-active:hover{
 color: var(--navbg);
 }
-
+.add{
+  margin-top: 2em;
+  width: 80px;
+  padding: 7px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  box-shadow: var(--boxshadoe);
+  background-color: #009879;
+  color: var(--clr-white);
+}
+.admin_heading{
+  text-align: center;
+  text-transform: uppercase;
+}
+.add_admin_form{
+  max-width: 700px;
+  height: 500px;
+}
+.admin_container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
 
 .admin-nav ul {
   text-align: left;
@@ -499,6 +556,7 @@ color: var(--navbg);
   .hidden-small{
     display: none;
   }
+  
   .active ,
   .not-active{
     padding-left: 0;

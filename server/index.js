@@ -19,15 +19,17 @@ import javascript_router from "./routes/Admin/Add-js-blogs.js";
 import nodejs_router from "./routes/Admin/Add-nodejs-blogs.js";
 import react_router from "./routes/Admin/Add-react-blogs.js";
 
-// !blogs routes for the lessons 
+// !blogs routes for the lessons
 
-import githubtutorial from'./routes/LessonsRoutes/gitlessons.js'
+import githubtutorial from "./routes/LessonsRoutes/gitlessons.js";
 import { reacttutorilas } from "./routes/LessonsRoutes/gitlessons.js";
 import { javascripttutorials } from "./routes/LessonsRoutes/gitlessons.js";
 import { nodejstutorial } from "./routes/LessonsRoutes/gitlessons.js";
 // !dashboard routes for the admins
 // !import delete blog route
 import { delete_route } from "./routes/Admin/dashboard/DeleteBlog.js";
+import { adminlogin } from "./routes/Admin/dashboard/AdminLogin.js";
+import { AddAdmin_route } from "./routes/Admin/dashboard/addAdmin.js";
 import {
   git_dashboard_route,
   javascript_dashboard_router,
@@ -66,23 +68,29 @@ app.post("/api/dashboard", validatetoken);
 app.post("/api/refreshtoken", refreshToken);
 // set up
 
+// ! admin route for login
+app.use('/api/adminlogin',adminlogin)
+// ! admin route for adding admin
+
+app.use(AddAdmin_route)
 //! admin routes for the dashboard
+
 
 app.use(git_dashboard_route);
 app.use(javascript_dashboard_router);
 app.use(nodejs_dashboard_route);
-app.use(reactjs_dashboard_route)
+app.use(reactjs_dashboard_route);
 
 // todo admin routes for creating a new blog
 app.use(git_router);
-app.use(javascript_router)
-app.use(nodejs_router)
-app.use(react_router)
+app.use(javascript_router);
+app.use(nodejs_router);
+app.use(react_router);
 // !lesson routes
 app.use(githubtutorial);
-app.use(javascripttutorials)
-app.use(reacttutorilas)
-app.use(nodejstutorial)
+app.use(javascripttutorials);
+app.use(reacttutorilas);
+app.use(nodejstutorial);
 // ! delete blog route
 
-app.use(delete_route)
+app.use(delete_route);

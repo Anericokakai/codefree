@@ -5,7 +5,11 @@ const signupSchema = new Schema(
     name: {
       type: String,
     },
-    email: String,
+    email:{
+      type:String,
+      required:true,
+      unique:true
+  },
     password: String,
     avator: String,
   },

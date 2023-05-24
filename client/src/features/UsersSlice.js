@@ -4,6 +4,7 @@ const initialState = {
   userName: "",
   token: "",
   refreshToken:"",
+  admin:false,
 };
 
 const userslice = createSlice({
@@ -21,12 +22,16 @@ const userslice = createSlice({
     refreshtoken:(state,action)=>{
       state.refreshToken=action.payload
     },
+    logInadmin:(state,action)=>{
+      state.admin=true
+    },
     Logout:(state)=>{
       state.userName=''
       state.token=''
       state.refreshToken=''
+      state.admin=false
     }
   },
 });
 export default userslice.reducer;
-export const { userdetails,username,Logout ,refreshtoken} = userslice.actions;
+export const { userdetails,username,Logout ,refreshtoken,logInadmin} = userslice.actions;

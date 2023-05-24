@@ -3,23 +3,13 @@ import { refreshtoken, username } from "../features/UsersSlice";
 import { ToastContainer, toast } from "react-toastify";
 import loginimage from "../images/login.svg";
 import { useFormik } from "formik";
-import { login } from "../controllers/registrations";
+import { adminlogin } from "../controllers/registrations";
 import { userdetails } from "../features/UsersSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
-function Login() {
-// ! acces the authentication of protected routes
-
-
-
-
-
-
-
-
-
+import { logInadmin } from "../features/UsersSlice";
+function AdminLogin() {
   // todo state for the user api
 
   // todo initialise the use dispatch
@@ -36,22 +26,23 @@ function Login() {
   const onSubmit = async (values) => {
     // formik.resetForm({ values: "" });
     console.log(formik.values);
-    login(formik.values).then((info) => {
+    adminlogin(formik.values).then((info) => {
       console.log(info.data);
       // redirect function
       function redirect() {
         return (window.location.href = "/login/lessonsHome");
       }
-      if (info.data.status === "ok" && info.data.token !== "") {
+      if (info.data.status === 200 && info.data.token !== "") {
         toast.success("user loged in succesfullly");
         const token_holder = info.data.token;
+        
         const user_holder = info.data.name;
         const refresh_token_holder = info.data.refresh_token;
         dispatch(userdetails(token_holder));
         dispatch(username(user_holder));
         dispatch(refreshtoken(refresh_token_holder));
-
-        setTimeout(redirect, 600);
+        dispatch(logInadmin())
+        // setTimeout(redirect, 600);
         {
           <Link to={"/login/lessonsHome"}></Link>;
         }
@@ -78,7 +69,7 @@ function Login() {
   return (
     <div>
       <div className="general-container">
-        <h1 className="loginheader">welcome back</h1>
+        <h1 className="loginheader">Admin </h1>
         <div className="container">
           <div className="information">
             <div>
@@ -132,12 +123,13 @@ function Login() {
                     Register
                   </button>
                 </div>
+  
                 <p className="goback">
                   dont have an account ?
                   <Link>
                     <span className="err">sign up</span>
                   </Link>
-                  <Link to={'/adminlogin'}><p className="err">Admin</p></Link>
+                  
                 </p>
               </form>
             </div>
@@ -151,4 +143,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default AdminLogin;

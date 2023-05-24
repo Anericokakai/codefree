@@ -23,6 +23,7 @@ git_router.post("/api/gitroute", upload.single("image"), async (req, res) => {
   const { topic, author, illustration } = req.body;
   // ! read file path
 
+ 
   const newBlog = await gitcollection.create({
     topic,
     illustration,
@@ -32,6 +33,7 @@ git_router.post("/api/gitroute", upload.single("image"), async (req, res) => {
       data: fs.readFileSync(req.file.path),
       contentType: req.file.mimetype,
     },
+    imagepath:req.file.path,
     createdate: Date.now(),
   });
   if (newBlog) {

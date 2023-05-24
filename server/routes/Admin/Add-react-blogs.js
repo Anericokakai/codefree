@@ -33,6 +33,7 @@ react_router.post("/api/reactroute", upload.single("image"), async (req, res) =>
       data: fs.readFileSync(req.file.path),
       contentType: req.file.mimetype,
     },
+    imagepath:req.file.path,
     createdate: Date.now(),
   });
   if (newBlog) {

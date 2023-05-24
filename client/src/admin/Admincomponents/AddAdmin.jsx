@@ -1,11 +1,10 @@
 import React from "react";
 
 import { ToastContainer, toast } from "react-toastify";
-import connect from '../images/connect.svg'
-import { useFormik } from "formik";
-import { regiter } from "../controllers/registrations";
 
-function Signup() {
+import { useFormik } from "formik";
+import { addAdmin } from "../../controllers/registrations";
+function AddAdmin() {
   // todo toaster function
 
   //   ! formik  handling comp tia
@@ -16,21 +15,21 @@ function Signup() {
     password: "",
   };
   const onSubmit = async (values) => {
-    regiter(formik.values)
-      .then((data) => {
+    console.log(values)
+      addAdmin(values).then((data) => {
         const status = data.data.status;
         if (status === "ok") {
-          toast.success("user added succsefully");
+          toast.success("Admin added succsefully");
         }
       })
       .then(() => {
         setTimeout(() => {
-          window.location.href = "/login";
+          window.location.href = "/adminlogin";
         }, 1000); 
       })
       .catch((err) => {
         console.log(err);
-        toast.error("failed to add the user");
+        toast.error("failed to add Admin");
       });
     formik.resetForm({ values: "" });
   };
@@ -57,8 +56,8 @@ function Signup() {
   // handle change
 
   return (
-    <div className="general-container">
-        <ToastContainer
+    <div className="admin_container">
+      <ToastContainer
         position={"top-center"}
         closeOnClick={false}
         pauseOnHover={false}
@@ -66,12 +65,9 @@ function Signup() {
         draggable={false}
         autoClose={500}
       />
-      <h1 className="text_center">sign up for codefree</h1>
-    <div className="container">
-    
 
-<div>
-      <form action="" className="signupform" id="form" onSubmit={formik.handleSubmit}>
+<h1 className="admin_heading"> add admin</h1>
+      <form className="form" action=""  onSubmit={formik.handleSubmit}>
         <div className="eachinput">
           <label htmlFor=""> name</label>
           <input
@@ -130,14 +126,8 @@ function Signup() {
           </button>
         </div>
       </form>
-      </div>
-      <div className="illastrator">
-  <img src={connect} alt="" />
-  
-</div>
-    </div>
     </div>
   );
 }
 
-export default Signup;
+export default AddAdmin;

@@ -10,6 +10,7 @@ const nodejsSchema = new Schema(
       data:Buffer,
       contentType:String
     },
+    imagepath:String,
     author: String,
     createdate: Date,
   },

@@ -63,7 +63,7 @@ function Tablecomponent({ page, api, add_blog_api }) {
                   <Link to={"/admin/blogsform"}>
                     <i class="fa-solid fa-pen"></i>
                   </Link>
-                  <Link to={`/admin/deleteblog?blog_id=${blog._id}&topic=${blog.topic}&tutorial=${page}`}>
+                  <Link to={`/admin/deleteblog?blog_id=${blog._id}&topic=${blog.topic}&tutorial=${page}&image=${blog. imagepath}`}>
                     <i class="fa-solid fa-trash"></i>
                   </Link>
                 </td>

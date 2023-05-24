@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { deleteBlog } from "../admincontroller/submitBlog";
 import { ToastContainer, toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { checkIfAdminIsLoggedIn } from "../../controllers/protectRoutes";
+import { validateRefreshToken, validToken } from "../../controllers/tokenvalidation";
+import { userdetails } from "../../features/UsersSlice";
 function DeleteBlog() {
+
+    // ! check if the admin is logged in
+    const { userName, token, refreshToken ,admin} = useSelector(
+      (store) => store.userInfo
+    );
+    
+    checkIfAdminIsLoggedIn(token,refreshToken,admin)
+const dispatch=useDispatch()
+    useEffect(() => {
+      validToken(token).then((data) => {
+        console.log(data);
+        if (data.data.status === "token expired") {
+          validateRefreshToken(refreshToken).then((data) => {
+            dispatch(userdetails(data.data.refreshedToken));
+          });
+        }
+      });
+    }, []);
   const queryparams = new URLSearchParams(window.location.search);
   const blog_id = queryparams.get("blog_id");
   const topic = queryparams.get("topic");
   const tutorial = queryparams.get("tutorial");
+  const image=queryparams.get('image')
   console.log(blog_id, topic);
   if (!blog_id || !topic) {
     window.location.href = "/";
@@ -20,6 +43,7 @@ function DeleteBlog() {
     const values = {
       id: blog_id,
       collection: tutorial,
+      image:image,
     };
 
     deleteBlog(delete_blog_api, values)

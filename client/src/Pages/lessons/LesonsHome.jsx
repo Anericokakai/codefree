@@ -16,6 +16,7 @@ function LesonsHome() {
   const { userName, token, refreshToken } = useSelector(
     (store) => store.userInfo
   );
+  // if user is not loged in  redirect him to log in page
   if (token === "" && refreshToken === "") {
     redirectToLogin();
   }
@@ -36,7 +37,7 @@ function LesonsHome() {
 
   return (
     <div>
-     <NavigationComponent></NavigationComponent>
+      <NavigationComponent></NavigationComponent>
       <Firstpage userName={userName}></Firstpage>
       <div>
         <h1>available courses</h1>
