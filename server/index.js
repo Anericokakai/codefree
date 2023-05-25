@@ -55,7 +55,9 @@ connection()
     app.listen(process.env.PORT, () => {
       console.log(`app listenng at http://localhost:${process.env.PORT}`);
     });
-  });
+  }).catch(error=>{
+    console.log('failed to connect to db')
+  })
 
 // !sign up route for the client
 
