@@ -14,7 +14,7 @@ const connection = async () => {
     }
   })
   
-  const connect= await (await client.connect()).db('Codefree').command({ping:1})
+  const connect= await (await client.connect())
     return connect
 };
 
