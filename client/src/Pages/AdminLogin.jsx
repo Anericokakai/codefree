@@ -30,7 +30,7 @@ function AdminLogin() {
       console.log(info.data);
       // redirect function
       function redirect() {
-        return (window.location.href = "/login/lessonsHome");
+        return (window.location.href = "/admin/git");
       }
       if (info.data.status === 200 && info.data.token !== "") {
         toast.success("user loged in succesfullly");
@@ -42,7 +42,7 @@ function AdminLogin() {
         dispatch(username(user_holder));
         dispatch(refreshtoken(refresh_token_holder));
         dispatch(logInadmin())
-        // setTimeout(redirect, 600);
+         setTimeout(redirect, 600);
         {
           <Link to={"/login/lessonsHome"}></Link>;
         }
@@ -120,7 +120,7 @@ function AdminLogin() {
                 </div>
                 <div className="eachinput">
                   <button className="submit registersubmit" type="submit">
-                    Register
+                    Login
                   </button>
                 </div>
   

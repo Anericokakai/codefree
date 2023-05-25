@@ -41,12 +41,13 @@ import {
 const app = express();
 dotenv.config();
 console.log(process.env.PORT);
-const connected = connection();
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(bodyParser.json());
 
-connected
+
+connection()
   .then(() => {
     console.log(" data base connected succsefully  connected");
   })

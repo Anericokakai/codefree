@@ -16,8 +16,9 @@ function LesonsHome() {
   const { userName, token, refreshToken } = useSelector(
     (store) => store.userInfo
   );
+  console.log(token,refreshToken)
   // if user is not loged in  redirect him to log in page
-  if (token === "" && refreshToken === "") {
+  if (token === "" || refreshToken === "") {
     redirectToLogin();
   }
   useEffect(() => {
