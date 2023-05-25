@@ -57,6 +57,7 @@ connection()
     });
   }).catch(error=>{
     console.log('failed to connect to db')
+    console.log(error)
   })
 
 // !sign up route for the client
