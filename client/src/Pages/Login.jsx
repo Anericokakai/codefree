@@ -10,15 +10,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function Login() {
-// ! acces the authentication of protected routes
-
-
-
-
-
-
-
-
+  // ! acces the authentication of protected routes
 
   // todo state for the user api
 
@@ -137,7 +129,9 @@ function Login() {
                   <Link>
                     <span className="err">sign up</span>
                   </Link>
-                  <Link to={'/adminlogin'}><p className="err">Admin</p></Link>
+                  <Link to={"/adminlogin"}>
+                    <p className="err">Admin</p>
+                  </Link>
                 </p>
               </form>
             </div>

@@ -15,7 +15,7 @@ function ReactBasics() {
   return (
     <div>
       <h1>react</h1>
-      <BlogReusable api='http://localhost:8000/api/react_tutorials'></BlogReusable>
+      <BlogReusable api='https://codefreeblogs.onrender.com/api/react_tutorials'></BlogReusable>
     </div>
   )
 }

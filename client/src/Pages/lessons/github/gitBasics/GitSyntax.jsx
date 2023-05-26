@@ -15,7 +15,7 @@ function GitSyntax() {
   return (
     <div>
       <NavigationComponent></NavigationComponent>
-     <BlogReusable api='http://localhost:8000/api/git_tutorials'></BlogReusable>
+     <BlogReusable api='https://codefreeblogs.onrender.com/api/git_tutorials'></BlogReusable>
     </div>
   )
 }
