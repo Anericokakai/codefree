@@ -15,7 +15,7 @@ function NodejsSyntax() {
   return (
     <div>
       <h1>Nodejs for Backend</h1>
-      <BlogReusable api="http://localhost:8000/api/nodejs_tutorials"></BlogReusable>
+      <BlogReusable api="https://codefreeblogs.onrender.com/api/nodejs_tutorials"></BlogReusable>
     </div>
   );
 }

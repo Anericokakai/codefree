@@ -15,7 +15,7 @@ function JavascriptSyntax() {
   return (
     <div>
       <h1>Javascript</h1>
-      <BlogReusable api="http://localhost:8000/api/javascript_tutorials"></BlogReusable>
+      <BlogReusable api="https://codefreeblogs.onrender.com/api/javascript_tutorials"></BlogReusable>
     </div>
   );
 }

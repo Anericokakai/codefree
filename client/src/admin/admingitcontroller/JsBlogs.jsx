@@ -32,8 +32,8 @@ function JsBlogs() {
       <AdminNav />
       <Tablecomponent
         page="javascript"
-        api="http://localhost:8000/api/javascriptblogs"
-        add_blog_api="http://localhost:8000/api/javascriptroute"
+        api="https://codefreeblogs.onrender.com/api/javascriptblogs"
+        add_blog_api="https://codefreeblogs.onrender.com/api/javascriptroute"
       ></Tablecomponent>
     </div>
   );

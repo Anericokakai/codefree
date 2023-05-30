@@ -31,8 +31,8 @@ function AdminHome() {
       <AdminNav />
       <Tablecomponent
         page="github"
-        api="http://localhost:8000/api/gitblogs"
-        add_blog_api="http://localhost:8000/api/gitroute"
+        api="https://codefreeblogs.onrender.com/api/gitblogs"
+        add_blog_api="https://codefreeblogs.onrender.com/api/gitroute"
       />
     </div>
   );

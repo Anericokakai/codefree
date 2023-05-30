@@ -5,6 +5,7 @@ dotenv.config()
 const mongourl=process.env.MONGO_DB_URL
 
 const connection = async() => {
+  console.log(mongourl)
 
   const connect= await mongoose.connect(mongourl)
     return connect
