@@ -15,7 +15,7 @@ function AdminHome() {
   );
   checkIfAdminIsLoggedIn(token, refreshToken, admin);
   // //! validate refresh token
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   useEffect(() => {
     validToken(token).then((data) => {
       console.log(data);
@@ -31,8 +31,8 @@ function AdminHome() {
       <AdminNav />
       <Tablecomponent
         page="github"
-        api="https://codefreeblogs.onrender.com/api/gitblogs"
-        add_blog_api="https://codefreeblogs.onrender.com/api/gitroute"
+        api="http://localhost:8000/api/gitblogs"
+        add_blog_api="http://localhost:8000/api/gitroute"
       />
     </div>
   );

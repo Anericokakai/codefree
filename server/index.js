@@ -52,9 +52,9 @@ connection()
     console.log(" data base connected succsefully  connected");
   })
   .then(() => {
-    app.listen(process.env.PORT, () => {
-      console.log(`app listenng at http://localhost:${process.env.PORT}`);
-    });
+   app.listen(8000,()=>{
+    console.log('server listening at port 8000')
+   })
   }).catch(error=>{
     console.log('failed to connect to db')
     console.log(error)
@@ -98,3 +98,6 @@ app.use(nodejstutorial);
 // ! delete blog route
 
 app.use(delete_route);
+app.get('/',(req,res)=>{
+  res.send('home route')
+})
