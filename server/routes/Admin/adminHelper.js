@@ -1,20 +1,12 @@
 import fs from 'fs'
-export const deleteFile=(image,collection,id,res)=>{
-    fs.unlink(image, async (err) => {
-        if (err && err.code == "ENOENT") {
-          // file does not exist
-          return res.json({ status: 400, result: "the iamge does not exist" });
-        } else if (err) {
-          res.json({
-            status: 400,
-            result: "an error occured while deleteing the the file",
-          });
-        } else {
+export const deleteFile=async(image,collection,id,res)=>{
+    
+         
           const delete_git_blog = await collection.findByIdAndDelete(id);
           if (!delete_git_blog)
             return res.json({ status: 400, result: "failed to delete blog" });
           res.json({ status: 200, result: "blog deleted successfully" });
     
-        }
-      });
+        
+      ;
 }

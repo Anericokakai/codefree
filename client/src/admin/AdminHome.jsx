@@ -14,8 +14,8 @@ function AdminHome() {
     (store) => store.userInfo
   );
   checkIfAdminIsLoggedIn(token, refreshToken, admin);
-  //! validate refresh token
-  const dispatch = useDispatch();
+  // //! validate refresh token
+   const dispatch = useDispatch();
   useEffect(() => {
     validToken(token).then((data) => {
       console.log(data);
