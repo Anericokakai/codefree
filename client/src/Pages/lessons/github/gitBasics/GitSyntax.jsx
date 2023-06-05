@@ -9,12 +9,14 @@ function GitSyntax() {
   );
   console.log(token, refreshToken);
   // if user is not loged in  redirect him to log in page
-  if (token === "" || refreshToken === "") {
-    redirectToLogin();
-  }
+  // if (token === "" || refreshToken === "") {
+  //   redirectToLogin();
+  // }
   return (
     <div>
+   
       <NavigationComponent></NavigationComponent>
+      <h1 className="center">git &github</h1>
       <BlogReusable api="https://codefreeblogs.onrender.com/api/git_tutorials"></BlogReusable>
     </div>
   );

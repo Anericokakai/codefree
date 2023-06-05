@@ -1,9 +1,10 @@
 import React from "react";
 
 import { ToastContainer, toast } from "react-toastify";
-import connect from '../images/connect.svg'
+import connect from "../images/connect.svg";
 import { useFormik } from "formik";
 import { regiter } from "../controllers/registrations";
+import { Link } from "react-router-dom";
 
 function Signup() {
   // todo toaster function
@@ -26,7 +27,7 @@ function Signup() {
       .then(() => {
         setTimeout(() => {
           window.location.href = "/login";
-        }, 1000); 
+        }, 1000);
       })
       .catch((err) => {
         console.log(err);
@@ -58,7 +59,7 @@ function Signup() {
 
   return (
     <div className="general-container">
-        <ToastContainer
+      <ToastContainer
         position={"top-center"}
         closeOnClick={false}
         pauseOnHover={false}
@@ -67,75 +68,80 @@ function Signup() {
         autoClose={500}
       />
       <h1 className="text_center">sign up for codefree</h1>
-    <div className="container">
-    
+      <div className="container">
+        <div>
+          <form
+            action=""
+            className="signupform"
+            id="form"
+            onSubmit={formik.handleSubmit}
+          >
+            <div className="eachinput">
+              <label htmlFor=""> name</label>
+              <input
+                autoComplete="off"
+                onChange={formik.handleChange}
+                value={formik.values.name}
+                type="text"
+                name="name"
+                id="name"
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.name && formik.errors.name && (
+                <div>
+                  <small className="error">{formik.errors.name} </small>
+                </div>
+              )}
+            </div>
+            <div className="eachinput">
+              <label htmlFor=""> email</label>
+              <input
+                autoComplete="off"
+                onChange={formik.handleChange}
+                value={formik.values.email}
+                type="text"
+                name="email"
+                id="email"
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.email && formik.errors.email && (
+                <div>
+                  <small className="error">{formik.errors.email} </small>
+                </div>
+              )}
+            </div>
 
-<div>
-      <form action="" className="signupform" id="form" onSubmit={formik.handleSubmit}>
-        <div className="eachinput">
-          <label htmlFor=""> name</label>
-          <input
-            autoComplete="off"
-            onChange={formik.handleChange}
-            value={formik.values.name}
-            type="text"
-            name="name"
-            id="name"
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.name && formik.errors.name && (
-            <div>
-              <small className="error">{formik.errors.name} </small>
+            <div className="eachinput">
+              <label htmlFor=""> password </label>
+              <input
+                autoComplete="off"
+                type="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                name="password"
+                id="password"
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.password && formik.errors.password && (
+                <div>
+                  <small className="error">{formik.errors.password} </small>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-        <div className="eachinput">
-          <label htmlFor=""> email</label>
-          <input
-            autoComplete="off"
-            onChange={formik.handleChange}
-            value={formik.values.email}
-            type="text"
-            name="email"
-            id="email"
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.email && formik.errors.email && (
-            <div>
-              <small className="error">{formik.errors.email} </small>
+            <div className="eachinput">
+              <button className="submit registersubmit" type="submit">
+                Register
+              </button>
+              <p>
+                have an account ? <Link to={'/login'}><span className="err">log in</span></Link>
+              </p>
             </div>
-          )}
+          </form>
         </div>
-
-        <div className="eachinput">
-          <label htmlFor=""> password </label>
-          <input
-            autoComplete="off"
-            type="password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            name="password"
-            id="password"
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.password && formik.errors.password && (
-            <div>
-              <small className="error">{formik.errors.password} </small>
-            </div>
-          )}
+        <div className="illastrator">
+          <img src={connect} alt="" />
         </div>
-        <div className="eachinput">
-          <button className="submit registersubmit" type="submit">
-            Register
-          </button>
-        </div>
-      </form>
       </div>
-      <div className="illastrator">
-  <img src={connect} alt="" />
-  
-</div>
-    </div>
     </div>
   );
 }

@@ -1,62 +1,97 @@
-import React, { useEffect, useState } from 'react'
-import { Bars } from '../icons/Icons'
+import React, { useEffect, useState } from "react";
 
+import {  Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Logout } from "../features/UsersSlice";
+import { useDispatch } from "react-redux";
 function NavigationComponent() {
-  const[shownav,setshownav]=useState(false)
-  const [showOnscroll,setshowonscroll]=useState(false)
-  const displayNav=()=>{
-shownav?setshownav(false):setshownav(true)
-  }
-  console.log(shownav)
+  const dispatch = useDispatch();
+  // hold state to toggle login and out
+  
+  const { token,  } = useSelector(
+    (store) => store.userInfo
+  );
+
+  const [shownav, setshownav] = useState(false);
+  const [showOnscroll, setshowonscroll] = useState(false);
+  const displayNav = () => {
+    shownav ? setshownav(false) : setshownav(true);
+  };
+  console.log(shownav);
 
   // hide and show on scroll
- const handleScrollY=()=>{
-  if(window.scrollY>100){
-    console.log(window.scrollY)
-    setshowonscroll(true)
-    console.log(showOnscroll)
-  }
-  else{
-    setshowonscroll(false)
-  }
- }
- 
-  useEffect(()=>{
-
-    document.addEventListener('scroll',handleScrollY)
-  
-  
-    return ()=>{
-      window.removeEventListener('scroll',handleScrollY)
+  const handleScrollY = () => {
+    if (window.scrollY > 100) {
+      console.log(window.scrollY);
+      setshowonscroll(true);
+      console.log(showOnscroll);
+    } else {
+      setshowonscroll(false);
     }
-  },[])
+  };
+  // logout the user
+  const logout=()=>{
+    dispatch(Logout())
+  }
+
+  useEffect(() => {
+    document.addEventListener("scroll", handleScrollY);
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollY);
+    };
+  }, []);
   return (
-    <div >
-
-    
-    <nav className={`navigation ${showOnscroll &&'sticky'}`}>
-        <div className="logo"> <h1>Code<span className='logosapn'>Free</span></h1></div>
-       <div className='bars'>
-       <i onClick={displayNav} class="fa-solid fa-bars"></i>
-        </div> 
+    <div>
+      <nav className={`navigation ${showOnscroll && "sticky"}`}>
+        <div className="logo">
+          {" "}
+          <h1>
+            Code<span className="logosapn">Free</span>
+          </h1>
+        </div>
+        <div className="bars">
+          <i onClick={displayNav} class="fa-solid fa-bars"></i>
+        </div>
         <ul>
-            <li> Home </li>
-            <li>Lessons</li>
-            <li>  premium</li>
-            <li> login</li>
+          <li>
+            <Link to={"/login/lessonsHome"}>Home </Link>{" "}
+          </li>
+          <li>
+            <Link to={"/login/lessonsHome/javascript"}>Lessons </Link>{" "}
+          </li>
+          <li>
+            <Link>premium </Link>
+          </li>
+          {token === "" && (
+          <li>
+            <Link to={'/login'}>Login </Link>
+          </li>
+        )}
+              <li>{token !== "" && <Link onClick={logout}>Logout </Link>}</li>
         </ul>
-    </nav>
-    <ul className={`smallnav ${shownav && 'show' } `}>
-    <i onClick={displayNav} class="fa-solid fa-xmark"></i>
+      </nav>
+      <ul className={`smallnav ${shownav && "show"} `}>
+        <i onClick={displayNav} class="fa-solid fa-xmark"></i>
 
-    
-            <li> Home </li>
-            <li>Lessons</li>
-            <li>  premium</li>
-            <li> login</li>
-        </ul>
+        <li>
+          <Link to={"/login/lessonsHome"}>Home </Link>{" "}
+        </li>
+        <li>
+          <Link to={"/login/lessonsHome"}>Lessons </Link>{" "}
+        </li>
+        <li>
+          <Link>premium </Link>{" "}
+        </li>
+        {token === "" && (
+          <li>
+            <Link to={'/login'}>Login </Link>
+          </li>
+        )}
+        <li>{token !== "" && <Link onClick={logout}>Logout </Link>}</li>
+      </ul>
     </div>
-  )
+  );
 }
 
-export default NavigationComponent
+export default NavigationComponent;

@@ -126,7 +126,7 @@ function Login() {
                 </div>
                 <p className="goback">
                   dont have an account ?
-                  <Link>
+                  <Link to={'/signup'}>
                     <span className="err">sign up</span>
                   </Link>
                   <Link to={"/adminlogin"}>

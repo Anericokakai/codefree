@@ -48,7 +48,8 @@ export function Authentication(){
 // ! protected routes fuction for clients
 export const checkIfUserIsLoggedIn=(token,refreshtoken)=>{
     if(token===''||refreshtoken===''){
-        return window.location.href='/login'
+        return 1
+        window.location.href='/login'
     }
 
 }
