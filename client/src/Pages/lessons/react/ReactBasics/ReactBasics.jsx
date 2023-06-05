@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import BlogReusable from "../../../../components/home/BlogReusable";
+import NavigationComponent from "../../../../components/NavigationComponent";
 import { redirectToLogin } from "../../../../controllers/redirects";
 
 function ReactBasics() {
@@ -9,12 +10,13 @@ function ReactBasics() {
   );
   console.log(token, refreshToken);
   // if user is not loged in  redirect him to log in page
-  if (token === "" || refreshToken === "") {
-    redirectToLogin();
-  }
+  // if (token === "" || refreshToken === "") {
+  //   redirectToLogin();
+  // }
   return (
     <div>
-      <h1>react</h1>
+      <NavigationComponent></NavigationComponent>
+      <h1 className="center">react</h1>
       <BlogReusable api="https://codefreeblogs.onrender.com/api/react_tutorials"></BlogReusable>
     </div>
   );

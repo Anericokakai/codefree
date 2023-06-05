@@ -17,9 +17,9 @@ function Reusablehome({
   );
 
   const handleredirect = () => {
-   if(userName===''&&(token===''||refreshToken==='')){
-    return  window.location.href='/login'
-   }
+  //  if(userName===''&&(token===''||refreshToken==='')){
+  //    return  window.location.href='/login'
+  //  }
    return window.location.href='/login/lessonsHome'
   };
   return (

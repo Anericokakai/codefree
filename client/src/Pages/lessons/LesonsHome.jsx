@@ -18,9 +18,9 @@ function LesonsHome() {
   );
   console.log(token,refreshToken)
   // if user is not loged in  redirect him to log in page
-  if (token === "" || refreshToken === "") {
-    redirectToLogin();
-  }
+  // if (token === "" || refreshToken === "") {
+  //   redirectToLogin();
+  // }
   useEffect(() => {
     validToken(token).then((data) => {
       console.log(data);
@@ -32,9 +32,6 @@ function LesonsHome() {
     });
   }, []);
 
-  const logout = () => {
-    dispatch(Logout());
-  };
 
   return (
     <div>
@@ -44,7 +41,7 @@ function LesonsHome() {
         <h1>available courses</h1>
         <SampleCourses></SampleCourses>
       </div>
-      <button onClick={logout}>logout</button>
+      
       <Footer></Footer>
     </div>
   );

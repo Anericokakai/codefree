@@ -99,6 +99,7 @@ transition: .3s ease-out;
   width: 30px;
   height: 30px;
   display: none;
+  cursor: pointer;
   
 }
 .bars i{
@@ -109,6 +110,7 @@ transition: .3s ease-out;
   position: absolute;
   left: 5px;
   top: 5px;
+  cursor: pointer;
 }
 .logo h1{
   font-size: 30px;
@@ -147,6 +149,7 @@ transition: .3s ease-out;
   }
   .show{
     transform: scaleY(1);
+    transition: .5s ease-in-out;
   }
   .navigation{
     padding: 0 20px;
@@ -426,12 +429,21 @@ flex-direction: column;
   font-size: 14px;
 
  }
+ .smallnav{
+  width: 100%;
+  height: 100vh;
+}
+.smallnav li a{
+  color:var(--clr-white);
+  font-size: 20px;
+}
   
 }
 @media (max-width:413px) {
   .courseholder{
-    width: 90%;
+    width: 280px;
   }
+ 
   
 }
 @media (min-width:800px) {
@@ -530,6 +542,9 @@ color: var(--navbg);
   align-items: center;
   font-size: 17px;
   background-color: var(--adminnavtext);
+}
+.activate{
+  color: red;
 }
 /*! beggining admin details styles */
 .logedin-admin{
@@ -774,7 +789,7 @@ input:focus{
 
 .lesson_container{
   display: flex;
-  width: 90%;
+  width: 98%;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -878,4 +893,8 @@ input:focus{
   }
   
 }
+.center{
+  text-align: center;
+}
+
 /* ! admin setction styles end */
