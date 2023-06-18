@@ -19,24 +19,7 @@ export const deleteFile = async (image, collection, id, res) => {
   res.json({ status: 200, result: "blog deleted successfully" });
 };
 
-// !image upload helper function
-export const uploadImage = () => {
-  const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, "uploads/");
-    },
-    filename: function (req, file, cb) {
-      console.log(file);
-      cb(
-        null,
-        file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-      );
-    },
-  });
-  const upload = multer({ storage: storage });
 
-  return upload;
-};
 // ! add blog function
 export const add_blog = async (req, res) => {
   const { title, author, illustration, topic } = req.body;
@@ -51,13 +34,14 @@ export const add_blog = async (req, res) => {
       status: "error",
       error: "cant not find the parent refence id",
     });
+    const sreamimage=await fs.readFileSync(req.file.path)
 
   const newBlog = await blogs_collection.create({
     tittle: title,
     illustration,
 
     Image: {
-      data: fs.readFileSync(req.file.path),
+      data:await  fs.readFileSync(req.file.path),
       contentType: req.file.mimetype,
     },
     imagepath: req.file.path,

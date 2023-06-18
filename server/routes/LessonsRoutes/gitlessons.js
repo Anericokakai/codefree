@@ -67,7 +67,7 @@ nodejstutorial.post("/api/blogs", async (req, res) => {
 
   if (!fetch_topics) return res.json({ error: "failed to fetch data" });
   res.json(fetch_topics[0].Blogs);
-  // console.log(fetch_topics[0].Blogs);
+   console.log(fetch_topics[0].Blogs);
 });
 
 // !reactjs tutorials route
