@@ -17,7 +17,10 @@ function ReactBasics() {
     <div>
       <NavigationComponent></NavigationComponent>
       <h1 className="center">react</h1>
-      <BlogReusable api="http://localhost:8000/api/react_tutorials" course="react"></BlogReusable>
+      <BlogReusable
+        api="https://codefreeblogs.onrender.com/api/react_tutorials"
+        course="react"
+      ></BlogReusable>
     </div>
   );
 }

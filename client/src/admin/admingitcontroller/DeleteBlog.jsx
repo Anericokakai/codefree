@@ -40,7 +40,8 @@ function DeleteBlog() {
     window.history.back();
   };
   const Handle_deleteblog = () => {
-    const delete_blog_api = "http://localhost:8000/api/delete_git_blog";
+    const delete_blog_api =
+      "https://codefreeblogs.onrender.com/api/delete_git_blog";
 
     const values = {
       id: blog_id,

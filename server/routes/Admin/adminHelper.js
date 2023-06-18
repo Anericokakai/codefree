@@ -34,7 +34,7 @@ export const add_blog = async (req, res) => {
       status: "error",
       error: "cant not find the parent refence id",
     });
-    const sreamimage=await fs.readFileSync(req.file.path)
+    
 
   const newBlog = await blogs_collection.create({
     tittle: title,
@@ -57,52 +57,7 @@ export const add_blog = async (req, res) => {
   }
 };
 
-// import { gitcollection } from "../../schema/LessonsSchema/Gitschema.js";
-// import express from "express";
-// import multer from "multer";
-// import path from "path";
-// fs;
-// import fs from "fs";
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "uploads/");
-//   },
-//   filename: function (req, file, cb) {
-//     console.log(file);
-//     cb(
-//       null,
-//       file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-//     );
-//   },
-// });
-// const upload = multer({ storage: storage });
 
-// const git_router = express.Router();
-// git_router.post("/api/gitroute", upload.single("image"), async (req, res) => {
-//   const { topic, author, illustration } = req.body;
-//   // ! read file path
-
- 
-//   const newBlog = await gitcollection.create({
-//     topic,
-//     illustration,
-//     author,
-
-//     Image: {
-//       data: fs.readFileSync(req.file.path),
-//       contentType: req.file.mimetype,
-//     },
-//     imagepath:req.file.path,
-//     createdate: Date.now(),
-//   });
-//   if (newBlog) {
-//     res.json({ status: "ok", succsess: "blog added succsefully" });
-//   }
-//   if (!newBlog) {
-//     res.json({ status: "error", error: "failed to upload image" });
-//   }
-// });
-// export default git_router;
 // ! helper function to fetch all the topics from related blogs
 export const find_topics = async (req, res) => {
   const { course } = req.body;
@@ -127,3 +82,20 @@ export const find_topics = async (req, res) => {
 
   res.json(result[0].topics);
 };
+
+
+
+ export const addcourse_helper=async(req,res)=>{
+const {course}=req.body
+const added=await courses_Collection.create(
+  {
+    course_name:course
+  }
+)
+
+if(!added)return res.json({error:'failed to add the course',status:'error'})
+
+res.json({status:'ok', succsess: "course added succsefully"})
+}
+
+

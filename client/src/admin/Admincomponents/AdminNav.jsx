@@ -4,13 +4,13 @@ import admin from "./admin.jpeg";
 import { checkIfAdminIsLoggedIn } from "../../controllers/protectRoutes";
 import { useSelector } from "react-redux";
 function AdminNav() {
-  const{userName}=useSelector(store=>store.userInfo)
+  const { userName } = useSelector((store) => store.userInfo);
 
   return (
     <nav className="admin-nav">
       <div className="admin-logo">
         <h1>
-          <span className="hidden-large">CF</span>                                                                                                              
+          <span className="hidden-large">CF</span>
           <span className="hidden-small">code free</span>
         </h1>
       </div>
@@ -56,8 +56,11 @@ function AdminNav() {
         </div>
       </div>
       <Link to={"/admin/add_admin"}>
-                                                                                                                      
         <button className="add"> add admin</button>
+      </Link>
+      
+      <Link to={"/admin/addcourse"}>
+        <button className="add">add course</button>
       </Link>
     </nav>
   );

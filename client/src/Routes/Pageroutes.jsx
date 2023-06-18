@@ -15,6 +15,7 @@ import DeleteBlog from "../admin/admingitcontroller/DeleteBlog";
 import AdminLogin from "../Pages/AdminLogin";
 import AddAdmin from "../admin/Admincomponents/AddAdmin";
 import AddTopic from "../admin/Admincomponents/AddTopic";
+import AddCourse from "../admin/Admincomponents/AddCourse";
 const generalroutes = [
   {
     path: "/",
@@ -81,6 +82,11 @@ const generalroutes = [
   },{
     path:'/admin/add_admin',
     element:<AddAdmin></AddAdmin>
+  },
+  {
+    path:'/admin/addcourse',
+    element:<AddCourse></AddCourse>
   }
+  
 ];
 export default generalroutes;

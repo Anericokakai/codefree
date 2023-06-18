@@ -16635,7 +16635,10 @@
                     case 0:
                       return (
                         (e.next = 2),
-                        Pu.post("http://localhost:8000/api/signup", t)
+                        Pu.post(
+                          "https://codefreeblogs.onrender.com/api/signup",
+                          t
+                        )
                       );
                     case 2:
                       return (n = e.sent), e.abrupt("return", n);
@@ -16660,7 +16663,10 @@
                     case 0:
                       return (
                         (e.next = 2),
-                        Pu.post("http://localhost:8000/api/login", t)
+                        Pu.post(
+                          "https://codefreeblogs.onrender.com/api/login",
+                          t
+                        )
                       );
                     case 2:
                       return (n = e.sent), e.abrupt("return", n);
@@ -16685,7 +16691,10 @@
                     case 0:
                       return (
                         (e.next = 2),
-                        Pu.post("http://localhost:8000/api/adminlogin", t)
+                        Pu.post(
+                          "https://codefreeblogs.onrender.com/api/adminlogin",
+                          t
+                        )
                       );
                     case 2:
                       return (n = e.sent), e.abrupt("return", n);
@@ -16710,7 +16719,10 @@
                     case 0:
                       return (
                         (e.next = 2),
-                        Pu.post("http://localhost:8000/api/addAdmin", t)
+                        Pu.post(
+                          "https://codefreeblogs.onrender.com/api/addAdmin",
+                          t
+                        )
                       );
                     case 2:
                       return (n = e.sent), e.abrupt("return", n);
@@ -23755,7 +23767,7 @@
                 (0, Lu.jsx)(Sc, {}),
                 (0, Lu.jsx)(uv, { heading: "Javascript" }),
                 (0, Lu.jsx)(iv, {
-                  api: "http://localhost:8000/api/javascript_tutorials",
+                  api: "https://codefreeblogs.onrender.com/api/javascript_tutorials",
                 }),
               ],
             })
@@ -23791,9 +23803,12 @@
                     case 0:
                       return (
                         (e.next = 2),
-                        Pu.post("http://localhost:8000/api/dashboard", {
-                          token: t,
-                        })
+                        Pu.post(
+                          "https://codefreeblogs.onrender.com/api/dashboard",
+                          {
+                            token: t,
+                          }
+                        )
                       );
                     case 2:
                       return (n = e.sent), e.abrupt("return", n);
@@ -23818,9 +23833,12 @@
                     case 0:
                       return (
                         (e.next = 2),
-                        Pu.post("http://localhost:8000/api/refreshtoken", {
-                          refresh_token: t,
-                        })
+                        Pu.post(
+                          "https://codefreeblogs.onrender.com/api/refreshtoken",
+                          {
+                            refresh_token: t,
+                          }
+                        )
                       );
                     case 2:
                       return (n = e.sent), e.abrupt("return", n);
@@ -23925,7 +23943,7 @@
               (0, Lu.jsx)(Sc, {}),
               (0, Lu.jsx)(uv, { heading: "Git And GitHub" }),
               (0, Lu.jsx)(iv, {
-                api: "http://localhost:8000/api/git_tutorials",
+                api: "https://codefreeblogs.onrender.com/api/git_tutorials",
               }),
             ],
           })
@@ -23944,7 +23962,7 @@
               (0, Lu.jsx)(Sc, {}),
               (0, Lu.jsx)(uv, { heading: "Nodejs Backend" }),
               (0, Lu.jsx)(iv, {
-                api: "http://localhost:8000/api/nodejs_tutorials",
+                api: "https://codefreeblogs.onrender.com/api/nodejs_tutorials",
               }),
             ],
           })
@@ -23963,7 +23981,7 @@
                 (0, Lu.jsx)(Sc, {}),
                 (0, Lu.jsx)("h1", { className: "center", children: "react" }),
                 (0, Lu.jsx)(iv, {
-                  api: "http://localhost:8000/api/react_tutorials",
+                  api: "https://codefreeblogs.onrender.com/api/react_tutorials",
                 }),
               ],
             })
@@ -24206,8 +24224,8 @@
               (0, Lu.jsx)(Av, {}),
               (0, Lu.jsx)(kv, {
                 page: "github",
-                api: "http://localhost:8000/api/gitblogs",
-                add_blog_api: "http://localhost:8000/api/gitroute",
+                api: "https://codefreeblogs.onrender.com/api/gitblogs",
+                add_blog_api: "https://codefreeblogs.onrender.com/api/gitroute",
               }),
             ],
           })
@@ -24238,8 +24256,9 @@
               (0, Lu.jsx)(Av, {}),
               (0, Lu.jsx)(kv, {
                 page: "javascript",
-                api: "http://localhost:8000/api/javascriptblogs",
-                add_blog_api: "http://localhost:8000/api/javascriptroute",
+                api: "https://codefreeblogs.onrender.com/api/javascriptblogs",
+                add_blog_api:
+                  "https://codefreeblogs.onrender.com/api/javascriptroute",
               }),
             ],
           })
@@ -24270,8 +24289,9 @@
               (0, Lu.jsx)(Av, {}),
               (0, Lu.jsx)(kv, {
                 page: "Node js",
-                api: "http://localhost:8000/api/nodejsblogs",
-                add_blog_api: "http://localhost:8000/api/nodejsroute",
+                api: "https://codefreeblogs.onrender.com/api/nodejsblogs",
+                add_blog_api:
+                  "https://codefreeblogs.onrender.com/api/nodejsroute",
               }),
             ],
           })
@@ -24302,8 +24322,9 @@
                 (0, Lu.jsx)(Av, {}),
                 (0, Lu.jsx)(kv, {
                   page: "react",
-                  api: "http://localhost:8000/api/reactblogs",
-                  add_blog_api: "http://localhost:8000/api/reactroute",
+                  api: "https://codefreeblogs.onrender.com/api/reactblogs",
+                  add_blog_api:
+                    "https://codefreeblogs.onrender.com/api/reactroute",
                 }),
               ],
             })
@@ -24561,11 +24582,14 @@
                     (0, Lu.jsxs)("button", {
                       className: " btn red",
                       onClick: function () {
-                        Tv("http://localhost:8000/api/delete_git_blog", {
-                          id: u,
-                          collection: s,
-                          image: c,
-                        })
+                        Tv(
+                          "https://codefreeblogs.onrender.com/api/delete_git_blog",
+                          {
+                            id: u,
+                            collection: s,
+                            image: c,
+                          }
+                        )
                           .then(function (e) {
                             console.log(e),
                               200 === e.data.status
@@ -25626,24 +25650,22 @@
         );
       })(t.PureComponent);
       gm(bm, "defaultProps", { children: null, loading: null }),
-        o
-          .createRoot(document.getElementById("root"))
-          .render(
-            (0, Lu.jsx)(t.StrictMode, {
-              children: (0, Lu.jsx)(dl, {
-                children: (0, Lu.jsx)(wv, {
-                  children: (0, Lu.jsx)(Zu, {
-                    store: fm,
-                    children: (0, Lu.jsx)(bm, {
-                      loading: null,
-                      persistor: dm,
-                      children: (0, Lu.jsx)(Dv, {}),
-                    }),
+        o.createRoot(document.getElementById("root")).render(
+          (0, Lu.jsx)(t.StrictMode, {
+            children: (0, Lu.jsx)(dl, {
+              children: (0, Lu.jsx)(wv, {
+                children: (0, Lu.jsx)(Zu, {
+                  store: fm,
+                  children: (0, Lu.jsx)(bm, {
+                    loading: null,
+                    persistor: dm,
+                    children: (0, Lu.jsx)(Dv, {}),
                   }),
                 }),
               }),
-            })
-          );
+            }),
+          })
+        );
     })();
 })();
 //# sourceMappingURL=main.173a1d3b.js.map

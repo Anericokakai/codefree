@@ -67,7 +67,9 @@ body {
   color: var(--clr-grey-1);
   line-height: 1.5;
   font-size: 0.875rem;
+  
 }
+
 
 /* ! start of navigation  styling for components */
 
@@ -77,7 +79,7 @@ body {
  align-items: center;
  justify-content: space-between;
  padding: 0 50px;
- z-index: 100;
+ z-index: 10;
  
 }
 .sticky{
@@ -85,7 +87,7 @@ body {
  width: 100%;
  background-color: var(--clr-white);
  margin-bottom: 2em;
-transition: 1s ease-out all;
+transition: .5s ease-out all;
 box-shadow: var(--boxshadoe);
 }
 .navigation ul{
@@ -142,7 +144,7 @@ box-shadow: var(--boxshadoe);
   
   .smallnav{
     visibility: visible;
-    z-index: 10;
+    z-index: 100;
     background-color: var(--clr-primary);
     position: fixed;
     top: 0;
@@ -1017,6 +1019,80 @@ input:focus{
 
  
 }
+
+
+/* !auhtor images styles */
+.authorImage{
+  width: 100%;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.authorImage img{
+  width: 100px;
+  border-radius: 50%;
+  height: 100px;
+  object-fit: contain;
+}
+
+.author_details{
+  display: flex;
+  
+  flex-direction: column;
+  align-items: center;
+}
+/* !author icons styles */
+
+.socials{
+  display: flex;
+  margin-top: 2em;
+  gap: 1em;align-items: center;
+  
+
+}
+ #icons{
+  font-size: 30px;
+  color: var(--clr-grey-1);
+}
+
+  /* !small screen lessons navigation */
+
+ @media (max-width:1199px) {
+  
+  .nav_uls{
+    display: flex;
+    
+    gap: 1em;
+    overflow-y: hidden;
+    margin: 2em 1em;
+    margin-bottom: 2em;
+   padding: 1em ;
+    width: 90vw;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    max-width: fit-content;
+    background-color: var(--clr-white);
+    
+    
+    
+  }
+  .nav_uls::-webkit-scrollbar{
+   display: none; 
+  }
+  .nav_lis button{
+    width: max-content;
+   
+     background:none;
+    border: none; 
+    font-size: 1.1em;
+    
+    
+    
+  }
+ 
+
+ }
 @media (min-width:1200px) {
    /* !lesson navidation styling */
    .lesssonNav{
@@ -1030,12 +1106,37 @@ input:focus{
     border-radius: 5px;
     box-shadow: var(--boxshadoe);
   }
+   #icons{
+    font-size: 25px;
+   }
+  .author{
+    position: absolute;
+    right: 2%;
+    top: 29%;
+    background-color: white;
+    min-width: 200px;
+   justify-content: center;
+   display: flex;
+    min-height: 40vh;
+    border-radius: 5px;
+    box-shadow: var(--boxshadoe);
+    
+  }
+
+  /* !author images style */
+  
+.nav_uls{
+  display: block;
+  overflow-x: hidden;
+}
+
   .nav_lis button{
     width: 100%;
     padding: 1em 0;
     border: none;
-    border-bottom: 1px solid var(--clr-grey-1);
+
     cursor: pointer;
+    background-color: var(--clr-white);
     transition: .2s ease-in;
 }
 .nav_lis button:hover{
@@ -1043,11 +1144,11 @@ input:focus{
   color: var(--adminnavtext);
   
 }
-.nav_lis:first-child button{
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  
+.current button{
+  background-color: var(--clr-primary);
+  color: var(--adminnavtext);
 }
+
 
 
 }
@@ -1055,6 +1156,9 @@ input:focus{
 
 @media (min-width:1399px) {
   .lesssonNav{
+    min-width: 300px;
+  }
+  .author{
     min-width: 300px;
   }
   

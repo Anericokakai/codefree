@@ -18,7 +18,10 @@ function NodejsSyntax() {
     <div>
       <NavigationComponent></NavigationComponent>
       <ReusableHeading heading="Nodejs Backend"></ReusableHeading>
-      <BlogReusable api="http://localhost:8000/api/nodejs_tutorials" course="Node js"></BlogReusable>
+      <BlogReusable
+        api="https://codefreeblogs.onrender.com/api/nodejs_tutorials"
+        course="Node js"
+      ></BlogReusable>
     </div>
   );
 }
