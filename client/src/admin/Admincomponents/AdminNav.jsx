@@ -4,6 +4,7 @@ import admin from "./admin.jpeg";
 import { checkIfAdminIsLoggedIn } from "../../controllers/protectRoutes";
 import { useSelector } from "react-redux";
 function AdminNav() {
+  const{userName}=useSelector(store=>store.userInfo)
 
   return (
     <nav className="admin-nav">
@@ -51,7 +52,7 @@ function AdminNav() {
           <img src={admin} alt="" />
         </div>
         <div className="amin-name">
-          <h3 className="hidden-small">Abigael bbg</h3>
+          <h3 className="hidden-small">{userName}</h3>
         </div>
       </div>
       <Link to={"/admin/add_admin"}>

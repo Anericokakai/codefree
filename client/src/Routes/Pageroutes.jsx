@@ -14,6 +14,7 @@ import BlogsForm from "../admin/Admincomponents/BlogsForm";
 import DeleteBlog from "../admin/admingitcontroller/DeleteBlog";
 import AdminLogin from "../Pages/AdminLogin";
 import AddAdmin from "../admin/Admincomponents/AddAdmin";
+import AddTopic from "../admin/Admincomponents/AddTopic";
 const generalroutes = [
   {
     path: "/",
@@ -64,6 +65,11 @@ const generalroutes = [
 
     path: "/admin/blogsform",
     element: <BlogsForm />,
+  },
+  {
+
+    path: "/admin/blogsform/topic",
+    element: <AddTopic></AddTopic>,
   },
   {
     path: "/admin/deleteblog",

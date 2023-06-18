@@ -77,6 +77,7 @@ body {
  align-items: center;
  justify-content: space-between;
  padding: 0 50px;
+ z-index: 100;
  
 }
 .sticky{
@@ -84,7 +85,8 @@ body {
  width: 100%;
  background-color: var(--clr-white);
  margin-bottom: 2em;
-transition: .3s ease-out;
+transition: 1s ease-out all;
+box-shadow: var(--boxshadoe);
 }
 .navigation ul{
   display: flex;
@@ -119,6 +121,14 @@ transition: .3s ease-out;
   color: transparent;
   background-clip: text;
   --webkit-background-clip: text;
+}
+.logoimage{
+  height: 60px;
+  
+}
+.logoimage img{
+  height: 100%;
+  
 }
 /* todo small screen navigation menu */
 @media (max-width:640px) {
@@ -679,6 +689,54 @@ background-color: #009879;
 color:var(--clr-white) ;
 transition: .2s ease;
 }
+.gap{
+  margin: 2em;
+}
+/* ! drop down menu */
+.dropbtn {
+  background-color: var(--clr-grey-1);
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 200px;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
 .add_blog:hover{
   background-color: #68bb59;
 }
@@ -793,7 +851,8 @@ input:focus{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: var(--clr-white);
+  position: relative;
+
   margin:  auto;
   text-align: center;
   padding: 1em;
@@ -808,7 +867,7 @@ input:focus{
   border: 1px solid #ccc;
 }
 .imagesample{
-  width: 50%;
+  width: 80%;
   background-color: var(--clr-white);
   margin: 1em auto;
 }
@@ -898,3 +957,105 @@ input:focus{
 }
 
 /* ! admin setction styles end */
+/* ! start of better ui fixes in our client */
+.singleblog_conatiner{
+  line-height: 1.8;
+    font-size: 1.2em;
+
+}
+.headingbg{
+  background: url('../src/components/home/homeimages/blurry-gradient-haikei.svg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white;
+  height: 120px;
+}
+.preloader{
+  width: 60px;
+  height: 60px;
+}
+.preloader img{
+  width: 100%;
+}
+/* ! end of better ui fixes in our client */
+.heading{
+  position: relative;
+  text-decoration: underline;
+}
+.main{
+  background-color: white;
+  padding: 1em 2em;
+}
+
+
+/* ! large screen blogs */
+
+@media (min-width:800px) {
+  .singleblog_conatiner{
+    display: block;
+    width: 700px;
+    gap: 2em;
+    
+    
+  }
+  .center{
+    font-size: 30px;
+  }
+  .imagesample {
+    height: 300px;
+    
+  }
+  .imagesample img{
+    object-fit: contain;
+    border-radius: 0px;
+    box-shadow: none;
+  }
+  .blogs-form{
+    width: 700px;
+  }
+
+ 
+}
+@media (min-width:1200px) {
+   /* !lesson navidation styling */
+   .lesssonNav{
+    position: absolute;
+    left: 0;
+    top: .4%;
+    background-color: white;
+    min-width: 200px;
+   
+    min-height: 80vh;
+    border-radius: 5px;
+    box-shadow: var(--boxshadoe);
+  }
+  .nav_lis button{
+    width: 100%;
+    padding: 1em 0;
+    border: none;
+    border-bottom: 1px solid var(--clr-grey-1);
+    cursor: pointer;
+    transition: .2s ease-in;
+}
+.nav_lis button:hover{
+  background-color: var(--clr-primary);
+  color: var(--adminnavtext);
+  
+}
+.nav_lis:first-child button{
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  
+}
+
+
+}
+
+
+@media (min-width:1399px) {
+  .lesssonNav{
+    min-width: 300px;
+  }
+  
+}

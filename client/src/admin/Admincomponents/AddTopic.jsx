@@ -1,12 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import AdminNav from "./AdminNav";
-import { useEffect } from "react";
+
 import { apploadedblog } from "../admincontroller/submitBlog";
 import { ToastContainer, toast } from "react-toastify";
-import { fetchTopics } from "../admincontroller/submitBlog";
-function BlogsForm() {
-  const [topicName,settopic]=useState([])
+function AddTopic() {
+    // !state to store topics array
+
   // !use states for the inputs
   const [imageld, setImage] = useState("");
   const [otherinputs, setOtherinputs] = useState({
@@ -30,8 +30,8 @@ function BlogsForm() {
   // !acces the query string from the url
   const queryParams = new URLSearchParams(window.location.search);
   const endpoint_api = queryParams.get("endpoint_api");
-  const course=queryParams.get('course')
-  console.log(endpoint_api);
+  const course= queryParams.get("topic");
+  console.log(course);
   // todo display the image chisen by the author
   function handleImageChange(e) {
     const im = e.target.files[0];
@@ -42,10 +42,17 @@ function BlogsForm() {
     e.preventDefault();
 
     const formData = new FormData(form);
+    formData.append('course',course)
 
+    const values={
+        topic:formData.get('topic'),
+        author:formData.get('author'),
+        course:formData.get('course')
+    }
+    console.log(formData.get('topic'))
     console.log([...formData]);
 
-    apploadedblog(formData, endpoint_api)
+    apploadedblog(values, endpoint_api)
       .then((data) => {
         console.log(data);
         if (data.data.status && data.data.succsess) {
@@ -59,18 +66,6 @@ function BlogsForm() {
         toast.error("failed to add blogs");
       });
   }
-  // ! fetch the topics related to the blog
-  const courseobj={
-    course:course
-  }
-useEffect(()=>{
-fetchTopics(courseobj).then(data=>{
-console.log(data.data)
-settopic(data.data)
-})
-
-},[])
-console.log(topicName)
 
   return (
     <div className="admin-container">
@@ -94,10 +89,10 @@ console.log(topicName)
         >
           <div className="short-info">
             <div className="inputs">
-              <label htmlFor="">tittle </label>
+              <label htmlFor="">topic </label>
               <input
                 type="text"
-                name="title"
+                name="topic"
                 autoComplete="off"
                 autoCapitalize="on"
                 onChange={handleinputchange}
@@ -105,54 +100,21 @@ console.log(topicName)
               />
             </div>
             <div className="inputs">
-              <label htmlFor="">topic that the blog is under </label>
-              <div class="dropdown">
-  <button class="dropbtn">Topics</button>
-  <div class="dropdown-content">
-  {
-    topicName.map(each=>{
-      return (
-        <div>
-        <p>   <input type="checkbox" value={each.topic}  name='topic'/> {each.topic} </p>
-      </div>
-      )
-    })
-  }
-
-   
-  </div>
-</div>
-            </div>
-
-            <div className="inputs choose-img">
-              <label htmlFor="image" className="select-img">
-                click to select Image <i class="fa-regular fa-image"></i>
-              </label>
+              <label htmlFor="">Author </label>
               <input
-                type="file"
-                name="image"
-                id="image"
+                type="text"
+                name="author"
+                autoComplete="off"
+                onChange={handleinputchange}
                 required
-                onChange={handleImageChange}
               />
-              {/* {aploadimage === "" || aploadimage === null ? (
-                ""
-              ) : (
-                <img width={100} height={100} src={aploadimage} alt="" />
-              )} */}
             </div>
+
+           
           </div>
 
-          <div className="inputs">
-            <label htmlFor="">Illustaration </label>
-            <textarea
-              type="text"
-              name="illustration"
-              onChange={handleinputchange}
-              required
-            />
-          </div>
-          <button type="submit" className="submit-blog">
+        
+          <button type="submit " className="submit-blog gap">
             submit
           </button>
         </form>
@@ -161,4 +123,4 @@ console.log(topicName)
   );
 }
 
-export default BlogsForm;
+export default AddTopic;

@@ -10,3 +10,9 @@ export const deleteBlog=async(api,blog_id)=>{
   const result= await axios.post(api,blog_id)
 return result
 }
+
+// !function to fetch all the topics
+export const fetchTopics=async(values)=>{
+const response = await axios.post('http://localhost:8000/api/findtopics',values)
+return response
+}

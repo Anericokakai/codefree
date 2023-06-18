@@ -32,8 +32,8 @@ function ReactBlogs() {
       <AdminNav />
       <Tablecomponent
         page="react"
-        api="https://codefreeblogs.onrender.com/api/reactblogs"
-        add_blog_api="https://codefreeblogs.onrender.com/api/reactroute"
+        api="http://localhost:8000/api/reactblogs"
+        add_blog_api="http://localhost:8000/api/reactroute"
       ></Tablecomponent>
     </div>
   );

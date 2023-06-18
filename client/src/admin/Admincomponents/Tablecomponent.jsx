@@ -73,9 +73,12 @@ function Tablecomponent({ page, api, add_blog_api }) {
         </tbody>
       </table>
       <div className="add_blog_container_btn">
-        <Link to={`/admin/blogsform?endpoint_api=${add_blog_api}`}>
+        <Link to={`/admin/blogsform?endpoint_api=${add_blog_api}&&course=${page}`}>
           <button className="add_blog">add a new blog</button>
+
         </Link>
+        <Link to={ `/admin/blogsform/topic?endpoint_api=http://localhost:8000/api/add_topic&topic=${page}`}>
+        <button className="add_blog gap">add a new topic</button></Link>
       </div>
     </div>
   );
