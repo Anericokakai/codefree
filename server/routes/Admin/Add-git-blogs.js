@@ -4,15 +4,30 @@ import express from "express";
 import fs from 'fs'
 import { add_blog } from "./adminHelper.js";
 import { find_topics } from "./adminHelper.js";
+import multer from "multer";
+import path from "path";
 // ! import function to upload image
-import { uploadImage } from "./adminHelper.js";
-const upload=uploadImage()
+
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    console.log(file);
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+const upload = multer({ storage: storage });
 
 // !routes to handle all the blogs uploaded
  export const nodejs_router = express.Router();
 nodejs_router.post("/api/nodejsroute", upload.single("image"), async (req, res) => {
 const heading='nodejs bigginer'
-add_blog(req,res,heading)
+add_blog(req,res)
 });
 
 
