@@ -889,7 +889,15 @@ input:focus{
 
 @media (max-width:640px) {
   .imagesample{
-    width: 90%;
+    width: 100%;
+  
+  }
+  .imagesample img{
+    border-radius: 0;
+    object-fit: contain;
+  }
+  .lesson_container{
+    padding: 0 .5em;
   }
   
 }
@@ -1098,7 +1106,7 @@ input:focus{
    .lesssonNav{
     position: absolute;
     left: 0;
-    top: .4%;
+    top: 7%;
     background-color: white;
     min-width: 200px;
    
@@ -1112,7 +1120,7 @@ input:focus{
   .author{
     position: absolute;
     right: 2%;
-    top: 29%;
+    top: 39%;
     background-color: white;
     min-width: 200px;
    justify-content: center;

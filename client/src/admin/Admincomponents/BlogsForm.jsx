@@ -113,7 +113,7 @@ console.log(topicName)
     topicName.map(each=>{
       return (
         <div>
-        <p>   <input type="checkbox" value={each.topic}  name='topic'/> {each.topic} </p>
+        <p>   <input type="checkbox" value={each.topic}  name='topic' required/> {each.topic} </p>
       </div>
       )
     })
