@@ -34,6 +34,7 @@ function JsBlogs() {
         page="javascript"
         api="https://codefreeblogs.onrender.com/api/javascriptblogs"
         add_blog_api="https://codefreeblogs.onrender.com/api/javascriptroute"
+        add_topic_api="https://codefreeblogs.onrender.com/api/add_topic"
       ></Tablecomponent>
     </div>
   );

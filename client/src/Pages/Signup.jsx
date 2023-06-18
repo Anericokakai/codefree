@@ -5,8 +5,12 @@ import connect from "../images/connect.svg";
 import { useFormik } from "formik";
 import { regiter } from "../controllers/registrations";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
+import ReusablePrealodaer from "../components/ReusablePrealodaer";
 function Signup() {
+  // ! add a preloader to the signup
+  const[loading,setloading]=useState()
   // todo toaster function
 
   //   ! formik  handling comp tia
@@ -17,6 +21,7 @@ function Signup() {
     password: "",
   };
   const onSubmit = async (values) => {
+    setloading(true)
     regiter(formik.values)
       .then((data) => {
         const status = data.data.status;
@@ -25,6 +30,7 @@ function Signup() {
         }
       })
       .then(() => {
+        setloading(false)
         setTimeout(() => {
           window.location.href = "/login";
         }, 1000);
@@ -32,6 +38,7 @@ function Signup() {
       .catch((err) => {
         console.log(err);
         toast.error("failed to add the user");
+        setloading(false)
       });
     formik.resetForm({ values: "" });
   };
@@ -76,6 +83,7 @@ function Signup() {
             id="form"
             onSubmit={formik.handleSubmit}
           >
+{loading &&    <ReusablePrealodaer/>}
             <div className="eachinput">
               <label htmlFor=""> name</label>
               <input

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { refreshtoken, username } from "../features/UsersSlice";
 import { ToastContainer, toast } from "react-toastify";
 import loginimage from "../images/login.svg";
@@ -8,8 +8,11 @@ import { userdetails } from "../features/UsersSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import ReusablePrealodaer from "../components/ReusablePrealodaer";
 
 function Login() {
+  // !state for loading
+  const[loading,setloading]=useState()
   // ! acces the authentication of protected routes
 
   // todo state for the user api
@@ -27,9 +30,11 @@ function Login() {
   };
   const onSubmit = async (values) => {
     // formik.resetForm({ values: "" });
+    setloading(true)
     console.log(formik.values);
     login(formik.values).then((info) => {
       console.log(info.data);
+      setloading(false)
       // redirect function
       function redirect() {
         return (window.location.href = "/login/lessonsHome");
@@ -84,6 +89,7 @@ function Login() {
               />
 
               <form action="" id="form" onSubmit={formik.handleSubmit}>
+{loading &&                 <ReusablePrealodaer></ReusablePrealodaer>}
                 <div className="eachinput">
                   <label htmlFor=""> email </label>
                   <input

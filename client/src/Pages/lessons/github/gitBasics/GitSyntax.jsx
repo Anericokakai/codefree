@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import BlogReusable from "../../../../components/home/BlogReusable";
 import NavigationComponent from "../../../../components/NavigationComponent";
+import ReusableHeading from "../../../../components/ReusableHeading";
 import { redirectToLogin } from "../../../../controllers/redirects";
 function GitSyntax() {
   const { userName, token, refreshToken } = useSelector(
@@ -14,10 +15,9 @@ function GitSyntax() {
   // }
   return (
     <div>
-   
-      <NavigationComponent></NavigationComponent>
-      <h1 className="center">git &github</h1>
-      <BlogReusable api="https://codefreeblogs.onrender.com/api/git_tutorials"></BlogReusable>
+      <NavigationComponent />
+      <ReusableHeading heading="Git And GitHub" />
+      <BlogReusable course="github"/>
     </div>
   );
 }

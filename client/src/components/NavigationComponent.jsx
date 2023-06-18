@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import logo from '../images/logo.png'
 import {  Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Logout } from "../features/UsersSlice";
@@ -45,10 +45,10 @@ function NavigationComponent() {
     <div>
       <nav className={`navigation ${showOnscroll && "sticky"}`}>
         <div className="logo">
-          {" "}
-          <h1>
-            Code<span className="logosapn">Free</span>
-          </h1>
+          <div className="logoimage">
+            <img src={logo} alt="" />
+          </div>
+          
         </div>
         <div className="bars">
           <i onClick={displayNav} class="fa-solid fa-bars"></i>

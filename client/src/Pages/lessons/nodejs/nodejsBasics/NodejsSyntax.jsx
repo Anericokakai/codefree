@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import BlogReusable from "../../../../components/home/BlogReusable";
 import NavigationComponent from "../../../../components/NavigationComponent";
+import ReusableHeading from "../../../../components/ReusableHeading";
 import { redirectToLogin } from "../../../../controllers/redirects";
 
 function NodejsSyntax() {
@@ -16,8 +17,11 @@ function NodejsSyntax() {
   return (
     <div>
       <NavigationComponent></NavigationComponent>
-      <h1 className="center">Nodejs for Backend</h1>
-      <BlogReusable api="https://codefreeblogs.onrender.com/api/nodejs_tutorials"></BlogReusable>
+      <ReusableHeading heading="Nodejs Backend"></ReusableHeading>
+      <BlogReusable
+        api="https://codefreeblogs.onrender.com/api/nodejs_tutorials"
+        course="Node js"
+      ></BlogReusable>
     </div>
   );
 }
