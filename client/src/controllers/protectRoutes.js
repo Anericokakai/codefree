@@ -56,11 +56,7 @@ export const checkIfUserIsLoggedIn=(token,refreshtoken)=>{
 
 // ! protected route funcyion for the server
 export const checkIfAdminIsLoggedIn=(token,refreshtoken,admin)=>{
-console.log({
-    toekn:token,
-    refreshtoken:refreshtoken,
-    admin:admin,
-})
+
     if(token===''||refreshtoken===''||admin!==true){
  
         return window.location.href='/login'

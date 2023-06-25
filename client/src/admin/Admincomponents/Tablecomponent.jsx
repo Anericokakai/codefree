@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 
-import { fetchblogs } from "../admingitcontroller/blogsfecth/blogs";
-import { concat } from "../admingitcontroller/blogsfecth/helper";
-
-function Tablecomponent({ page, api, add_blog_api }) {
-  const [blogs, setblogs] = useState([]);
+function Tablecomponent({ blogs }) {
+  const [longstring, setlongstring] = useState("");
   function ArrayBuffer(buffer) {
     var binary = "";
     var bytes = [].slice.call(new Uint8Array(buffer));
@@ -13,21 +10,16 @@ function Tablecomponent({ page, api, add_blog_api }) {
 
     return window.btoa(binary);
   }
-  useEffect(() => {
-    console.log(api);
-    fetchblogs(api).then((data) => setblogs(data.data));
-  }, []);
-  console.log(blogs);
 
   // !function to delete blog
 
   return (
     <div className="table-container">
-      <h1>{page}</h1>
+      <h1></h1>
       <table class="styled-table">
         <thead>
           <tr>
-            <th>Topic</th>
+            <th>Title</th>
             <th>Illustaration</th>
 
             <th>image</th>
@@ -37,43 +29,49 @@ function Tablecomponent({ page, api, add_blog_api }) {
           </tr>
         </thead>
         <tbody>
-          {blogs.map((blog) => {
-            const illustration = blog.illustration;
-            const concated_illustartion = concat(illustration, 50);
+          {blogs != "]" &&
+            blogs?.map((single) => {
+              var base64flag = single?.Image?.contentType;
 
-            var base64flag = blog.Image.contentType;
-            var imagesrtng = ArrayBuffer(blog.Image.data.data);
-            return (
-              <tr>
-                <td>{blog.topic}</td>
-                <td>{concated_illustartion}</td>
-                <td>
-                  <img
-                    src={`data:${base64flag};base64,${imagesrtng}`}
-                    alt=""
-                    width={60}
-                    height={60}
-                  />
-                </td>
+              const concatFunction = (str, n) => {
+                return str?.length > n
+                  ? str.substring(0, n - 1) + "....."
+                  : str;
+              };
 
-                <td> Impedit </td>
-                <td>image</td>
-                <td>
-                  <Link to={"/admin/blogsform"}>
-                    <i class="fa-solid fa-pen"></i>
-                  </Link>
-                  <Link
-                    to={`/admin/deleteblog?blog_id=${blog._id}&topic=${blog.topic}&tutorial=${page}&image=${blog.imagepath}`}
-                  >
-                    <i class="fa-solid fa-trash"></i>
-                  </Link>
-                </td>
-              </tr>
-            );
-          })}
+              var imagesrtng = ArrayBuffer(single?.Image?.data.data);
+
+              return (
+                <tr>
+                  <td>{single?.tittle}</td>
+                  <td>{concatFunction(single?.illustration, 100)}</td>
+                  <td>
+                    <img
+                      src={`data:${base64flag};base64,${imagesrtng}`}
+                      alt=""
+                      width={60}
+                      height={60}
+                    />
+                  </td>
+
+                  <td> Impedit </td>
+                  <td>image</td>
+                  <td>
+                    <Link to={"/admin/blogsform"}>
+                      <i class="fa-solid fa-pen"></i>
+                    </Link>
+                    <Link
+                      to={`/admin/deleteblog?id=${single._id}&path=${single.imagepath}&collection=blogs`}
+                    >
+                      <i class="fa-solid fa-trash"></i>
+                    </Link>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
-      <div className="add_blog_container_btn">
+      {/* <div className="add_blog_container_btn">
         <Link
           to={`/admin/blogsform?endpoint_api=${add_blog_api}&&course=${page}`}
         >
@@ -84,7 +82,7 @@ function Tablecomponent({ page, api, add_blog_api }) {
         >
           <button className="add_blog gap">add a new topic</button>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -17,14 +17,14 @@ function NavigationComponent() {
   const displayNav = () => {
     shownav ? setshownav(false) : setshownav(true);
   };
-  console.log(shownav);
+
 
   // hide and show on scroll
   const handleScrollY = () => {
     if (window.scrollY > 100) {
-      console.log(window.scrollY);
+     
       setshowonscroll(true);
-      console.log(showOnscroll);
+     
     } else {
       setshowonscroll(false);
     }
@@ -58,7 +58,7 @@ function NavigationComponent() {
             <Link to={"/login/lessonsHome"}>Home </Link>{" "}
           </li>
           <li>
-            <Link to={"/login/lessonsHome/javascript"}>Lessons </Link>{" "}
+            <Link to={"/login/lessonsHome"}>Lessons </Link>{" "}
           </li>
           <li>
             <Link>premium </Link>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { refreshtoken, username } from "../features/UsersSlice";
 import { ToastContainer, toast } from "react-toastify";
 import loginimage from "../images/login.svg";
@@ -9,7 +9,10 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logInadmin } from "../features/UsersSlice";
+import ReusablePrealodaer from "../components/ReusablePrealodaer";
 function AdminLogin() {
+  // !spinner function
+  const[spinner,setspiner]=useState()
   // todo state for the user api
 
   // todo initialise the use dispatch
@@ -24,13 +27,14 @@ function AdminLogin() {
     password: "",
   };
   const onSubmit = async (values) => {
-    // formik.resetForm({ values: "" });
+ setspiner(true)
     console.log(formik.values);
     adminlogin(formik.values).then((info) => {
+      setspiner(false)
       console.log(info.data);
       // redirect function
       function redirect() {
-        return (window.location.href = "/admin/git");
+        return (window.location.href = "/admin/default");
       }
       if (info.data.status === 200 && info.data.token !== "") {
         toast.success("user loged in succesfullly");
@@ -83,6 +87,7 @@ function AdminLogin() {
               />
 
               <form action="" id="form" onSubmit={formik.handleSubmit}>
+                {spinner && <ReusablePrealodaer></ReusablePrealodaer>}
                 <div className="eachinput">
                   <label htmlFor=""> email </label>
                   <input
@@ -126,7 +131,7 @@ function AdminLogin() {
   
                 <p className="goback">
                   dont have an account ?
-                  <Link>
+                  <Link to={'/signup'}>
                     <span className="err">sign up</span>
                   </Link>
                   

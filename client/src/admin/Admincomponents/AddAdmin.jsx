@@ -1,11 +1,14 @@
 import React from "react";
 
 import { ToastContainer, toast } from "react-toastify";
-
+import ReusablePrealodaer from "../../components/ReusablePrealodaer";
 import { useFormik } from "formik";
 import { addAdmin } from "../../controllers/registrations";
+import { useState } from "react";
+
 function AddAdmin() {
-  // todo toaster function
+  //! handle spinner
+  const [spinner,setspinner]=useState()
 
   //   ! formik  handling comp tia
 
@@ -16,7 +19,9 @@ function AddAdmin() {
   };
   const onSubmit = async (values) => {
     console.log(values)
+    setspinner(true)
       addAdmin(values).then((data) => {
+        setspinner(false)
         const status = data.data.status;
         if (status === "ok") {
           toast.success("Admin added succsefully");
@@ -56,7 +61,7 @@ function AddAdmin() {
   // handle change
 
   return (
-    <div className="admin_container">
+    <div className="admin_container absolutebtncont">
       <ToastContainer
         position={"top-center"}
         closeOnClick={false}
@@ -65,9 +70,11 @@ function AddAdmin() {
         draggable={false}
         autoClose={500}
       />
+      <button onClick={()=>window.history.back()} className="btn green absolutebtn"> Go Back</button>
 
 <h1 className="admin_heading"> add admin</h1>
       <form className="form" action=""  onSubmit={formik.handleSubmit}>
+        {spinner && <ReusablePrealodaer></ReusablePrealodaer>}
         <div className="eachinput">
           <label htmlFor=""> name</label>
           <input

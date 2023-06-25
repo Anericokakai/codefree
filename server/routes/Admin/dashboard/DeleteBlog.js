@@ -3,7 +3,7 @@ import express from "express";
 // !import all the schema modules
 
 // ! import helper
-import { deleteFile } from "../adminHelper.js";
+
 export const delete_route = express.Router();
 
 delete_route.post("/api/delete_git_blog", async (req, res) => {

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { deleteBlog } from "../admincontroller/submitBlog";
+import { deleteBlog, deleteBlog_function } from "../admincontroller/submitBlog";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { checkIfAdminIsLoggedIn } from "../../controllers/protectRoutes";
@@ -9,7 +9,11 @@ import {
   validToken,
 } from "../../controllers/tokenvalidation";
 import { userdetails } from "../../features/UsersSlice";
-function DeleteBlog() {
+import {
+  addCourse,
+  AddNewTopic_helper,
+} from "../../Pages/lessons/LessonsController/fetchLessons";
+function DeleteBlog({ state, changeState, values, course, courseTitle }) {
   // ! check if the admin is logged in
   const { userName, token, refreshToken, admin } = useSelector(
     (store) => store.userInfo
@@ -28,63 +32,78 @@ function DeleteBlog() {
     });
   }, []);
   const queryparams = new URLSearchParams(window.location.search);
-  const blog_id = queryparams.get("blog_id");
-  const topic = queryparams.get("topic");
-  const tutorial = queryparams.get("tutorial");
-  const image = queryparams.get("image");
-  console.log(blog_id, topic);
-  if (!blog_id || !topic) {
-    window.location.href = "/";
-  }
-  const goback = () => {
-    window.history.back();
+  const blog_id = queryparams.get("id");
+  const path = queryparams.get("path");
+  const collection = queryparams.get("collection");
+
+  const reload = () => {
+    window.location.reload();
   };
-  const Handle_deleteblog = () => {
-    const delete_blog_api =
-      "https://codefreeblogs.onrender.com/api/delete_git_blog";
 
-    const values = {
-      id: blog_id,
-      collection: tutorial,
-      image: image,
-    };
-
-    deleteBlog(delete_blog_api, values)
-      .then((data) => {
-        console.log(data);
-
-        if (data.data.status === 200) {
-          toast.success(`${data.data.result}`);
-          setTimeout(goback, 900);
-        } else if (data.data.status === 400) {
-          toast.error(`${data.data.result}`);
-          setTimeout(goback, 900);
+  const Handle_deleteblog = (values) => {
+    //! if deleting couse
+    if (course) {
+      const values = {
+        todelete: true,
+        course: courseTitle,
+      };
+      addCourse(values).then((res) => {
+        if (res.data.error) {
+          toast.error(res.data.error);
+          changeState(false);
         }
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error("failed to delete blog");
+        if (res.data.success) {
+          changeState(false);
+          toast.success(res.data.success);
+          setTimeout(reload, 1500);
+        }
       });
+    }
+    else{
+
+  
+
+    // !if deleting topic
+    deleteBlog_function(values).then((response) => {
+      if (response.data.error) {
+        toast.error(response.data.error);
+        changeState(false);
+      }
+      if (response.data.success) {
+        console.log(response.data.success);
+        changeState(false);
+        toast.success(response.data.success);
+        setTimeout(reload, 1500);
+      }
+    });
+  }
   };
   return (
-    <div className="delete_container">
+    <div>
       <ToastContainer
         position={"top-center"}
         closeOnClick={false}
         pauseOnHover={false}
         pauseOnFocusLoss={false}
         draggable={false}
-        autoClose={500}
+        autoClose={3000}
       />
-      <div className="delete_banner">
-        <h3>Do you want to delete this blog ?</h3>
-        <h5>{topic}</h5>
+      <div className={`delete_banner ontop ${state && "showbanner"}`}>
+        {course ? (
+          <h3>Do you want to delete this course ?</h3>
+        ) : (
+          <h3>Do you want to delete this Topic ?</h3>
+        )}
+
         <div className="btn_container">
-          <button className=" btn green" onClick={goback}>
+          <button className=" btn green" onClick={() => changeState(false)}>
             cancel
           </button>
 
-          <button className=" btn red" onClick={Handle_deleteblog}>
+          <button
+            className=" btn red"
+            onClick={() => Handle_deleteblog(values)}
+          >
             {" "}
             delete
           </button>
