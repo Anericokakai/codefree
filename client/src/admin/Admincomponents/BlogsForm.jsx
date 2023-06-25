@@ -124,7 +124,10 @@ const id=queryParams.get('id')
 
           <div className="inputs">
             <label htmlFor="">Illustaration </label>
+
             <textarea type="text" name="illustration" />
+
+            
           </div>
           <button type="submit" className="submit-blog">
             submit
