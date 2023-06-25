@@ -1,13 +1,19 @@
 import axios from "axios";
 
-export const apploadedblog = async (values, end_point_api) => {
-  const result = await axios.post(end_point_api, values);
+export const apploadedblog = async (values) => {
+  const result = await axios.post(
+    "https://codefreeblogs.onrender.com/api/nodejsroute",
+    values
+  );
 
   return result;
 };
 
-export const deleteBlog = async (api, blog_id) => {
-  const result = await axios.post(api, blog_id);
+export const deleteBlog_function = async (values) => {
+  const result = await axios.post(
+    "https://codefreeblogs.onrender.com/api/delete",
+    values
+  );
   return result;
 };
 

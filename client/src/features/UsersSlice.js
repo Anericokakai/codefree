@@ -5,6 +5,7 @@ const initialState = {
   token: "",
   refreshToken:"",
   admin:false,
+  Info:[]
 };
 
 const userslice = createSlice({
@@ -13,11 +14,11 @@ const userslice = createSlice({
   reducers: {
     userdetails: (state, action) => {
       state.token = action.payload;
-      console.log(action.payload);
+      
     },
     username:(state,action)=>{
         state.userName=action.payload
-        console.log(action.payload)
+        
     },
     refreshtoken:(state,action)=>{
       state.refreshToken=action.payload
@@ -25,6 +26,7 @@ const userslice = createSlice({
     logInadmin:(state,action)=>{
       state.admin=true
     },
+   
     Logout:(state)=>{
       state.userName=''
       state.token=''

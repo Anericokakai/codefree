@@ -7,7 +7,7 @@ function Footer() {
         <div className="footer-container">
         <div className='footer1'>
             <Link to={''}>contact us</Link>
-            <Link to={''}>Terms and vondition</Link>
+
             <Link to={''}> join community</Link>
         </div>
         <div className="footer1">

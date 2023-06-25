@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import AdminNav from "./AdminNav";
+
 
 import { apploadedblog } from "../admincontroller/submitBlog";
 import { ToastContainer, toast } from "react-toastify";
@@ -68,7 +68,7 @@ function AddCourse() {
         draggable={false}
         autoClose={500}
       />
-      <AdminNav />
+      
       <div className="form-container">
         <h1 className="blog-heading">Edit Blogs</h1>
         <form

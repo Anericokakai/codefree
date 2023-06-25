@@ -19,6 +19,8 @@ import multer from "multer";
 import {
   
   addcourse,
+  Add_topic_Route,
+  DeleteBlog_Ruote,
   fetch_topics,
   git_router,
   javascript_router,
@@ -28,7 +30,7 @@ import {
 
 // !blogs routes for the lessons
 
-import githubtutorial from "./routes/LessonsRoutes/gitlessons.js";
+import githubtutorial, { default_adminBlogs } from "./routes/LessonsRoutes/gitlessons.js";
 
 import { javascripttutorials } from "./routes/LessonsRoutes/gitlessons.js";
 import { blogs_Router } from "./routes/LessonsRoutes/gitlessons.js";
@@ -96,6 +98,8 @@ app.use(nodejs_router);
 app.use(react_router);
 app.use(topic_router)
 app.use(addcourse)
+app.use(default_adminBlogs)
+app.use(Add_topic_Route)
 
 // !lesson routes
 app.use(githubtutorial);
@@ -103,7 +107,7 @@ app.use(javascripttutorials);
 
 app.use(blogs_Router);
 // ! delete blog route
-
+app.use(DeleteBlog_Ruote)
 app.use(delete_route);
 app.use(fetch_topics);
 app.get('/',(req,res)=>res.send('hello'))

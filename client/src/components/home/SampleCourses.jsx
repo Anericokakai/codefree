@@ -1,67 +1,86 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import javascriptImage from "./homeimages/javascript.png";
 import nodeImage from "./homeimages/node.png";
 import reactImage from "./homeimages/react.png";
 import gitImage from "./homeimages/git.png";
-import testavator from "./homeimages/avator2.png"
+import testavator from "./homeimages/avator2.png";
 import { Link } from "react-router-dom";
+import ReusablePrealodaer from '../ReusablePrealodaer'
+import { fetchCourses_function } from "../../Pages/lessons/LessonsController/fetchLessons";
 function SampleCourses() {
-  const courses = [
-    {
-      course: "Javascript beginner to advanced",
-      image: javascriptImage,
-      period: "2hrs 30 mins",
-      route: "/login/lessonsHome/javascript",
-      key:1,
-    },
-    {
-      course: "Node js beginner to advanced",
-      image: nodeImage,
-      period: "2hrs 30 mins",
-      route: "/login/lessonsHome/Nodejs",
-      key:2,
-    },
-    {
-      course: "React beginner to advanced",
-      image: reactImage,
-      period: "6hrs 30 mins",
-      route: "/login/lessonsHome/react",
-      key:3,
-    },
-    {
-      course: "Git version control beginner",
-      image: gitImage,
-      period: "2hrs 30 mins",
-      route: "/login/lessonsHome/git",
-      key:4,
-    }
-  ];
+  const [coursesBackend, setcourses] = useState([{}]);
+ const[loading,setloading]=useState(true)
+
+  useEffect(() => {
+    fetchCourses_function().then((data) => {
+      setcourses(data.data);
+      setloading(false)
+    });
+  }, []);
+  function ArrayBuffer(buffer) {
+    var binary = "";
+    var bytes = [].slice.call(new Uint8Array(buffer));
+    bytes.forEach((bite) => (binary += String.fromCharCode(bite)));
+
+    return window.btoa(binary);
+  }
+
+  console.log(coursesBackend);
+
+
+
+
   return (
-    <main className="course_container">
-      {courses.map((eachcourse) => (
-        <Link to={eachcourse.route} key={eachcourse.key}>
-        
-        <div className="courseholder">
-          <div className="courses">
-            <div className="courseimage">
-              <img src={eachcourse.image} alt="" />
-            </div>
-          </div>
-          <div className="descritpions">
-            <h3>{eachcourse.course}</h3>
-            <p>{eachcourse.period}</p>
-            <p>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-regular fa-star"></i>
-            </p>
-          </div>
+    <div>
+
+    
+
+
+{loading?
+<div className="preloaderconatiner">
+
+<ReusablePrealodaer></ReusablePrealodaer>
+</div>
+:
+   <main className="Home_Course_container"> {coursesBackend.map((eachcourse) => {
+    const base64flag = eachcourse?.Image?.contentType;
+    const imagesrtng = ArrayBuffer(eachcourse?.Image?.data?.data);
+
+    return (
+      <div className="singleCourse">
+    
+        <img src={`data:${base64flag};base64,${imagesrtng}`} alt="" />
+<div className="couser_descriptions">
+
+        <h3>{eachcourse?.course_name}</h3>
+        <p>{eachcourse?.intro}</p>
+        <p>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-regular fa-star"></i>
+        </p>
+        <div className="readmore">
+        <Link
+        to={`/login/lessonsHome/javascript?course=${eachcourse?.course_name}&heading=${eachcourse?.course_name}`}
+        key={eachcourse.key}
+        className='white'
+      >
+          <strong className="strong">read more <i class="fa-regular fa-bookmark"></i></strong>
+          </Link>
         </div>
-        </Link>
-      ))}
+        </div>
+      
+      </div>
+    );
+  })}
+
+
+     
     </main>
+     }
+    </div>
   );
 }
 
