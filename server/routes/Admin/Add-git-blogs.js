@@ -52,7 +52,7 @@ react_router.post(
 );
 
 export const git_router = express.Router();
-git_router.post("/api/gitroute", upload.single("image"), async (req, res) => {
+git_router.post("/api/gitroute", async (req, res) => {
   add_blog(req, res);
 });
 
@@ -65,7 +65,7 @@ fetch_topics.post("/api/findtopics", async (req, res) => {
 
 // ! add course a new course
 export const addcourse=express.Router()
-addcourse.post("/api/addcourse",upload.single('image'),async(req,res)=>{
+addcourse.post("/api/addcourse",async(req,res)=>{
 
 
   addcourse_helper(req,res)

@@ -13,7 +13,7 @@ import {
   addCourse,
   AddNewTopic_helper,
 } from "../../Pages/lessons/LessonsController/fetchLessons";
-function DeleteBlog({ state, changeState, values, course, courseTitle }) {
+function DeleteBlog({ state, changeState, values, course, courseTitle,id,deleteBlog,collection }) {
   // ! check if the admin is logged in
   const { userName, token, refreshToken, admin } = useSelector(
     (store) => store.userInfo
@@ -32,9 +32,6 @@ function DeleteBlog({ state, changeState, values, course, courseTitle }) {
     });
   }, []);
   const queryparams = new URLSearchParams(window.location.search);
-  const blog_id = queryparams.get("id");
-  const path = queryparams.get("path");
-  const collection = queryparams.get("collection");
 
   const reload = () => {
     window.location.reload();
@@ -58,10 +55,33 @@ function DeleteBlog({ state, changeState, values, course, courseTitle }) {
           setTimeout(reload, 1500);
         }
       });
-    }
-    else{
+    } else if(deleteBlog){
+      const  data={
+        id:id,
+        collection:collection
+      
+        
+      
+        }
 
-  
+        deleteBlog_function(data).then((data)=>{
+changeState(false)
+          if(data.data.success){
+            toast.success(data.data.success)
+            setTimeout(reload,1000)
+          } else if(data.data.error){
+            toast.error(data.data.error)
+          }
+        }).catch(error=>{
+          toast.error('server failed')
+        })
+
+
+
+    }
+    else {
+
+ 
 
     // !if deleting topic
     deleteBlog_function(values).then((response) => {

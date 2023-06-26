@@ -8,7 +8,11 @@ import {
   addCourse,
   AddNewTopic_helper,
 } from "../../Pages/lessons/LessonsController/fetchLessons";
+import ReusablePrealodaer from "../../components/ReusablePrealodaer";
 function AddTopic({ changeState, course, CourseAdder }) {
+
+  // !prealoder
+  const[loading,setloading]=useState()
   // !state to store topics array
   const [imageld, setImage] = useState("");
   const inputRef = useRef(null);
@@ -38,26 +42,55 @@ function AddTopic({ changeState, course, CourseAdder }) {
     const im = e.target.files[0];
     setImage(im);
   }
-  const form = document.querySelector("form");
-  function handlesubmit(e) {
-    e.preventDefault();
+//! Function to convert the image to base 64
+const ConvertToBAse64=async(imageld)=>{
+return new Promise((resolve,reject)=>{
+  const filereader=new FileReader()
+  filereader.readAsDataURL(imageld)
+  filereader.onload=()=>{
+    resolve(filereader.result)
+  }
+  filereader.onerror=(error)=>{
+    reject(error)
 
+  }
+})
+  
+}
+
+  const form = document.querySelector("form");
+  async  function handlesubmit(e) {
+    e.preventDefault();
+setloading(true)
     const formData = new FormData(form);
     formData.append("course", course);
+
+
+
 
     // !when its a course function
     if (CourseAdder) {
       if (!imageld) return toast.error("image required");
+      // !call the converter to base 64 function
+       const base_64_image= await ConvertToBAse64(imageld)
+       
 
+await formData.append('image',base_64_image)
       const tittle = formData.get("topic");
       const illustration = formData.get("description");
       if (!tittle || !illustration)
         return toast.error("all fields are required required");
       const values = {
-        course: formData.get("topic"),
+        course: formData.get("course"),
+        description:formData.get('description'),
+        image:formData.get('image'),
+        topic:formData.get('topic')
       };
-      addCourse(formData).then((data) => {
+      
+      console.log([...formData])
+      addCourse(values).then((data) => {
         console.log(data);
+        setloading(false)
         if (data.data.success) {
           toast.success(data.data.success);
           changeState(false);
@@ -65,8 +98,11 @@ function AddTopic({ changeState, course, CourseAdder }) {
         if (data.data.error) {
           toast.error(data.data.error);
           changeState(false);
+          setloading(false)
         }
-      });
+      }).catch(err=>{toast.error('server problem')
+    setloading(false)
+    })
     } else {
       const values = {
         topic: formData.get("topic"),
@@ -84,18 +120,22 @@ function AddTopic({ changeState, course, CourseAdder }) {
 
       AddNewTopic_helper(values)
         .then((data) => {
+          setloading(false)
           console.log(data);
           if (data.data.success) {
             toast.success(`${data.data.success}`);
             changeState(false);
+
           }
           if (data.data.error) {
             toast.error(data.data.error);
             changeState(false);
+            
           }
         })
         .catch((error) => {
-          toast.error("failed to add blogs");
+          toast.error("server error");
+          setloading(false)
         });
     }
   }
@@ -117,6 +157,8 @@ function AddTopic({ changeState, course, CourseAdder }) {
           enctype="multipart/form-data"
           onSubmit={handlesubmit}
         >
+
+        { loading &&<ReusablePrealodaer></ReusablePrealodaer>}  
           <div className="hideBanner" onClick={() => changeState(false)}>
             <i class="fa-sharp fa-solid fa-circle-xmark"></i>
           </div>
@@ -165,7 +207,7 @@ function AddTopic({ changeState, course, CourseAdder }) {
             <div onClick={changeImage}>
               <input
                 type="file"
-                name="image"
+                
                 id="image"
                 ref={inputRef}
                 onChange={(e) => handleImageChange(e)}

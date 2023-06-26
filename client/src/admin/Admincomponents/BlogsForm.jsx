@@ -6,12 +6,14 @@ import { apploadedblog } from "../admincontroller/submitBlog";
 import { ToastContainer, toast } from "react-toastify";
 import { fetchTopics } from "../admincontroller/submitBlog";
 import download from "../../images/download.png";
+import ReusablePrealodaer from "../../components/ReusablePrealodaer";
 function BlogsForm() {
   const [topicName, settopic] = useState([]);
   // !use states for the inputs
   const [imageld, setImage] = useState("");
   const inputRef = useRef(null);
   const [topic, setInputTopic] = useState("");
+  const [loadingImage, setloading] = useState();
 
   const changeImage = () => {
     inputRef.current.click();
@@ -25,46 +27,71 @@ function BlogsForm() {
 
   const course = queryParams.get("course");
   const topicParams = queryParams.get("topic");
-const id=queryParams.get('id')
+  const id = queryParams.get("id");
   // todo display the image chisen by the author
   function handleImageChange(e) {
     const im = e.target.files[0];
     setImage(im);
   }
+
+  //! Function to convert the image to base 64
+  const ConvertToBAse64 = async (imageld) => {
+    return new Promise((resolve, reject) => {
+      const filereader = new FileReader();
+      filereader.readAsDataURL(imageld);
+      filereader.onload = () => {
+        resolve(filereader.result);
+      };
+      filereader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
   const form = document.querySelector("form");
-  function handlesubmit(e) {
+  async function handlesubmit(e) {
     e.preventDefault();
 
-    if (!imageld) return toast.error("image required");
-
     const formData = new FormData(form);
- formData.append('id',id)
+    if (!imageld) return toast.error("image required");
+    setloading(true);
+    const base_64_image = await ConvertToBAse64(imageld);
+
+    await formData.append("image", base_64_image);
 
     console.log([...formData]);
     const tittle = formData.get("title");
     const illustration = formData.get("illustration");
     if (!tittle || !illustration)
       return toast.error("all fields are required required");
-
-    apploadedblog(formData)
+    const values = {
+      title: tittle,
+      topic: formData.get("topic"),
+      image: formData.get("image"),
+      illustration: illustration,
+      id: id,
+    };
+    apploadedblog(values)
       .then((data) => {
         console.log(data);
         if (data.data.status && data.data.succsess) {
+          setloading(false);
           toast.success(`${data.data.succsess}`);
         }
       })
       .then(() => {
-        // setTimeout(goback, 800);
+        setTimeout(goback, 1000);
       })
       .catch((error) => {
         toast.error("failed to add blogs");
       });
   }
+
+  
   // ! fetch the topics related to the blog
   const courseobj = {
     course: course,
   };
- 
 
   return (
     <div className="admin-container">
@@ -86,6 +113,7 @@ const id=queryParams.get('id')
           onSubmit={handlesubmit}
           method="POST"
         >
+          {loadingImage && <ReusablePrealodaer></ReusablePrealodaer>}
           <div className="short-info">
             <div className="inputs">
               <label htmlFor="">tittle </label>
@@ -114,7 +142,6 @@ const id=queryParams.get('id')
               )}
               <input
                 type="file"
-                name="image"
                 id="image"
                 ref={inputRef}
                 onChange={(e) => handleImageChange(e)}
@@ -126,8 +153,6 @@ const id=queryParams.get('id')
             <label htmlFor="">Illustaration </label>
 
             <textarea type="text" name="illustration" />
-
-            
           </div>
           <button type="submit" className="submit-blog">
             submit

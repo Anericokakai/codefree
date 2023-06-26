@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
+import DeleteBlog from "../admingitcontroller/DeleteBlog";
 
 function Tablecomponent({ blogs }) {
-  const [longstring, setlongstring] = useState("");
+  const [showdelete, setshowdelete] = useState(false);
+  const [id, setid] = useState("");
+
   function ArrayBuffer(buffer) {
     var binary = "";
     var bytes = [].slice.call(new Uint8Array(buffer));
@@ -11,10 +14,18 @@ function Tablecomponent({ blogs }) {
     return window.btoa(binary);
   }
 
+  console.log(blogs);
   // !function to delete blog
 
   return (
     <div className="table-container">
+      <DeleteBlog
+        state={showdelete}
+        changeState={setshowdelete}
+        deleteBlog={true}
+        collection="blogs"
+        id={id}
+      ></DeleteBlog>
       <h1></h1>
       <table class="styled-table">
         <thead>
@@ -29,7 +40,7 @@ function Tablecomponent({ blogs }) {
           </tr>
         </thead>
         <tbody>
-          {blogs != "]" &&
+          {blogs &&
             blogs?.map((single) => {
               var base64flag = single?.Image?.contentType;
 
@@ -39,19 +50,12 @@ function Tablecomponent({ blogs }) {
                   : str;
               };
 
-              var imagesrtng = ArrayBuffer(single?.Image?.data.data);
-
               return (
                 <tr>
                   <td>{single?.tittle}</td>
                   <td>{concatFunction(single?.illustration, 100)}</td>
                   <td>
-                    <img
-                      src={`data:${base64flag};base64,${imagesrtng}`}
-                      alt=""
-                      width={60}
-                      height={60}
-                    />
+                    <img src={single.Image} alt="" width={60} height={60} />
                   </td>
 
                   <td> Impedit </td>
@@ -60,11 +64,15 @@ function Tablecomponent({ blogs }) {
                     <Link to={"/admin/blogsform"}>
                       <i class="fa-solid fa-pen"></i>
                     </Link>
-                    <Link
-                      to={`/admin/deleteblog?id=${single._id}&path=${single.imagepath}&collection=blogs`}
+                    <button
+                      className="Hide_border"
+                      onClick={() => {
+                        setshowdelete(true);
+                        setid(single._id);
+                      }}
                     >
                       <i class="fa-solid fa-trash"></i>
-                    </Link>
+                    </button>
                   </td>
                 </tr>
               );

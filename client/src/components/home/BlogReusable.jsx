@@ -142,9 +142,8 @@ function BlogReusable() {
               <h1 className="heading">{overall}</h1>
 
               { data && data.map((singledata) => {
-                var base64flag = singledata.Image.contentType;
-                var imagesrtng = ArrayBuffer(singledata.Image.data);
-                console.log("image strig is" + imagesrtng);
+
+
                 return (
                   <div className="main">
                     <h3 className="heading">{singledata.tittle}</h3>
@@ -156,7 +155,7 @@ function BlogReusable() {
 
                       <div className="imagesample">
                         <img
-                          src={`data:${base64flag};base64,${singledata.Image.data}`}
+                          src={singledata.Image}
                           alt=""
                         />
                       </div>

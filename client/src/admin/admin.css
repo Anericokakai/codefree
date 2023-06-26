@@ -385,6 +385,15 @@ overflow-y: hidden;
      .delete_banner h3{
        font-size: 16px;
      }
+     .DefaultNav h1{
+      font-size: 20px;
+     }
+     .defaultbtn button{
+      font-size: 13px;
+     }
+     .defaultHeader{
+      padding: 1em 10px;
+     }
      
      
    }

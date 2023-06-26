@@ -43,13 +43,12 @@ function SampleCourses() {
 </div>
 :
    <main className="Home_Course_container"> {coursesBackend.map((eachcourse) => {
-    const base64flag = eachcourse?.Image?.contentType;
-    const imagesrtng = ArrayBuffer(eachcourse?.Image?.data?.data);
+
 
     return (
       <div className="singleCourse">
     
-        <img src={`data:${base64flag};base64,${imagesrtng}`} alt="" />
+        <img src={eachcourse.Image} alt="" />
 <div className="couser_descriptions">
 
         <h3>{eachcourse?.course_name}</h3>

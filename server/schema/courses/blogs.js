@@ -4,10 +4,7 @@ const Shema=mongoose.Schema
 
 const blog_Schema=new Schema({
     tittle:String,
-    Image:{
-        data:Buffer,
-        contentType:String,
-    },
+    Image:String,
     illustration:String,
     topic_id:ObjectId,
     imagepath:String,

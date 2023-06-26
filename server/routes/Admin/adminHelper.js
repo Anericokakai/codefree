@@ -4,42 +4,67 @@ import { blogs_collection } from "../../schema/courses/blogs.js";
 
 import { courses_Collection } from "../../schema/courses/course.js";
 
+
+import cloudinary from 'cloudinary'
+import * as dotenv from 'dotenv'
+dotenv.config()
+cloudinary.v2.config(
+    {
+      cloud_name:process.env.CLOUD_NAME,
+      api_key:process.env.API_KEY,
+      api_secret:process.env.API_SECRET
+    }
+  )
+  
+  let urlPath;
+//   !function to upload the image
+ export  const uploadImage=async(image)=>{
+    const result=await cloudinary.v2.uploader.upload(image,(error,result)=>{
+console.log(result)
+        urlPath= result.secure_url
+    })
+
+  }
 // ! add blog function
 export const add_blog = async (req, res) => {
-  const { title, author, illustration, topic,id } = req.body;
-  // ! read file path
+  const { title, author, illustration, topic,id ,image} = req.body;
+ 
+  // upload the image first
+  uploadImage(image).then(async(data )=>{
+
+
+      // ! read file path
 console.log(topic)
-  const topics_collection_data = await topic_collection.findOne({
-    _id: id,
+const topics_collection_data = await topic_collection.findOne({
+  _id: id,
+});
+console.log(topics_collection_data);
+if (!topics_collection_data ){
+  return res.json({
+    status: "error",
+    error: "cant not find the parent refence id",
   });
-  console.log(topics_collection_data);
-  if (!topics_collection_data ){
-    return res.json({
-      status: "error",
-      error: "cant not find the parent refence id",
-    });
 
-  }else{
+}else{
 
-    const newBlog = await blogs_collection.create({
-      tittle: title,
-      illustration,
-  
-      Image: {
-        data: await fs.readFileSync(req.file.path),
-        contentType: req.file.mimetype,
-      },
-      imagepath: req.file.path,
-      topic_id: topics_collection_data._id,
-    });
-    if (newBlog) {
-      res.json({ status: "ok", succsess: "blog added succsefully" });
-    }
-  
-    if (!newBlog) {
-      res.json({ status: "error", error: "failed to upload blog" });
-    }
+  const newBlog = await blogs_collection.create({
+    tittle: title,
+    illustration,
+
+    Image:urlPath,
+   
+    topic_id: topics_collection_data._id,
+  });
+  if (newBlog) {
+    res.json({ status: "ok", succsess: "blog added succsefully" });
   }
+
+  if (!newBlog) {
+    res.json({ status: "error", error: "failed to upload blog" });
+  }
+}
+  })
+
   
 
 };
@@ -69,7 +94,8 @@ export const find_topics = async (req, res) => {
 
 // ! function to add course
 export const addcourse_helper = async (req, res) => {
-  const { course, todelete } = req.body;
+  const { course, todelete,image,topic, description} = req.body;
+
 
   if (todelete) {
     // !fetch the id of the course
@@ -89,11 +115,7 @@ export const addcourse_helper = async (req, res) => {
 
     
            // !unlink the file
-      fs.unlink(couse_id_finder.imagepath, async (err) => {
-        if (err) {
-          res.json({ error: "failed to delete image" });
-          console.log("error in deleting the image");
-        } else {
+      
           console.log("image deleted");
 
           const delete_document = await courses_Collection.findOneAndDelete({
@@ -102,34 +124,36 @@ export const addcourse_helper = async (req, res) => {
           if (!delete_document)
             return res.json({ error: "failed to delete blog" });
           res.json({ success: "Course Deleted" });
-        }
-      });
+        
+      
         
       
    
   } else{
 
+  uploadImage(image).then(async(data )=>{
+   
+    const added = await courses_Collection.create({
+      course_name: topic,
+      
+      intro:description,
   
+    Image: urlPath,
+     });
+  
+     if (!added)
+       return res.json({ error: "failed to add the course", status: "error" });
+  
+     res.json({ status: "ok", success: "course added succsefully" });
 
 
-const{topic,description}=req.body
+  })
 
 
-   const added = await courses_Collection.create({
-    course_name: topic,
-    imagepath:req.file.path,
-    intro:description,
 
-  Image: {
-    data: await fs.readFileSync(req.file.path),
-    contentType: req.file.mimetype,
-  },
-   });
 
-   if (!added)
-     return res.json({ error: "failed to add the course", status: "error" });
 
-   res.json({ status: "ok", success: "course added succsefully" });
+  
 }
 };
 
@@ -147,12 +171,7 @@ export const Delete_blog_helper = async (req, res) => {
   switch (collection) {
     case "blogs":
       // !unlink the file
-      fs.unlink(path, async (err) => {
-        if (err) {
-          res.json({ error: "failed to delete image" });
-          console.log("error in deleting the image");
-        } else {
-          console.log("image deleted");
+     
 
           const delete_document = await blogs_collection.findOneAndDelete({
             _id: id,
@@ -160,8 +179,8 @@ export const Delete_blog_helper = async (req, res) => {
           if (!delete_document)
             return res.json({ error: "failed to delete blog" });
           res.json({ success: "blog Deleted" });
-        }
-      });
+        
+      
       break;
 
     case "topic":
@@ -203,3 +222,5 @@ export const Add_new_topic_helper = async (req, res) => {
   if (!add) return res.json({ error: "failed to add blog" });
   res.json({ success: "topic added succesfully", status: 200 });
 };
+
+

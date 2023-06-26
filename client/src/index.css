@@ -450,6 +450,12 @@ flex-direction: column;
   width:100% ;
   margin: 0;
  }
+ .info h1{
+  font-size: 3em;
+ }
+ .info p{
+  font-size: 30px;
+ }
  .footer-container{
   display: grid;
   margin-top: 2em;
