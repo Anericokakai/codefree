@@ -1,4 +1,4 @@
-import fs from "fs";
+
 import { topic_collection } from "../../schema/courses/TopicSchema.js";
 import { blogs_collection } from "../../schema/courses/blogs.js";
 

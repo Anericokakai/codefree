@@ -6,27 +6,13 @@ import multer from "multer";
 import path from "path";
 
 
-// ! import function to upload image
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
-    console.log(file);
-    cb(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
-const upload = multer({ storage: storage });
 
 // !routes to handle all the blogs uploaded
 export const nodejs_router = express.Router();
 nodejs_router.post(
   "/api/nodejsroute",
-  upload.single("image"),
+  
   async (req, res) => {
     const heading = "nodejs bigginer";
     add_blog(req, res);
@@ -36,7 +22,7 @@ nodejs_router.post(
 export const javascript_router = express.Router();
 javascript_router.post(
   "/api/javascriptroute",
-  upload.single("image"),
+  
   async (req, res) => {
     add_blog(req, res);
   }
@@ -45,7 +31,7 @@ javascript_router.post(
 export const react_router = express.Router();
 react_router.post(
   "/api/reactroute",
-  upload.single("image"),
+
   async (req, res) => {
     add_blog(req, res);
   }
