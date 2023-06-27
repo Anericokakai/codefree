@@ -95,7 +95,7 @@ export const find_topics = async (req, res) => {
 // ! function to add course
 export const addcourse_helper = async (req, res) => {
   const { course, todelete,image,topic, description} = req.body;
-
+console.log(req.body)
 
   if (todelete) {
     // !fetch the id of the course
