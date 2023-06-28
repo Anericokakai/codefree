@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import download from "../../images/download.png";
-import { apploadedblog } from "../admincontroller/submitBlog";
+import { apploadedblog, UploadimageToCloudinary } from "../admincontroller/submitBlog";
 import { ToastContainer, toast } from "react-toastify";
 import { useRef } from "react";
 import {
@@ -80,29 +80,41 @@ await formData.append('image',base_64_image)
       const illustration = formData.get("description");
       if (!tittle || !illustration)
         return toast.error("all fields are required required");
-      const values = {
-        course: formData.get("course"),
-        description:formData.get('description'),
-        image:formData.get('image'),
-        topic:formData.get('topic')
-      };
+  
       
       console.log([...formData])
-      addCourse(values).then((data) => {
-        console.log(data);
-        setloading(false)
-        if (data.data.success) {
-          toast.success(data.data.success);
-          changeState(false);
-        }
-        if (data.data.error) {
-          toast.error(data.data.error);
-          changeState(false);
+
+      // ! upload image to cloudinary first
+      UploadimageToCloudinary(imageld).then(res=>{
+        console.log(res)
+        const values = {
+          course: formData.get("course"),
+          description:formData.get('description'),
+          image:res.data.secure_url,
+          topic:formData.get('topic')
+        };
+        // ! addd the course to database
+
+        addCourse(values).then((data) => {
+          console.log(data);
           setloading(false)
-        }
-      }).catch(err=>{toast.error('server problem')
-    setloading(false)
-    })
+          if (data.data.success) {
+            toast.success(data.data.success);
+            changeState(false);
+          }
+          if (data.data.error) {
+            toast.error(data.data.error);
+            changeState(false);
+            setloading(false)
+          }
+        }).catch(err=>{toast.error('server problem')
+      setloading(false)
+      })
+      }).catch(error=>{
+        toast.error('failed to upload image')
+        console.log(error)
+      })
+  
     } else {
       const values = {
         topic: formData.get("topic"),

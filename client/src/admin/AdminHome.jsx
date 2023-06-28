@@ -11,8 +11,8 @@ import { userdetails } from "../features/UsersSlice";
 //   <AdminNav />
 //   <Tablecomponent
 //     page="github"
-//     api="https://codefreeblogs.onrender.com/api/gitblogs"
-//     add_blog_api="https://codefreeblogs.onrender.com/api/gitroute"
+//     api="http://localhost:8000/api/gitblogs"
+//     add_blog_api="http://localhost:8000/api/gitroute"
 //   />
 // </div>
 
@@ -104,7 +104,7 @@ function AdminHome() {
               <ReusablePrealodaer></ReusablePrealodaer>
             </div>
           ) : (
-            <Tablecomponent blogs={topic}></Tablecomponent>
+            <Tablecomponent blogs={topic} topic={course}></Tablecomponent>
           )}
         </div>
       </div>

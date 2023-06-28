@@ -1,10 +1,10 @@
 import React from "react";
 import { useState, useRef } from "react";
-
-import { useEffect } from "react";
-import { apploadedblog } from "../admincontroller/submitBlog";
+import {
+  apploadedblog,
+  UploadimageToCloudinary,
+} from "../admincontroller/submitBlog";
 import { ToastContainer, toast } from "react-toastify";
-import { fetchTopics } from "../admincontroller/submitBlog";
 import download from "../../images/download.png";
 import ReusablePrealodaer from "../../components/ReusablePrealodaer";
 function BlogsForm() {
@@ -28,66 +28,99 @@ function BlogsForm() {
   const course = queryParams.get("course");
   const topicParams = queryParams.get("topic");
   const id = queryParams.get("id");
+
+  const illustraton = queryParams.get("illustraton");
+  const tittle = queryParams.get("tittle");
+  const img = queryParams.get("img");
+  const up = queryParams.get("update");
+
+  // !udate blogs
+  const [inputs, setInputs] = useState({
+    title: tittle,
+    illustraton: illustraton,
+  });
+
   // todo display the image chisen by the author
   function handleImageChange(e) {
     const im = e.target.files[0];
     setImage(im);
   }
+  console.log(up);
 
-  //! Function to convert the image to base 64
-  const ConvertToBAse64 = async (imageld) => {
-    return new Promise((resolve, reject) => {
-      const filereader = new FileReader();
-      filereader.readAsDataURL(imageld);
-      filereader.onload = () => {
-        resolve(filereader.result);
-      };
-      filereader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
-
-  const form = document.querySelector("form");
   async function handlesubmit(e) {
     e.preventDefault();
+    const form = document.querySelector("form");
 
     const formData = new FormData(form);
     if (!imageld) return toast.error("image required");
-    setloading(true);
-    const base_64_image = await ConvertToBAse64(imageld);
 
-    await formData.append("image", base_64_image);
-
-    console.log([...formData]);
     const tittle = formData.get("title");
     const illustration = formData.get("illustration");
+
     if (!tittle || !illustration)
       return toast.error("all fields are required required");
-    const values = {
-      title: tittle,
-      topic: formData.get("topic"),
-      image: formData.get("image"),
-      illustration: illustration,
-      id: id,
-    };
-    apploadedblog(values)
-      .then((data) => {
-        console.log(data);
-        if (data.data.status && data.data.succsess) {
-          setloading(false);
-          toast.success(`${data.data.succsess}`);
-        }
+    setloading(true);
+    // Upload image to cloudinary
+    if (up) {
+      
+      UploadimageToCloudinary(imageld).then((data)=>{
+        const value = {
+          title: tittle,
+          topic: formData.get("topic"),
+          image: data.data.secure_url,
+          illustration: illustration,
+          id: id,
+          updateblog:up,
+        };
+        console.log(value)
+
+        apploadedblog(value)
+        .then((data) => {
+          console.log(data);
+          if (data.data.status && data.data.success) {
+            setloading(false);
+            toast.success(`${data.data.success}`);
+          }
+        })
+        .then(() => {
+          setTimeout(goback, 1000);
+        })
+        .catch((error) => {
+          toast.error("failed to add blogs");
+        });
+
+      }).catch(error=>{
+        toast.error('failed to add image')
+        setloading(false)
       })
-      .then(() => {
-        setTimeout(goback, 1000);
-      })
-      .catch((error) => {
-        toast.error("failed to add blogs");
+    } else {
+      UploadimageToCloudinary(imageld).then((result) => {
+        const values = {
+          title: tittle,
+          topic: formData.get("topic"),
+          image: result.data.secure_url,
+          illustration: illustration,
+          id: id,
+        };
+        apploadedblog(values)
+          .then((data) => {
+            console.log(data);
+            if (data.data.status && data.data.success) {
+              setloading(false);
+              toast.success(`${data.data.success}`);
+            }
+          })
+          .then(() => {
+            
+             setTimeout(goback, 1000);
+          })
+          .catch((error) => {
+            toast.error("failed to add blogs");
+          });
       });
+    }
   }
 
-  
   // ! fetch the topics related to the blog
   const courseobj = {
     course: course,
@@ -140,6 +173,7 @@ function BlogsForm() {
               ) : (
                 <img className="uploadingImage" src={download} alt="" />
               )}
+
               <input
                 type="file"
                 id="image"
@@ -154,6 +188,7 @@ function BlogsForm() {
 
             <textarea type="text" name="illustration" />
           </div>
+          {}
           <button type="submit" className="submit-blog">
             submit
           </button>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import DeleteBlog from "../admingitcontroller/DeleteBlog";
 
-function Tablecomponent({ blogs }) {
+function Tablecomponent({ blogs,topic }) {
   const [showdelete, setshowdelete] = useState(false);
   const [id, setid] = useState("");
 
@@ -34,13 +34,13 @@ function Tablecomponent({ blogs }) {
             <th>Illustaration</th>
 
             <th>image</th>
-            <th>author</th>
-            <th>created at</th>
+
             <th>actions</th>
           </tr>
         </thead>
         <tbody>
           {blogs &&
+            blogs !== "]" &&
             blogs?.map((single) => {
               var base64flag = single?.Image?.contentType;
 
@@ -58,10 +58,10 @@ function Tablecomponent({ blogs }) {
                     <img src={single.Image} alt="" width={60} height={60} />
                   </td>
 
-                  <td> Impedit </td>
-                  <td>image</td>
                   <td>
-                    <Link to={"/admin/blogsform"}>
+                    <Link
+                      to={`/admin/blogsform?id=${single._id}&img=${single.Image}&topic=${topic}&update=${true}`}
+                    >
                       <i class="fa-solid fa-pen"></i>
                     </Link>
                     <button
@@ -86,7 +86,7 @@ function Tablecomponent({ blogs }) {
           <button className="add_blog">add a new blog</button>
         </Link>
         <Link
-          to={`/admin/blogsform/topic?endpoint_api=https://codefreeblogs.onrender.com/api/add_topic&topic=${page}`}
+          to={`/admin/blogsform/topic?endpoint_api=http://localhost:8000/api/add_topic&topic=${page}`}
         >
           <button className="add_blog gap">add a new topic</button>
         </Link>

@@ -6,21 +6,18 @@ export const fetch_lessons = async (api) => {
 };
 export const fetchTopics_array = async (course) => {
   const result = await axios.post(
-    "https://codefreeblogs.onrender.com/api/git_tutorials",
+    "http://localhost:8000/api/git_tutorials",
     course
   );
   return result;
 };
 export const fetchBlogs_array = async (topic) => {
-  const result = await axios.post(
-    "https://codefreeblogs.onrender.com/api/blogs",
-    topic
-  );
+  const result = await axios.post("http://localhost:8000/api/blogs", topic);
   return result;
 };
 export const fetchDefaultBlogs = async (topic) => {
   const result = await axios.post(
-    "https://codefreeblogs.onrender.com/api/defaultblog",
+    "http://localhost:8000/api/defaultblog",
     topic
   );
   return result;
@@ -29,21 +26,19 @@ export const fetchDefaultBlogs = async (topic) => {
 // ! add course function
 export const addCourse = async (values) => {
   const result = await axios.post(
-    "https://codefreeblogs.onrender.com/api/addcourse",
+    "http://localhost:8000/api/addcourse",
     values
   );
   return result;
 };
 // !fetch courses function
 export const fetchCourses_function = async () => {
-  const result = await axios.get(
-    "https://codefreeblogs.onrender.com/api/fetchcourse"
-  );
+  const result = await axios.get("http://localhost:8000/api/fetchcourse");
   return result;
 };
 export const fetchAdminBlogd_function = async (topic) => {
   const result = await axios.post(
-    "https://codefreeblogs.onrender.com/api/adminblogs",
+    "http://localhost:8000/api/adminblogs",
     topic
   );
   return result;
@@ -51,9 +46,6 @@ export const fetchAdminBlogd_function = async (topic) => {
 
 // ! add new Topic function
 export const AddNewTopic_helper = async (values) => {
-  const res = await axios.post(
-    "https://codefreeblogs.onrender.com/api/addtopic",
-    values
-  );
+  const res = await axios.post("http://localhost:8000/api/addtopic", values);
   return res;
 };
