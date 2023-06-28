@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.544b4b05.css",
-    "main.js": "/static/js/main.03d2b658.js",
+    "main.js": "/static/js/main.8e08e294.js",
     "static/media/ai-nuclear-energy-background-future-innovation-disruptive-technology.jpg": "/static/media/ai-nuclear-energy-background-future-innovation-disruptive-technology.715cc5c46da03c2620c8.jpg",
     "static/media/preload.gif": "/static/media/preload.49d454128c5891dab40a.gif",
     "static/media/status500.svg": "/static/media/status500.61d06ff44845861a7a5ce4cfe6c808ac.svg",
@@ -15,10 +15,10 @@
     "static/media/blurry-gradient-haikei.svg": "/static/media/blurry-gradient-haikei.b6fd3f14f7c1e1476331.svg",
     "index.html": "/index.html",
     "main.544b4b05.css.map": "/static/css/main.544b4b05.css.map",
-    "main.03d2b658.js.map": "/static/js/main.03d2b658.js.map"
+    "main.8e08e294.js.map": "/static/js/main.8e08e294.js.map"
   },
   "entrypoints": [
     "static/css/main.544b4b05.css",
-    "static/js/main.03d2b658.js"
+    "static/js/main.8e08e294.js"
   ]
 }

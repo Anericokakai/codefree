@@ -120,6 +120,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+//! Function to convert the image to base 64
+
 //! handle spinner
 
 //! if deleting couse
