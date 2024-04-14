@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import DeleteBlog from "../admingitcontroller/DeleteBlog";
 
-function Tablecomponent({ blogs,topic }) {
+function Tablecomponent({ blogs, topic }) {
   const [showdelete, setshowdelete] = useState(false);
   const [id, setid] = useState("");
 
@@ -27,7 +27,7 @@ function Tablecomponent({ blogs,topic }) {
         id={id}
       ></DeleteBlog>
       <h1></h1>
-      <table class="styled-table">
+      <table className="styled-table">
         <thead>
           <tr>
             <th>Title</th>
@@ -60,9 +60,11 @@ function Tablecomponent({ blogs,topic }) {
 
                   <td>
                     <Link
-                      to={`/admin/blogsform?id=${single._id}&img=${single.Image}&topic=${topic}&update=${true}`}
+                      to={`/admin/blogsform?id=${single._id}&img=${
+                        single.Image
+                      }&topic=${topic}&update=${true}`}
                     >
-                      <i class="fa-solid fa-pen"></i>
+                      <i className="fa-solid fa-pen"></i>
                     </Link>
                     <button
                       className="Hide_border"
@@ -71,7 +73,7 @@ function Tablecomponent({ blogs,topic }) {
                         setid(single._id);
                       }}
                     >
-                      <i class="fa-solid fa-trash"></i>
+                      <i className="fa-solid fa-trash"></i>
                     </button>
                   </td>
                 </tr>

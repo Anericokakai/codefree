@@ -1,7 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import download from "../../images/download.png";
-import { apploadedblog, UploadimageToCloudinary } from "../admincontroller/submitBlog";
+import {
+  apploadedblog,
+  UploadimageToCloudinary,
+} from "../admincontroller/submitBlog";
 import { ToastContainer, toast } from "react-toastify";
 import { useRef } from "react";
 import {
@@ -10,9 +13,8 @@ import {
 } from "../../Pages/lessons/LessonsController/fetchLessons";
 import ReusablePrealodaer from "../../components/ReusablePrealodaer";
 function AddTopic({ changeState, course, CourseAdder }) {
-
   // !prealoder
-  const[loading,setloading]=useState()
+  const [loading, setloading] = useState();
   // !state to store topics array
   const [imageld, setImage] = useState("");
   const inputRef = useRef(null);
@@ -42,79 +44,76 @@ function AddTopic({ changeState, course, CourseAdder }) {
     const im = e.target.files[0];
     setImage(im);
   }
-//! Function to convert the image to base 64
-const ConvertToBAse64=async(imageld)=>{
-return new Promise((resolve,reject)=>{
-  const filereader=new FileReader()
-  filereader.readAsDataURL(imageld)
-  filereader.onload=()=>{
-    resolve(filereader.result)
-  }
-  filereader.onerror=(error)=>{
-    reject(error)
-
-  }
-})
-  
-}
+  //! Function to convert the image to base 64
+  const ConvertToBAse64 = async (imageld) => {
+    return new Promise((resolve, reject) => {
+      const filereader = new FileReader();
+      filereader.readAsDataURL(imageld);
+      filereader.onload = () => {
+        resolve(filereader.result);
+      };
+      filereader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
 
   const form = document.querySelector("form");
-  async  function handlesubmit(e) {
+  async function handlesubmit(e) {
     e.preventDefault();
-setloading(true)
+    setloading(true);
     const formData = new FormData(form);
     formData.append("course", course);
-
-
-
 
     // !when its a course function
     if (CourseAdder) {
       if (!imageld) return toast.error("image required");
       // !call the converter to base 64 function
-       const base_64_image= await ConvertToBAse64(imageld)
-       
+      const base_64_image = await ConvertToBAse64(imageld);
 
-await formData.append('image',base_64_image)
+      await formData.append("image", base_64_image);
       const tittle = formData.get("topic");
       const illustration = formData.get("description");
       if (!tittle || !illustration)
         return toast.error("all fields are required required");
-  
-      
-      console.log([...formData])
+
+      console.log([...formData]);
 
       // ! upload image to cloudinary first
-      UploadimageToCloudinary(imageld).then(res=>{
-        console.log(res)
-        const values = {
-          course: formData.get("course"),
-          description:formData.get('description'),
-          image:res.data.secure_url,
-          topic:formData.get('topic')
-        };
-        // ! addd the course to database
+      UploadimageToCloudinary(imageld)
+        .then((res) => {
+          console.log(res);
+          const values = {
+            course: formData.get("course"),
+            description: formData.get("description"),
+            image: res.data.secure_url,
+            topic: formData.get("topic"),
+          };
+          // ! addd the course to database
 
-        addCourse(values).then((data) => {
-          console.log(data);
-          setloading(false)
-          if (data.data.success) {
-            toast.success(data.data.success);
-            changeState(false);
-          }
-          if (data.data.error) {
-            toast.error(data.data.error);
-            changeState(false);
-            setloading(false)
-          }
-        }).catch(err=>{toast.error('server problem')
-      setloading(false)
-      })
-      }).catch(error=>{
-        toast.error('failed to upload image')
-        console.log(error)
-      })
-  
+          addCourse(values)
+            .then((data) => {
+              console.log(data);
+              setloading(false);
+              if (data.data.success) {
+                toast.success(data.data.success);
+                changeState(false);
+              }
+              if (data.data.error) {
+                toast.error(data.data.error);
+                changeState(false);
+                setloading(false);
+              }
+            })
+            .catch((err) => {
+              toast.error("server problem");
+              setloading(false);
+            });
+        })
+        .catch((error) => {
+          toast.error("failed to upload image");
+          console.log(error);
+        });
     } else {
       const values = {
         topic: formData.get("topic"),
@@ -132,22 +131,20 @@ await formData.append('image',base_64_image)
 
       AddNewTopic_helper(values)
         .then((data) => {
-          setloading(false)
+          setloading(false);
           console.log(data);
           if (data.data.success) {
             toast.success(`${data.data.success}`);
             changeState(false);
-
           }
           if (data.data.error) {
             toast.error(data.data.error);
             changeState(false);
-            
           }
         })
         .catch((error) => {
           toast.error("server error");
-          setloading(false)
+          setloading(false);
         });
     }
   }
@@ -169,10 +166,9 @@ await formData.append('image',base_64_image)
           enctype="multipart/form-data"
           onSubmit={handlesubmit}
         >
-
-        { loading &&<ReusablePrealodaer></ReusablePrealodaer>}  
+          {loading && <ReusablePrealodaer></ReusablePrealodaer>}
           <div className="hideBanner" onClick={() => changeState(false)}>
-            <i class="fa-sharp fa-solid fa-circle-xmark"></i>
+            <i className="fa-sharp fa-solid fa-circle-xmark"></i>
           </div>
           {CourseAdder ? <h1>Add New Course</h1> : <h1>Add New Topic</h1>}
 
@@ -219,7 +215,6 @@ await formData.append('image',base_64_image)
             <div onClick={changeImage}>
               <input
                 type="file"
-                
                 id="image"
                 ref={inputRef}
                 onChange={(e) => handleImageChange(e)}

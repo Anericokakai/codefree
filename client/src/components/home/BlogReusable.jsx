@@ -20,12 +20,11 @@ function BlogReusable() {
   const [overall, setoverall] = useState("");
 
   // ! acces the query stream
-  const queryStirng=new URLSearchParams(window.location.search)
+  const queryStirng = new URLSearchParams(window.location.search);
 
-  const course=queryStirng.get('course')
-  const heading =queryStirng.get('heading')
- 
-  
+  const course = queryStirng.get("course");
+  const heading = queryStirng.get("heading");
+
   // ! store the authors information
   const [author, setauthor] = useState({
     name: "",
@@ -35,8 +34,6 @@ function BlogReusable() {
       img: "",
     },
   ]);
-
-
 
   // !fetch the topics related to each couse
   // todo object to store the course
@@ -48,35 +45,30 @@ function BlogReusable() {
 
   // ! fetch all the topics related to that course
   useEffect(() => {
-    if(!course||!heading) {
-      window.location.href='/login/lessonsHome'
-    } else{
+    if (!course || !heading) {
+      window.location.href = "/login/lessonsHome";
+    } else {
+      fetchTopics_array(courseobject)
+        .then((data) => {
+          settopic(data.data);
+          console.log(data.data);
 
-    
+          deafultBlog = data.data[0];
+        })
+        .then((data) => {
+          console.log(deafultBlog);
+          fetchBlogs_array(deafultBlog).then((data) => {
+            const lessons = data.data;
+            console.log(lessons);
 
-    fetchTopics_array(courseobject)
-      .then((data) => {
-        settopic(data.data);
-        console.log(data.data);
-    
-        deafultBlog = data.data[0];
-      })
-      .then((data) => {
-        console.log(deafultBlog);
-        fetchBlogs_array(deafultBlog).then((data) => {
-          const lessons = data.data;
-          console.log(lessons);
-          
-          setdata(lessons);
-          setspinner(false);
+            setdata(lessons);
+            setspinner(false);
+          });
+        })
+        .catch((error) => {
+          console.log(error);
         });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
     }
-
-
   }, []);
 
   // ! fetch topics on click
@@ -90,7 +82,7 @@ function BlogReusable() {
 
     fetchBlogs_array(topicObj).then((data) => {
       setdata(data.data);
-      console.log(data)
+      console.log(data);
     });
   };
 
@@ -104,30 +96,35 @@ function BlogReusable() {
 
   return (
     <div>
-      <ReusableHeading heading={heading} topics={topic} fetchOnClick={fetchSingleTopic}></ReusableHeading>
+      <ReusableHeading
+        heading={heading}
+        topics={topic}
+        fetchOnClick={fetchSingleTopic}
+      ></ReusableHeading>
       <div className="mainlesson_container">
         <div className="lesson_container">
           <div className="lesssonNav">
             <h1>Available Topics</h1>
             <ul className={`nav_uls `}>
-              {topic &&  topic.map((single) => {
-                return (
-                  <li className={`nav_lis `}>
-                    <button
-                      onClick={(i) => {
-                        console.log(single.author);
-                        setauthor({
-                          name: single.author,
-                        });
+              {topic &&
+                topic.map((single) => {
+                  return (
+                    <li className={`nav_lis `}>
+                      <button
+                        onClick={(i) => {
+                          console.log(single.author);
+                          setauthor({
+                            name: single.author,
+                          });
 
-                        fetchSingleTopic(single.topic);
-                      }}
-                    >
-                      {single.topic}
-                    </button>
-                  </li>
-                );
-              })}
+                          fetchSingleTopic(single.topic);
+                        }}
+                      >
+                        {single.topic}
+                      </button>
+                    </li>
+                  );
+                })}
             </ul>
           </div>
           {spinner ? (
@@ -141,28 +138,24 @@ function BlogReusable() {
             <div>
               <h1 className="heading">{overall}</h1>
 
-              { data && data.map((singledata) => {
+              {data &&
+                data.map((singledata) => {
+                  return (
+                    <div className="main">
+                      <h3 className="heading">{singledata.tittle}</h3>
 
+                      <div className="singleblog_conatiner">
+                        <div className="illustration">
+                          <p>{singledata.illustration}</p>
+                        </div>
 
-                return (
-                  <div className="main">
-                    <h3 className="heading">{singledata.tittle}</h3>
-
-                    <div className="singleblog_conatiner">
-                      <div className="illustration">
-                        <p>{singledata.illustration}</p>
-                      </div>
-
-                      <div className="imagesample">
-                        <img
-                          src={singledata.Image}
-                          alt=""
-                        />
+                        <div className="imagesample">
+                          <img src={singledata.Image} alt="" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           )}
         </div>
@@ -181,22 +174,22 @@ function BlogReusable() {
               </div>
               <div className="icon">
                 <Link>
-                  <i class="fa-brands fa-instagram" id="icons"></i>
+                  <i className="fa-brands fa-instagram" id="icons"></i>
                 </Link>
               </div>
               <div className="icon">
                 <Link>
-                  <i class="fa-brands fa-twitter" id="icons"></i>
+                  <i className="fa-brands fa-twitter" id="icons"></i>
                 </Link>
               </div>
               <div className="icon">
                 <Link>
-                  <i class="fa-brands fa-linkedin" id="icons"></i>
+                  <i className="fa-brands fa-linkedin" id="icons"></i>
                 </Link>
               </div>
               <div className="icon">
                 <Link>
-                  <i class="fa-brands fa-whatsapp" id="icons"></i>
+                  <i className="fa-brands fa-whatsapp" id="icons"></i>
                 </Link>
               </div>
             </div>

@@ -33,13 +33,13 @@ function DeafultAdmin() {
   const [courses, setcourse] = useState([]);
   const [topics, settopics] = useState([]);
   const [date, setdate] = useState("");
-  
+
   const [displayTopicName, setDisplayTopicName] = useState("");
   const [spinner_course, setspinner_course] = useState(true);
   const [topic_spinner, set_topic_spinner] = useState();
   const [displayICons, setDisplayIcons] = useState(false);
   // !show delete banner state
-  const [titleCourse,settittlecourse]=useState('')
+  const [titleCourse, settittlecourse] = useState("");
   const [showdelete, setshowdelete] = useState(false);
   const [showAddTopic, setShowAddTopic] = useState(false);
   const [addCourse, setAddCourse] = useState(false);
@@ -104,13 +104,15 @@ function DeafultAdmin() {
         values={values}
         course={deleteCourse}
       ></DeleteBlog>
-      {deleteCourse && <DeleteBlog
-        state={showdelete}
-        changeState={setshowdelete}
-        values={values}
-        course={deleteCourse}
-        courseTitle={titleCourse}
-      ></DeleteBlog>}
+      {deleteCourse && (
+        <DeleteBlog
+          state={showdelete}
+          changeState={setshowdelete}
+          values={values}
+          course={deleteCourse}
+          courseTitle={titleCourse}
+        ></DeleteBlog>
+      )}
       <div className="topicAddContianer">
         {showAddTopic && (
           <AddTopic
@@ -146,28 +148,22 @@ function DeafultAdmin() {
                   className="default_course"
                 >
                   <div className="CourseActions">
-                    <div class="dropdown">
-                     
-                      
-                    
-                      
-                        <p>
-                          {" "}
-                          <i
-                            onClick={() => {
-                              handledelete(null);
-                              setDeleteCourse(true)
-                              settittlecourse(each.course_name)
-
-                            }}
-                            class="fa-solid fa-trash"
-                          ></i>
-                        </p>
-                        <p>
-                          {" "}
-                          <i class="fa-solid fa-pen"></i>
-                        </p>
-                      
+                    <div className="dropdown">
+                      <p>
+                        {" "}
+                        <i
+                          onClick={() => {
+                            handledelete(null);
+                            setDeleteCourse(true);
+                            settittlecourse(each.course_name);
+                          }}
+                          className="fa-solid fa-trash"
+                        ></i>
+                      </p>
+                      <p>
+                        {" "}
+                        <i className="fa-solid fa-pen"></i>
+                      </p>
                     </div>
                   </div>
                   <h1>{each.course_name}</h1>
@@ -209,23 +205,22 @@ function DeafultAdmin() {
                         </div>
                         <div className="detailsActions">
                           <Link to={``}>
-                            <i class="fa-solid fa-pen"></i>
+                            <i className="fa-solid fa-pen"></i>
                           </Link>
                           <button
                             className="Hide_border"
-                            onClick={() =>{ 
-                              setDeleteCourse(false)
-                               handledelete(single)
-                               handleCourseActions()
-                            
+                            onClick={() => {
+                              setDeleteCourse(false);
+                              handledelete(single);
+                              handleCourseActions();
                             }}
                           >
-                            <i class="fa-solid fa-trash"></i>
+                            <i className="fa-solid fa-trash"></i>
                           </button>
                           <Link
                             to={`/admin/blog?topic=${single.topic}&id=${single._id}&course=${displayTopicName}`}
                           >
-                            <i class="fa-regular fa-eye"></i>
+                            <i className="fa-regular fa-eye"></i>
                           </Link>
                         </div>
                       </div>

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { deleteBlog, deleteBlog_function } from "../admincontroller/submitBlog";
+import { deleteBlog_function } from "../admincontroller/submitBlog";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { checkIfAdminIsLoggedIn } from "../../controllers/protectRoutes";
