@@ -1,4 +1,4 @@
-import Home from "../Pages/Home";
+
 import Login from "../Pages/Login";
 import Signup from "../Pages/Signup";
 import JavascriptSyntax from "../Pages/lessons/javascript/javascriptBasics/JavascriptSyntax";
@@ -13,6 +13,7 @@ import AddAdmin from "../admin/Admincomponents/AddAdmin";
 import AddTopic from "../admin/Admincomponents/AddTopic";
 import AddCourse from "../admin/Admincomponents/AddCourse";
 import DeafultAdmin from "../admin/DeafultAdmin";
+import { Home } from "../features/Home";
 
 const generalroutes = [
   {
@@ -63,6 +64,5 @@ const generalroutes = [
     element: <AddCourse></AddCourse>,
   },
   { path: "/admin/default", element: <DeafultAdmin></DeafultAdmin> },
-
 ];
 export default generalroutes;
