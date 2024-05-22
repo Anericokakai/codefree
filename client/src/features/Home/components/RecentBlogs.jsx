@@ -70,10 +70,10 @@ function RecentBlogs() {
           <div className="absolute bg-gradient-to-r from-purple-600  animate-tilt blur-sm to-pink-600 inset-0 rounded-xl opacity-70 duration-1000 group-hover:duration-200 group-hover:opacity-100">
             
           </div>
-          <div className="relative bg-primary py-2 px-7 rounded-xl w-full h-full flex items-center justify-center divide-x-2 divide-dimWhite">
+          <Link to={'/blogs/nodejs-blogs'} className="relative bg-primary py-2 px-7 rounded-xl w-full h-full flex items-center justify-center divide-x-2 divide-dimWhite">
             <span className=" text-blue-600 font-semibold text-[1.1rem] px-2">Read More</span>
             <SlArrowRight className="text-[#7f4ca5] size-6 mx-2" />
-          </div>
+          </Link>
         </button>
       </div>
       <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient" />

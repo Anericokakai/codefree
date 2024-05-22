@@ -1,4 +1,3 @@
-
 import Login from "../Pages/Login";
 import Signup from "../Pages/Signup";
 import JavascriptSyntax from "../Pages/lessons/javascript/javascriptBasics/JavascriptSyntax";
@@ -14,6 +13,9 @@ import AddTopic from "../admin/Admincomponents/AddTopic";
 import AddCourse from "../admin/Admincomponents/AddCourse";
 import DeafultAdmin from "../admin/DeafultAdmin";
 import { Home } from "../features/Home";
+import Blogs from "../features/Blogs/pages/Blogs";
+import BlogCard from "../features/Blogs/Components/BlogCard";
+import { ReadBlog } from "../features/Blogs";
 
 const generalroutes = [
   {
@@ -29,6 +31,22 @@ const generalroutes = [
     path: "/login/lessonsHome",
     element: <LesonsHome />,
   },
+  {
+    path: "/blogs",
+    element: <Blogs />,
+    children: [
+      {
+        path: "/blogs/:blog_id",
+        element: <BlogCard />,
+      },
+    ],
+
+  },
+  {
+    path:"/blogs/:blog_id/:id",
+    element:<ReadBlog/>
+  },
+
   {
     path: "/login/lessonsHome/javascript",
     element: <JavascriptSyntax />,

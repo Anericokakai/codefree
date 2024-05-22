@@ -74,7 +74,7 @@ function Home() {
   //   ></Reusablehome>
   // ))}
   return (
-    <div className="bg-primary overflow-hidden w-full  min-h-screen">
+    <div className="bg-primary overflow-hidden w-full  min-h-screen ">
       <div className=" grid place-items-center">
       <div className={`${styles.boxWidth} flex items-center'`}>
         <Nav />

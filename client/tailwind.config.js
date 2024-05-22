@@ -31,9 +31,12 @@ export default {
         dimBlue: "rgba(9, 151, 124, 0.1)",
         darkBlue: "rgba(9, 151, 124, 0.5)",
         redStates:'#DD0000'
+        ,
+        lightGray:"#1f2428",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
+        publicSans: ["Public Sans", "sans-serif"]
       },
     },
     screens: {
@@ -46,6 +49,8 @@ export default {
       xl: "1700px",
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography')
+  ],
 }
 

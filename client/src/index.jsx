@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "prismjs/themes/prism.css";
+import "./utils/Syntax.css";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
@@ -8,14 +10,17 @@ import { store, persistor } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { LoggedIn } from "./controllers/protectRoutes";
 const root = ReactDOM.createRoot(document.getElementById("root"));
-
+import { useQueryClient, QueryClientProvider, QueryClient } from "@tanstack/react-query";
+const queryClient=new QueryClient()
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <LoggedIn>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
+            <QueryClientProvider client={queryClient}>
             <App />
+            </QueryClientProvider>
           </PersistGate>
         </Provider>
       </LoggedIn>

@@ -8,17 +8,21 @@ function TechStacks() {
     {
       title: "React",
       src: FaReact,
+      color: "text-blue-500",
       description:
         " React is one of the most common and easy to setup frame work to build a web application. We take a deep dive into react and its ecosystem to help you build your next project.",
     },
     {
       title: "Node.js",
       src: FaNodeJs,
+      color: "text-green-500",
       description:
+
         "Node.js is a powerful open source JavaScript runtime environment for backend development. We will explore all that is there to master in node js",
     },
     {
         title:"Spring Boot",
+        color:"text-violet-500",
         src:SiSpring,
         description:"Spring Boot is a framework that helps you to build web application. We will explore all that is there to master in Spring Boot",
     }
@@ -57,7 +61,7 @@ function TechStacks() {
                   <div className="flex flex-col items-center">
               {
                 React.createElement(stack.src,{
-                  className:"text-white text-7xl"
+                  className:`${stack.color} text-white text-7xl rounded `
                 })
               }
                     <h1 className="text-white font-bold text-xl px-2">{stack.title}</h1>
