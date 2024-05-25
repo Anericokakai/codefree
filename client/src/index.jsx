@@ -8,22 +8,22 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store, persistor } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
-import { LoggedIn } from "./controllers/protectRoutes";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 import { useQueryClient, QueryClientProvider, QueryClient } from "@tanstack/react-query";
 const queryClient=new QueryClient()
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <LoggedIn>
+     
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <QueryClientProvider client={queryClient}>
-            <App />
+            <App  />
             </QueryClientProvider>
           </PersistGate>
         </Provider>
-      </LoggedIn>
+      
     </BrowserRouter>
   </React.StrictMode>
 );

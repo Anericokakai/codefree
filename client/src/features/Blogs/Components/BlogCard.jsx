@@ -14,7 +14,6 @@ function BlogCard({}) {
   //  search params to extract the id
 
   let { blog_id } = useParams();
-  
 
   // fetch blogs
   const q = qs.stringify(
@@ -31,15 +30,15 @@ function BlogCard({}) {
     }
   );
 
-  const { isLoading, isError, data ,error} = useQuery({
+  const { isLoading, isError, data, error } = useQuery({
     queryKey: ["blogs"],
     queryFn: () => fetchBlogs(blog_id, q),
   });
-  console.log(error);
+  
 
   useEffect(() => {
-    console.log("the id has changed")
-    fetchBlogs(blog_id,q);
+  
+    fetchBlogs(blog_id, q);
   }, [blog_id]);
   const navigate = useNavigate();
 
@@ -65,58 +64,67 @@ function BlogCard({}) {
       id: 5,
     },
   ];
+
   // handle filter open
-  const handleFilterOpen=()=>{
-    setFilterOpen(!filterOpen)
-  }
+  const handleFilterOpen = () => {
+    setFilterOpen(!filterOpen);
+  };
+  
   return (
     <div className="relative ">
-       <section className="relative z-10 pb-10">
-          <h1 className="text-white hidden sm:grid text-3xl font-semibold text-center">
-            Filters
-          </h1>
-          <div
-            className={` ${styles.paragraph} relative  hidden  sm:flex justify-center gap  gap-x-10 `}
-          >
-            {categories?.map((cat, i) => (
-              <CustomLink key={i} to={`/blogs/${cat.id}`}>
-                {" "}
-                {cat.cat}
-              </CustomLink>
-            ))}
-          </div>
-          {/* small screen filter */}
-          <button  onClick={handleFilterOpen} className="text-dimWhite border text-xl flex place-items-center gap-3 sm:hidden px-2 py-1 rounded-2xl border-dimWhite cursor-pointer hover:text-blue-500 hover:border-blue-400 transition-colors">
-            <FaArrowDownShortWide/>
-            <p>filter</p>
-          </button>
-          <div className={`sm:hidden ${filterOpen ? "grid text-center " : "hidden"} absolute z-[20] bg-black-gradient sidebar rounded-xl top-12 px-3 py-5 `}>
+      <section className="relative z-10 pb-10">
+        <h1 className="text-white hidden sm:grid text-3xl font-semibold text-center">
+          Filters
+        </h1>
+        <div
+          className={` ${styles.paragraph} relative  hidden  sm:flex justify-center gap  gap-x-10 `}
+        >
           {categories?.map((cat, i) => (
-              <CustomLink key={i} to={`/blogs/${cat.id}`}>
-                {" "}
-                {cat.cat}
-              </CustomLink>
-            ))}
-          </div>
-
-
-        </section>
+            <CustomLink key={i} to={`/blogs/${cat.id}`}>
+              {" "}
+              {cat.cat}
+            </CustomLink>
+          ))}
+        </div>
+        {/* small screen filter */}
+        <button
+          onClick={handleFilterOpen}
+          className="text-dimWhite border text-xl flex place-items-center gap-3 sm:hidden px-2 py-1 rounded-2xl border-dimWhite cursor-pointer hover:text-blue-500 hover:border-blue-400 transition-colors"
+        >
+          <FaArrowDownShortWide />
+          <p>filter</p>
+        </button>
+        <div
+          className={`sm:hidden ${
+            filterOpen ? "grid text-center " : "hidden"
+          } absolute z-[20] bg-black-gradient sidebar rounded-xl top-12 px-3 py-5 `}
+        >
+          {categories?.map((cat, i) => (
+            <CustomLink key={i} to={`/blogs/${cat.id}`}>
+              {" "}
+              {cat.cat}
+            </CustomLink>
+          ))}
+        </div>
+      </section>
       <article className="grid   relative z-[5] xs:grid-cols-2 sm:grid-cols-3  gap-4">
         {data?.data?.map((blog, index) => (
           <div
             onClick={() => {
-              navigate(`/blogs/${blog_id}/${blog?.attributes?.slug}?banner=${blog?.attributes?.image?.data?.attributes?.url}`, {
-                replace: false,
-              });
+              navigate(
+                `/blogs/${blog_id}/${blog?.attributes?.slug}`,
+                {
+                  replace: false,
+                }
+              );
             }}
             key={index}
             className="  cursor-pointer  relative  bg-primary grid gap-4  rounded-xl border border-slate-700"
           >
-            
             <div className="relative">
               <div className="bg-black-gradient rounded-t-xl   h-[250px] grid place-items-center">
                 <img
-                  src={blog?.attributes?.image?.data?.attributes?.url}
+                  src={blog?.attributes?.image?.data?.attributes?.formats?.small?.url}
                   className="  h-[250px]  w-full  rounded-t-xl object-cover"
                   alt=""
                 />
@@ -129,7 +137,7 @@ function BlogCard({}) {
                   {concat(blog?.attributes?.description, 100)}
                 </p>
                 <Link
-                  to={`/blogs/${blog_id}/${blog?.attributes?.slug}?banner=${blog?.attributes?.image?.data?.attributes?.url}`}
+                  to={`/blogs/${blog_id}/${blog?.attributes?.slug}`}
                   className=" text-blue-600 font-medium  hover:text-purple-400  "
                 >
                   {" "}

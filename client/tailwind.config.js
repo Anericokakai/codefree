@@ -17,10 +17,10 @@ export default {
             transform: "rotate(0deg)",
           },
           "25%": {
-            transform: "rotate(1deg)",
+            transform: "rotate(.5deg)",
           },
           "75%": {
-            transform: "rotate(-1deg)",
+            transform: "rotate(-.5deg)",
           },
         }
       },

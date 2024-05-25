@@ -1,9 +1,6 @@
 import React from "react";
 
-import Reusablehome from "../../../components/Reusablehome";
 
-import Footer from "../../../components/Footer";
-import NavigationComponent from "../../../components/NavigationComponent";
 import { question, status200, status500, website } from "../../../images";
 import styles from "../../../utils/styles";
 import Hero from "../components/Hero";
@@ -74,7 +71,7 @@ function Home() {
   //   ></Reusablehome>
   // ))}
   return (
-    <div className="bg-primary overflow-hidden w-full  min-h-screen ">
+    <div className="bg-primary overflow-hidden w-full font-poppins  min-h-screen ">
       <div className=" grid place-items-center">
       <div className={`${styles.boxWidth} flex items-center'`}>
         <Nav />

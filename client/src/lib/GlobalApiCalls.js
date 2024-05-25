@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://codefree-backend.onrender.com/api";
+const BASE_URL = "http://localhost:1337/api";
 export const fetchBlogs = async (blog_id, q) => {
   if (blog_id === undefined && q === undefined) {
     return;
@@ -9,11 +9,12 @@ export const fetchBlogs = async (blog_id, q) => {
   return res.data;
 };
 
-export const fetchSingleBlog = async (blog_id, id,q) => {
-  if (blog_id === undefined && id === undefined) {
+export const fetchSingleBlog = async (blog_id,q) => {
+  if (blog_id === undefined ) {
     return;
   }
-  const res = await axios.get(`${BASE_URL}/${blog_id}/${id}?${q}`);
+  console.log(`${BASE_URL}/${blog_id}?${q}`)
+  const res = await axios.get(`${BASE_URL}/${blog_id}?${q}`);
 
   return res.data;
 };
