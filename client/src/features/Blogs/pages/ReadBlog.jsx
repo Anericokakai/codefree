@@ -20,7 +20,7 @@ import { LuDot } from "react-icons/lu";
 import { LiaReadme } from "react-icons/lia";
 import dayjs from "dayjs";
 import RelatedBlogs from "../Components/RelatedBlogs";
-import LoginPrompt from "../Components/LoginPrompt";
+import LoginPrompt from "../../authentication/components/LoginPrompt";
 import NavigationComponent from "../../../components/NavigationComponent";
 function ReadBlog() {
   const [copied, setCopied] = useState(false);

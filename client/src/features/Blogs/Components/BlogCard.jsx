@@ -8,12 +8,27 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchBlogs } from "../../../lib";
 import CustomLink from "../../../utils/CustomLink";
 import { FaArrowDownShortWide } from "react-icons/fa6";
+import { fetchTopics } from "../../../lib/GlobalApiCalls";
+import { con, pipe, thumb, wave } from "../../../icons";
+import { VscArrowSmallRight, VscMail } from "react-icons/vsc";
 function BlogCard({}) {
   const [blogs, setBlogs] = useState([]);
   const [filterOpen, setFilterOpen] = useState(false);
   //  search params to extract the id
 
   let { blog_id } = useParams();
+
+  // fetch topics
+
+  const {
+    isLoading: loadingTopics,
+    data: topicsData,
+    error: topicsError,
+  } = useQuery({ queryKey: ["fetch_topics"], queryFn: fetchTopics });
+  useEffect(() => {
+    fetchTopics();
+  }, []);
+  console.log(topicsData?.data);
 
   // fetch blogs
   const q = qs.stringify(
@@ -30,46 +45,28 @@ function BlogCard({}) {
     }
   );
 
-  const { isLoading, isError, data, error } = useQuery({
-    queryKey: ["blogs"],
+  const {
+    data: blogsData,
+    isLoading: loadingBlogs,
+    error: blogError,
+  } = useQuery({
+    queryKey: ["blogs", blog_id, q],
     queryFn: () => fetchBlogs(blog_id, q),
   });
-  
 
   useEffect(() => {
-  
+    console.log("effect is runnign");
     fetchBlogs(blog_id, q);
   }, [blog_id]);
   const navigate = useNavigate();
 
-  const categories = [
-    {
-      cat: "Front end",
-      id: 1,
-    },
-    {
-      cat: "Backend",
-      id: 2,
-    },
-    {
-      cat: "Spring Boot",
-      id: 3,
-    },
-    {
-      cat: "Microservices",
-      id: 4,
-    },
-    {
-      cat: "Js Tricks",
-      id: 5,
-    },
-  ];
+ 
 
   // handle filter open
   const handleFilterOpen = () => {
     setFilterOpen(!filterOpen);
   };
-  
+
   return (
     <div className="relative ">
       <section className="relative z-10 pb-10">
@@ -79,12 +76,14 @@ function BlogCard({}) {
         <div
           className={` ${styles.paragraph} relative  hidden  sm:flex justify-center gap  gap-x-10 `}
         >
-          {categories?.map((cat, i) => (
-            <CustomLink key={i} to={`/blogs/${cat.id}`}>
-              {" "}
-              {cat.cat}
-            </CustomLink>
-          ))}
+          {topicsData?.data?.map((topic) => {
+            return (
+              <CustomLink key={topic.id} to={`/blogs/${topic.attributes.slug}`}>
+                {" "}
+                {topic.attributes.slug}
+              </CustomLink>
+            );
+          })}
         </div>
         {/* small screen filter */}
         <button
@@ -99,61 +98,97 @@ function BlogCard({}) {
             filterOpen ? "grid text-center " : "hidden"
           } absolute z-[20] bg-black-gradient sidebar rounded-xl top-12 px-3 py-5 `}
         >
-          {categories?.map((cat, i) => (
-            <CustomLink key={i} to={`/blogs/${cat.id}`}>
+          {topicsData?.data?.map((topic) => (
+            <CustomLink key={topic.id} to={`/blogs/${topic.attributes.slug}`}>
               {" "}
-              {cat.cat}
+              {topic.attributes.topic}
             </CustomLink>
           ))}
         </div>
       </section>
-      <article className="grid   relative z-[5] xs:grid-cols-2 sm:grid-cols-3  gap-4">
-        {data?.data?.map((blog, index) => (
-          <div
-            onClick={() => {
-              navigate(
-                `/blogs/${blog_id}/${blog?.attributes?.slug}`,
-                {
+      {blogsData ? (
+        <article className="grid   relative z-[5] xs:grid-cols-2 sm:grid-cols-3   gap-4">
+          {blogsData?.data?.map((blog, index) => (
+            <div
+              onClick={() => {
+                navigate(`/blogs/${blog_id}/${blog?.attributes?.slug}`, {
                   replace: false,
-                }
-              );
-            }}
-            key={index}
-            className="  cursor-pointer  relative  bg-primary grid gap-4  rounded-xl border border-slate-700"
-          >
-            <div className="relative">
-              <div className="bg-black-gradient rounded-t-xl   h-[250px] grid place-items-center">
-                <img
-                  src={blog?.attributes?.image?.data?.attributes?.formats?.small?.url}
-                  className="  h-[250px]  w-full  rounded-t-xl object-cover"
-                  alt=""
-                />
-              </div>
-              <div className="flex flex-col justify-center px-2 pt-2 bg-primary rounded-b-xl">
-                <h1 className="text-2xl font-bold text-white">
-                  {blog?.attributes?.Title}
-                </h1>
-                <p className={`${styles.paragraph} pt-3`}>
-                  {concat(blog?.attributes?.description, 100)}
-                </p>
-                <Link
-                  to={`/blogs/${blog_id}/${blog?.attributes?.slug}`}
-                  className=" text-blue-600 font-medium  hover:text-purple-400  "
-                >
-                  {" "}
-                  Read More
-                </Link>
-                <p className="text-dimWhite pb-3">
-                  Author: {blog?.attributes?.author}
-                </p>
+                });
+              }}
+              key={index}
+              className="  cursor-pointer  relative  bg-primary grid gap-4  rounded-xl border border-slate-700"
+            >
+              <div className="relative">
+                <div className="bg-black-gradient rounded-t-xl   h-[250px] grid place-items-center">
+                  <img
+                    src={
+                      blog?.attributes?.image?.data?.attributes?.formats?.small
+                        ?.url
+                    }
+                    className="  h-[250px]  w-full  rounded-t-xl object-cover"
+                    alt=""
+                  />
+                </div>
+                <div className="flex flex-col justify-center px-2 pt-2 bg-primary rounded-b-xl">
+                  <h1 className="text-2xl font-bold text-white">
+                    {blog?.attributes?.Title}
+                  </h1>
+                  <p className={`${styles.paragraph} pt-3`}>
+                    {concat(blog?.attributes?.description, 100)}
+                  </p>
+                  <Link
+                    to={`/blogs/${blog_id}/${blog?.attributes?.slug}`}
+                    className=" text-blue-600 font-medium  hover:text-purple-400  "
+                  >
+                    {" "}
+                    Read More
+                  </Link>
+                  <p className="text-dimWhite pb-3">
+                    Author: {blog?.attributes?.author}
+                  </p>
+                </div>
               </div>
             </div>
+          ))}
+        </article>
+      ) : (
+        <section className=" w-full min-h-[60vh] z-[10] relative">
+          <div className="grid place-items-center text-dimWhite gap-4 pt-10">
+            <img src={thumb} alt="" className="h-[80px]" />
+            <h1 className="uppercase text-2xl">WE're Still</h1>
           </div>
-        ))}
-      </article>
-      <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient opacity-80" />
-      <div className="absolute z-[1] w-[80%] h-[80%] rounded-full white__gradient bottom-40 opacity-60" />
-      <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient opacity-85" />
+          <div className="text-dimWhite grid place-items-center pt-10 font-poppins gap-4">
+            <h1 className="sm:text-6xl font-bold text-5xl text-blue-500">
+              Cooking Our Website
+            </h1>
+            <p className={`${styles.paragraph}`}>
+              The selected article will be available as soon very soon.
+            </p>
+            <p className={`${styles.paragraph}`}>Stay Tune</p>
+            <button className=" relative flex shadow-2xl   shadow-blue-900  text-[20px] bg-blue-700  py-3 px-5 cursor-pointer rounded-[2.4rem] items-center gap-7 ">
+              {" "}
+              <div className="border rounded-full p-2 ">
+                <VscMail className="size-7" />
+              </div>{" "}
+              notify Me <VscArrowSmallRight className="size-7" />
+            </button>
+          </div>
+          <div className="absolute top-[50%] -z-10 opacity-40 left-0">
+            <img className=" w-[14rem]" src={wave} alt="" />
+          </div>
+          <div  className="opacity-30 absolute right-0 -z-10 top-9">
+            <img src={pipe} alt="" className="h-[4rem]" />
+          </div>
+          <div  className="opacity-30 absolute left-0 -z-10 top-20">
+            <img src={con} alt="" className="h-[4rem]" />
+          </div>
+        </section>
+      )}
+{
+  blogsData && <div>      <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient opacity-80" />
+  <div className="absolute z-[1] w-[80%] h-[80%] rounded-full white__gradient bottom-40 opacity-60" />
+  <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient opacity-85" /></div>
+}
     </div>
   );
 }
