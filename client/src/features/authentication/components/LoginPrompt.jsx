@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import  { useState } from "react";
 import { userIcon } from "../../../icons";
 import { FaPersonWalkingArrowRight } from "react-icons/fa6";
 import { HiXMark } from "react-icons/hi2";

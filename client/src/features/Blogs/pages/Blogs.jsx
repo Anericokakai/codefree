@@ -33,6 +33,12 @@ function Blogs() {
   const handleBlur = () => {
     setFocus(false);
   };
+  useEffect(()=>{
+    window.addEventListener('load', () => {
+      window.scrollTo(0, 0);
+    });
+    
+  },[])
 
   return (
     <div className={`bg-primary min-h-[100vh] grid font-poppins  justify-center px-2`}>
@@ -53,7 +59,7 @@ function Blogs() {
                   type="text "
                   onFocus={handleFocus}
                   onBlur={handleBlur}
-                  className="w-full bg-transparent text-[1.4rem] px-5 xs:py-4  py-2"
+                  className="w-full bg-transparent text-[1.4rem] px-5 focus:outline-none xs:py-[0.6rem]  py-2"
                 />
                 <button className="xs:text-2xl  font-medium xs:px-6 w-[10rem]  rounded-xl bg-blue-500 text-dimWhite">
                   search

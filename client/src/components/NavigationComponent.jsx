@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import logo from "../images/logo.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Logout } from "../features/UsersSlice";
 import { useDispatch } from "react-redux";
-import { FaXmark } from "react-icons/fa6";
+import { FaBarsStaggered, FaXmark } from "react-icons/fa6";
+
 function NavigationComponent() {
   const navLinks = [
     {
@@ -57,11 +58,12 @@ function NavigationComponent() {
     return () => {
       window.removeEventListener("scroll", handleScrollY);
     };
+  
   }, [prevLocation]);
   return (
     <div className="bg-primary relative">
       <nav
-        className={`navigation  relative  text-dimWhite font-poppins text-[1.2rem]  z-100 bg-opacity-50 backdrop-blur-sm  ${
+        className={`navigation  relative  text-dimWhite font-poppins text-[1.2rem]  z-100  bg-opacity-50 backdrop-blur-sm  ${
           showOnscroll && "sticky bg-[#0f172a8f] top-0"
         }`}
       >
@@ -71,7 +73,7 @@ function NavigationComponent() {
           </div>
         </div>
         <button onClick={displayNav} className="bars z-50 ">
-          <i  className="fa-solid fa-bars "></i>
+<FaBarsStaggered/>
         </button>
         <ul>
           {navLinks.map((link) => (

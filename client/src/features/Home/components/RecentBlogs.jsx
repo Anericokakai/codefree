@@ -1,31 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { imageA, imageB, imageC } from "../../../images";
 import styles from "../../../utils/styles";
 import { concat } from "../../../utils";
 import { SlArrowRight } from "react-icons/sl";
 import { Link } from "react-router-dom";
-
+import PreloaderCard from "../../Blogs/Components/PreloaderCard";
+import { fetchBlogs } from "../../../lib";
+import { useQuery } from "@tanstack/react-query";
+import qs from 'qs'
 function RecentBlogs() {
-  const blogs = [
+  const blog_id="spring-boots"
+  const q = qs.stringify(
     {
-      title: "How to master the art of coding",
-      description:
-        "Becoming a developer and becoming a good developer are two different things. To become good at software development, you need to understand the basic of the language you are going to use",
-      image: imageA,
+      fields: ["title", "description", "slug", "createdAt", "author"],
+      populate: {
+        image: {
+          fields: ["url", "formats"],
+        },
+      },
     },
     {
-      title: "How to master the art of coding",
-      description:
-        "Becoming a developer and becoming a good developer are two different things. To become good at software development, you need to understand the basic of the language you are going to use",
-      image: imageB,
-    },
-    {
-      title: "How to master the art of coding",
-      description:
-        "Becoming a developer and becoming a good developer are two different things. To become good at software development, you need to understand the basic of the language you are going to use",
-      image: imageC,
-    },
-  ];
+      encodeValuesOnly: true, // prettify URL
+    }
+  );
+  const {
+    data: blogsData,
+    isLoading: loadingBlogs,
+    error: blogError,
+  } = useQuery({
+    queryKey: ["blogs", blog_id, q],
+    queryFn: () => fetchBlogs(blog_id, q),
+  retry:2 });
+
+  useEffect(() => {
+    console.log("effect is runnign");
+    fetchBlogs(blog_id, q);
+  }, []);
 
   return (
     <div className="relative px-2">
@@ -37,33 +47,53 @@ function RecentBlogs() {
           Most Read blogs on codefree
         </p>
       </header>
-
-      <article className="grid   relative z-[100] xs:grid-cols-2 sm:grid-cols-3  gap-4">
-        {blogs.map((blog, index) => (
-          <div
-            key={index}
-            className="   relative bg-primary grid gap-4  rounded-xl"
-          >
-            {/* <div className="absolute bg-gradient-to-b  blur-sm  from-purple-600 to-pink-600 inset-0 opacity-40 animate-tilt rounded-xl"></div> */}
-            <div className="relative">
-              <div className="bg-black-gradient rounded-t-xl   h-[250px] grid place-items-center">
-                <img
-                  src={blog.image}
-                  className="  h-[250px] aspect-square rounded-xl"
-                  alt=""
-                />
-              </div>
-              <div className="flex flex-col justify-center px-2 pt-2 bg-primary rounded-b-xl">
-                <h1 className="text-2xl font-bold text-white">{blog.title}</h1>
-                <p className={`${styles.paragraph} pt-3`}>
-                  {concat(blog.description, 100)}
-                </p>
-                <Link className=" text-blue-600 font-medium pb-4 hover:text-purple-400  "> Read More</Link>
+      {blogsData && !loadingBlogs && (
+        <article className="grid   relative z-[5] xs:grid-cols-2 sm:grid-cols-3   gap-4">
+          {blogsData?.data?.map((blog, index) => (
+            <div
+              onClick={() => {
+                navigate(`/blogs/${blog_id}/${blog?.attributes?.slug}`, {
+                  replace: false,
+                });
+              }}
+              key={index}
+              className="  cursor-pointer  relative  bg-primary grid gap-4  rounded-xl border border-slate-700"
+            >
+              <div className="relative">
+                <div className="bg-black-gradient rounded-t-xl   h-[250px] grid place-items-center">
+                  <img
+                    src={
+                      blog?.attributes?.image?.data?.attributes?.formats?.small
+                        ?.url
+                    }
+                    className="  h-[250px]    rounded-t-xl object-fit"
+                    alt=""
+                  />
+                </div>
+                <div className="flex flex-col justify-center px-2 pt-2 bg-primary rounded-b-xl">
+                  <h1 className="text-2xl font-bold text-white">
+                    {blog?.attributes?.Title}
+                  </h1>
+                  <p className={`${styles.paragraph} pt-3`}>
+                    {concat(blog?.attributes?.description, 100)}
+                  </p>
+                  <Link
+                    to={`/blogs/${blog_id}/${blog?.attributes?.slug}`}
+                    className=" text-blue-600 font-medium  hover:text-purple-400  "
+                  >
+                    {" "}
+                    Read More
+                  </Link>
+                  <p className="text-dimWhite pb-3">
+                    Author: {blog?.attributes?.author}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </article>
+          ))}
+        </article>
+      )}
+      {loadingBlogs && <PreloaderCard />}
 
       <div className=" grid place-items-end py-10 pr-10 relative">
         <button className=" flex items-center  justify-center gap-3     rounded-xl relative group">

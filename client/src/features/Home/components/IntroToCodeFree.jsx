@@ -31,7 +31,7 @@ function IntroToCodeFree() {
         <article className='grid xs:grid-cols-2 sm:grid-cols-3 gap-10 sm:gap-4 py-12'>
             {
                 reasons.map((reason,index)=>(
-                    <div className='relative  border-dimWhite  bg-black-gradient rounded-xl p-3 min-h-[170px]'>
+                    <div key={index} className='relative  border-dimWhite  bg-black-gradient rounded-xl p-3 min-h-[170px]'>
                         <div className={`absolute -top-7   left-[45%] rounded-full bg-primary grid place-items-center    h-14 w-14  ${index===0?"bg-[#EAA505]":index===1 ?"bg-[#945CEA]":index===2 ?"bg-[#E62A17]":""} `}>
                             <div className={`absolute blur-2xl  -inset-2 rounded-full ${index===0?"bg-[#EAA505]":index===1 ?"bg-[#945CEA]":index===2 ?"bg-[#E62A17]":""}`}></div>
                            <div className={ ` ${index===0?"bg-[#EAA505]":index===1 ?"bg-[#945CEA]":index===2 ?"bg-[#E62A17]":""} w-full h-full relative grid place-items-center rounded-full `}>

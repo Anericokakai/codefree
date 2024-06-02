@@ -88,7 +88,7 @@ function RelatedBlogs({ categories, blog_id, id, currentBlog }) {
                     blog?.attributes?.image?.data?.attributes?.formats?.small
                       ?.url
                   }
-                  className="  h-[250px]  w-full  rounded-t-xl object-cover"
+                  className="  h-[250px]    rounded-t-xl object-fit"
                   alt=""
                 />
               </div>

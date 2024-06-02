@@ -11,6 +11,9 @@ import { FaArrowDownShortWide } from "react-icons/fa6";
 import { fetchTopics } from "../../../lib/GlobalApiCalls";
 import { con, pipe, thumb, wave } from "../../../icons";
 import { VscArrowSmallRight, VscMail } from "react-icons/vsc";
+import Skeleton from "react-loading-skeleton";
+import PreloaderCard from "./PreloaderCard";
+import { VscChromeClose } from "react-icons/vsc";
 function BlogCard({}) {
   const [blogs, setBlogs] = useState([]);
   const [filterOpen, setFilterOpen] = useState(false);
@@ -28,7 +31,7 @@ function BlogCard({}) {
   useEffect(() => {
     fetchTopics();
   }, []);
-  console.log(topicsData?.data);
+
 
   // fetch blogs
   const q = qs.stringify(
@@ -52,7 +55,7 @@ function BlogCard({}) {
   } = useQuery({
     queryKey: ["blogs", blog_id, q],
     queryFn: () => fetchBlogs(blog_id, q),
-  });
+  retry:2 });
 
   useEffect(() => {
     console.log("effect is runnign");
@@ -60,12 +63,11 @@ function BlogCard({}) {
   }, [blog_id]);
   const navigate = useNavigate();
 
- 
-
   // handle filter open
   const handleFilterOpen = () => {
     setFilterOpen(!filterOpen);
   };
+  console.log(loadingBlogs);
 
   return (
     <div className="relative ">
@@ -96,17 +98,19 @@ function BlogCard({}) {
         <div
           className={`sm:hidden ${
             filterOpen ? "grid text-center " : "hidden"
-          } absolute z-[20] bg-black-gradient sidebar rounded-xl top-12 px-3 py-5 `}
+          } absolute z-[20] bg-black-gradient sidebar rounded-xl top-12 px-3 py-5 w-[200px] min-h-[200px] `}
         >
+          <button className="absolute top-2 right-2 size-7 cursor-pointer text-dimWhite " onClick={()=>setFilterOpen(!filterOpen)}><VscChromeClose /></button>
           {topicsData?.data?.map((topic) => (
-            <CustomLink key={topic.id} to={`/blogs/${topic.attributes.slug}`}>
+            <CustomLink key={topic.id} to={`/blogs/${topic.attributes.slug}`} onClick={()=>setFilterOpen(false)}>
               {" "}
               {topic.attributes.topic}
             </CustomLink>
           ))}
         </div>
       </section>
-      {blogsData ? (
+
+      {blogsData && !loadingBlogs && (
         <article className="grid   relative z-[5] xs:grid-cols-2 sm:grid-cols-3   gap-4">
           {blogsData?.data?.map((blog, index) => (
             <div
@@ -125,7 +129,7 @@ function BlogCard({}) {
                       blog?.attributes?.image?.data?.attributes?.formats?.small
                         ?.url
                     }
-                    className="  h-[250px]  w-full  rounded-t-xl object-cover"
+                    className="  h-[250px]  w-full  rounded-t-xl object-fit"
                     alt=""
                   />
                 </div>
@@ -151,21 +155,23 @@ function BlogCard({}) {
             </div>
           ))}
         </article>
-      ) : (
-        <section className=" w-full min-h-[60vh] z-[10] relative">
+      )}
+      {loadingBlogs && <PreloaderCard />}
+      {!blogsData && !loadingBlogs && (
+        <section className=" w-full min-h-[60vh] z-[5] relative  pb-20">
           <div className="grid place-items-center text-dimWhite gap-4 pt-10">
             <img src={thumb} alt="" className="h-[80px]" />
-            <h1 className="uppercase text-2xl">WE're Still</h1>
+            <h1 className="uppercase text-xl sm:text-2xl">WE're Still</h1>
           </div>
           <div className="text-dimWhite grid place-items-center pt-10 font-poppins gap-4">
-            <h1 className="sm:text-6xl font-bold text-5xl text-blue-500">
+            <h1 className="sm:text-6xl font-bold text-4xl text-center text-blue-500">
               Cooking Our Website
             </h1>
             <p className={`${styles.paragraph}`}>
               The selected article will be available as soon very soon.
             </p>
             <p className={`${styles.paragraph}`}>Stay Tune</p>
-            <button className=" relative flex shadow-2xl   shadow-blue-900  text-[20px] bg-blue-700  py-3 px-5 cursor-pointer rounded-[2.4rem] items-center gap-7 ">
+            <button className=" relative flex shadow-2xl   shadow-blue-900  text-[20px] bg-blue-700  sm:py-2 py-1 px-5 cursor-pointer rounded-[2.4rem] items-center gap-7 ">
               {" "}
               <div className="border rounded-full p-2 ">
                 <VscMail className="size-7" />
@@ -176,19 +182,22 @@ function BlogCard({}) {
           <div className="absolute top-[50%] -z-10 opacity-40 left-0">
             <img className=" w-[14rem]" src={wave} alt="" />
           </div>
-          <div  className="opacity-30 absolute right-0 -z-10 top-9">
+          <div className="opacity-30 absolute right-0 -z-10 top-9">
             <img src={pipe} alt="" className="h-[4rem]" />
           </div>
-          <div  className="opacity-30 absolute left-0 -z-10 top-20">
+          <div className="opacity-30 absolute left-0 -z-10 top-20">
             <img src={con} alt="" className="h-[4rem]" />
           </div>
         </section>
       )}
-{
-  blogsData && <div>      <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient opacity-80" />
-  <div className="absolute z-[1] w-[80%] h-[80%] rounded-full white__gradient bottom-40 opacity-60" />
-  <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient opacity-85" /></div>
-}
+      {blogsData && (
+        <div>
+          {" "}
+          <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient opacity-80" />
+          <div className="absolute z-[1] w-[80%] h-[80%] rounded-full white__gradient bottom-40 opacity-60" />
+          <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient opacity-85" />
+        </div>
+      )}
     </div>
   );
 }
