@@ -150,34 +150,23 @@ function ReadBlog() {
   };
 
   return (
-    <section>
-      <NavigationComponent />
+    <section className="">
+      {/* <NavigationComponent /> */}
 
-      <div className="bg-primary min-h-[100vh] flex  justify-center text-dimWhite ">
+      <div className="bg-primary  min-h-[100vh] flex  justify-center text-dimWhite ">
         {showLogin && <LoginPrompt setShowLogin={setShowLogin} />}
         <article
           className={`${styles.boxWidth} ${styles.paragraph}  px-3  flex flex-col items-center`}
         >
-          <div className="  max-h-[25rem] flex flex-col  mt-16 sm:mt-24 place-items-center w-full px-2">
+          <div className="   max-h-[25rem] flex flex-col  mt-16 sm:mt-24 place-items-center w-full px-2">
             <div>
               <h1 className=" font-bold text-[30px] text-white font-publicSans py-3 sm:text-[48px]">
                 {data?.data[0]?.attributes?.Title}
               </h1>
-              <div className="flex  py-4 ">
-                <div className="flex sm:gap-2 items-center ">
-                  <img
-                    src={userIcon}
-                    className="size-12 mr-2 bg-lightGray rounded-full"
-                    alt=""
-                  />
-                  <p className="py-2 text-sm sm:text-base">
-                    {data?.data[0]?.attributes?.author}
-                  </p>
-                </div>
-                <div className="grid place-content-center ">
-                  <LuDot className="font-bold size-8 text-slate-400" />
-                </div>
-                <div className="grid place-items-center sm:text-base text-sm">
+              <div className="flex  justify-center    py-4 ">
+                
+                
+                <div className="grid place-items-center  sm:text-base text-sm">
                   <p>
                     {" "}
                     {dayjs(data?.data[0]?.attributes?.createdAt).format(
@@ -190,7 +179,7 @@ function ReadBlog() {
                 </div>
                 <div className=" flex items-center gap-2">
                   <LiaReadme />
-                  <p className="text-sm">2 minutes</p>
+                  <p className="text-sm">2 min</p>
                 </div>
               </div>
             </div>
@@ -204,7 +193,7 @@ function ReadBlog() {
           </div>
           <div
             ref={containerRef}
-            className={`${styles.articleWidth}    prose mx-auto  prose-a:text-blue-500 prose-a:text-sm  relative prose-p:text-dimWhite prose-p:text-xl prose-headings:text-white prose-headings:font-publicSans  prose-h4:text-[2rem] prose-ul:text-dimWhite prose-blockquote:text-white sm:prose-ul:text-[1.25rem] prose-ul:text-[1.125rem] sm:prose-p:text-[1.25rem] sm:prose-p:leading-[2.3rem] prose-p:leading-[2.2rem] prose-p:text-[1.125rem] `}
+            className={`${styles.articleWidth}    prose-strong: prose-strong:px-2 prose-strong:py-[.2rem] prose-strong:bg-[#11151c] prose-strong:text-dimWhite prose-strong:font-medium prose-strong:text-base prose-strong:rounded prose-strong:mx-1     prose mx-auto  prose-a:text-blue-500   prose-ol:text-dimWhite prose-ol:text-[1.125rem] relative prose-p:text-dimWhite prose-p:text-xl prose-headings:text-white prose-headings:font-publicSans    prose-ul:text-dimWhite prose-blockquote:bg-[#11151c] prose-blockquote:text-white sm:prose-ul:text-[1.25rem] prose-ul:text-[1.125rem] sm:prose-p:text-[1.25rem] sm:prose-p:leading-[2.3rem] prose-p:leading-[2rem] prose-p:text-[1.1rem]   `}
           >
             <div className="relative ">
               {data?.data[0]?.attributes !== null &&
@@ -238,7 +227,7 @@ function ReadBlog() {
               <div
                 className={` grid ${
                   isSticky ? "fixed" : "relative"
-                }  bottom-3  left-0  w-full place-items-center`}
+                }  bottom-3  left-0  w-full place-items-center transition-all `}
               >
                 <div className="bg-[#0f172ab3] text-white shadow-2xl divide-x divide-slate-700 justify-center  text white rounded-[1.7rem] border flex text-[1.4rem] items-center gap-3 px-3 py-2 border-slate-700">
                   <button className="px-2  relative">
@@ -298,10 +287,19 @@ function ReadBlog() {
             </div>
           </div>
           <div
-            className={`${styles.articleWidth} pt-3  px-4 justify-between  my-3 items-baseline flex border-b border-slate-700`}
+            className={`${styles.articleWidth} pt-3 mb-7  px-4 justify-between  my-3 items-baseline flex border-b border-slate-700`}
           >
             <p>Article by</p>
+            <div className="flex items-center gap-3 ">
+
+            
+            <img
+                    src={userIcon}
+                    className=" size-9 bg-lightGray rounded-full"
+                    alt=""
+                  />
             <p className="text-white">{data?.data[0]?.attributes?.author}</p>
+            </div>
           </div>
           <div className="flex flex-wrap gap-3">
             {data?.data[0]?.attributes?.categories?.data?.map((cat, id) => (
@@ -315,7 +313,7 @@ function ReadBlog() {
           </div>
 
           {data?.data[0]?.attributes?.categories?.data?.length > 0 && (
-            <section className="w-full">
+            <section className="w-full ">
               <h1 className="sm:text-[30px] text-[20px] py-6 font-semibold uppercase">
                 Related Blogs
               </h1>

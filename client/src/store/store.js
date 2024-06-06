@@ -11,7 +11,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import thunk from "redux-thunk";
+
 
 const persistConfig = {
   key: "root",
