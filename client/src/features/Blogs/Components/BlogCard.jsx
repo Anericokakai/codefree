@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { concat, styles } from "../../../utils";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { imageA, imageB, imageC } from "../../../images";
+
 import axios from "axios";
 import qs from "qs";
 import { useQuery } from "@tanstack/react-query";

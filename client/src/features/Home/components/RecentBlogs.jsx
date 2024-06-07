@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { imageA, imageB, imageC } from "../../../images";
+
 import styles from "../../../utils/styles";
 import { concat } from "../../../utils";
 import { SlArrowRight } from "react-icons/sl";

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { styles } from "../../../utils";
-import { imageA } from "../../../images";
+
 import Prism from "prismjs";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import axios from "axios";
@@ -151,7 +151,7 @@ function ReadBlog() {
 
   return (
     <section className="">
-      {/* <NavigationComponent /> */}
+      <NavigationComponent />
 
       <div className="bg-primary  min-h-[100vh] flex  justify-center text-dimWhite ">
         {showLogin && <LoginPrompt setShowLogin={setShowLogin} />}
@@ -226,8 +226,8 @@ function ReadBlog() {
                 })}
               <div
                 className={` grid ${
-                  isSticky ? "fixed" : "relative"
-                }  bottom-3  left-0  w-full place-items-center transition-all `}
+                  isSticky ? "fixed sidebar" : "relative"
+                }  bottom-3  left-0   w-full place-items-center transition-all `}
               >
                 <div className="bg-[#0f172ab3] text-white shadow-2xl divide-x divide-slate-700 justify-center  text white rounded-[1.7rem] border flex text-[1.4rem] items-center gap-3 px-3 py-2 border-slate-700">
                   <button className="px-2  relative">

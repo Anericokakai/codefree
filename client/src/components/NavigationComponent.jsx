@@ -40,7 +40,7 @@ function NavigationComponent() {
   const handleScrollY = () => {
     const currentPosition = window.scrollY;
     
-    if (window.scrollY > 100 && currentPosition > prevLocation) {
+    if (window.scrollY > 100 && currentPosition < prevLocation) {
       setShowOnScroll(true);
     } else {
       setShowOnScroll(false);
@@ -63,8 +63,8 @@ function NavigationComponent() {
   return (
     <div className="bg-primary relative">
       <nav
-        className={`navigation  relative  text-dimWhite font-poppins text-[1.2rem]  z-100  bg-opacity-50 backdrop-blur-sm  ${
-          showOnscroll && "sticky bg-[#0f172a8f] top-0"
+        className={`navigation   relative  text-dimWhite font-poppins text-[1.2rem]  z-100  bg-opacity-50 backdrop-blur-sm  ${
+          showOnscroll && "sticky  bg-[#0f172a8f] top-0"
         }`}
       >
         <div className="logo">
