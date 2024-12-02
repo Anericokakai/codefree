@@ -1,7 +1,3 @@
-
-
-
-
 import { Home } from "../features/Home";
 import Blogs from "../features/Blogs/pages/Blogs";
 import BlogCard from "../features/Blogs/Components/BlogCard";
@@ -12,8 +8,6 @@ const generalroutes = [
     path: "/",
     element: <Home />,
   },
-  
- 
   {
     path: "/blogs",
     element: <Blogs />,
@@ -28,7 +22,5 @@ const generalroutes = [
     path: "/blogs/:blog_id/:id",
     element: <ReadBlog />,
   },
-
-  
 ];
 export default generalroutes;

@@ -1,15 +1,14 @@
 import React from "react";
 import Skeleton from "react-loading-skeleton";
 
-function PreloaderCard() {
+function PreloaderCard({wide}) {
   const dummy = [1, 2, 3, 4];
   return (
-    <article className="grid   relative z-[5] xs:grid-cols-2 sm:grid-cols-3   gap-4">
+    <article className={`grid  ${!wide && 'px-14'}  w-full  relative z-[5] xs:grid-cols-2 sm:grid-cols-3   gap-4`}>
       {dummy.map((d, i) => (
-        <div key={d} className="  cursor-pointer  relative  bg-primary grid gap-4  rounded-xl border border-slate-700">
+        <div key={d} className="  cursor-pointer  relative  bg-primary grid gap-4  rounded-xl border border-slate-900">
           <div  className="relative">
             <Skeleton
-            
               baseColor="#11101d"
               highlightColor="#11101df2"
               className="bg-black-gradient rounded-t-xl opacity-50   h-[250px] grid place-items-center"

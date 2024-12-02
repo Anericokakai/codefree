@@ -32,7 +32,6 @@ function BlogCard({}) {
     fetchTopics();
   }, []);
 
-
   // fetch blogs
   const q = qs.stringify(
     {
@@ -55,7 +54,8 @@ function BlogCard({}) {
   } = useQuery({
     queryKey: ["blogs", blog_id, q],
     queryFn: () => fetchBlogs(blog_id, q),
-  retry:2 });
+    retry: 2,
+  });
 
   useEffect(() => {
     console.log("effect is runnign");
@@ -67,7 +67,6 @@ function BlogCard({}) {
   const handleFilterOpen = () => {
     setFilterOpen(!filterOpen);
   };
-  console.log(loadingBlogs);
 
   return (
     <div className="relative ">
@@ -100,9 +99,18 @@ function BlogCard({}) {
             filterOpen ? "grid text-center " : "hidden"
           } absolute z-[20] bg-black-gradient sidebar rounded-xl top-12 px-3 py-5 w-[200px] min-h-[200px] `}
         >
-          <button className="absolute top-2 right-2 size-7 cursor-pointer text-dimWhite " onClick={()=>setFilterOpen(!filterOpen)}><VscChromeClose /></button>
+          <button
+            className="absolute top-2 right-2 size-7 cursor-pointer text-dimWhite "
+            onClick={() => setFilterOpen(!filterOpen)}
+          >
+            <VscChromeClose />
+          </button>
           {topicsData?.data?.map((topic) => (
-            <CustomLink key={topic.id} to={`/blogs/${topic.attributes.slug}`} onClick={()=>setFilterOpen(false)}>
+            <CustomLink
+              key={topic.id}
+              to={`/blogs/${topic.attributes.slug}`}
+              onClick={() => setFilterOpen(false)}
+            >
               {" "}
               {topic.attributes.topic}
             </CustomLink>
@@ -111,7 +119,7 @@ function BlogCard({}) {
       </section>
 
       {blogsData && !loadingBlogs && (
-        <article className="grid   relative z-[5] xs:grid-cols-2 sm:grid-cols-3   gap-4">
+        <article className="grid   relative z-[5] xs:grid-cols-2 sm:grid-cols-3   gap-4 max-w-6xl ">
           {blogsData?.data?.map((blog, index) => (
             <div
               onClick={() => {
@@ -123,13 +131,15 @@ function BlogCard({}) {
               className="  cursor-pointer  relative  bg-primary grid gap-4  rounded-xl border border-slate-700"
             >
               <div className="relative">
-                <div className="bg-black-gradient rounded-t-xl   h-[250px] grid place-items-center">
+                <div className="bg-black-gradient rounded-t-xl  border-none  h-[250px] grid place-items-center">
                   <img
                     src={
                       blog?.attributes?.image?.data?.attributes?.formats?.small
+                        ?.url ||
+                      blogsData?.data[0]?.attributes?.image?.data?.attributes
                         ?.url
                     }
-                    className="  h-[250px]  w-full  rounded-t-xl object-fit"
+                    className="  h-[250px] border-none  w-full  rounded-t-xl object-fit"
                     alt=""
                   />
                 </div>
@@ -156,7 +166,7 @@ function BlogCard({}) {
           ))}
         </article>
       )}
-      {loadingBlogs && <PreloaderCard />}
+      {loadingBlogs && <PreloaderCard wide={true} />}
       {!blogsData && !loadingBlogs && (
         <section className=" w-full min-h-[60vh] z-[5] relative  pb-20">
           <div className="grid place-items-center text-dimWhite gap-4 pt-10">

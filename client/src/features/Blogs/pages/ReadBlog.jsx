@@ -32,11 +32,10 @@ function ReadBlog() {
   const [showLogin, setShowLogin] = useState(false);
   const { blog_id, id } = useParams();
   const containerRef = useRef(null);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const queryParam = new URLSearchParams(location.search);
+  
+ 
 
-  const banner = queryParam.get("banner");
+  
   //  initial fetch
 
   const q = qs.stringify(
@@ -61,6 +60,7 @@ function ReadBlog() {
 
   useEffect(() => {
     fetchSingleBlog(blog_id, q);
+    window.scrollTo(0,0)
   }, [blog_id, id]);
 
   useEffect(() => {
@@ -137,6 +137,7 @@ function ReadBlog() {
   };
  
 
+
   if (isLoading) {
     return (
       <section className="bg-primary h-screen  grid place-content-center">
@@ -185,7 +186,7 @@ function ReadBlog() {
             </div>
             <div className="sm:h-[70%]  min-h-[50%] bg-black-gradient w-full max-w-[40rem] flex items-center justify-center rounded-xl">
               <img
-                src={data?.data[0]?.attributes?.image?.data?.attributes.formats?.small?.url}
+                src={data?.data[0]?.attributes?.image?.data?.attributes?.formats?.small?.url||data?.data[0]?.attributes?.image?.data?.attributes?.url}
                 alt=""
                 className="w-full h-full object-cover  rounded-xl"
               />

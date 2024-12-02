@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://codefree-backend.onrender.com/api";
+const BASE_URL = "https://api.anerico.tech/api";
 export const fetchBlogs = async (blog_id, q) => {
   if (blog_id === undefined && q === undefined) {
     return;

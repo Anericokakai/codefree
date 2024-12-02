@@ -16,10 +16,10 @@
 @layer base{
   :root{
     --color-primary:224deg, 100%, 3%;
-    --dimWhite:0deg, 0%, 100%, 0.7;
-    --dimBlue:169deg, 89%, 31%, 0.1;
-    --darkBlue:169deg, 89%, 31%, 0.5;
-    --lightGray:207deg, 13%, 14%;
+    --color-dimWhite:0deg, 0%, 100%, 0.7;
+    --color-dimBlue:169deg, 89%, 31%, 0.1;
+    --color-darkBlue:169deg, 89%, 31%, 0.5;
+    --color-lightGray:207deg, 13%, 14%;
   }
 }
 
@@ -228,7 +228,31 @@ html{
   -webkit-animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
+.topbar{
+  -webkit-animation: slide-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
 
+@-webkit-keyframes slide-bottom {
+  0% {
+    -webkit-transform: translateY(50px);
+    transform: translateY(50px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+@keyframes slide-bottom {
+  0% {
+    -webkit-transform: translateY(50px);
+    transform: translateY(50px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
 @-webkit-keyframes slide-top {
   0% {
     -webkit-transform: translateY(100px);
@@ -358,6 +382,9 @@ transition: .5s ease-out all;
 .logoimage img{
   height: 100%;
   
+}
+.debug{
+  border: 1px solid red;
 }
 /* todo small screen navigation menu */
 @media (max-width:640px) {
