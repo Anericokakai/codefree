@@ -1,6 +1,6 @@
 import React from "react";
 import { styles } from "../../../utils";
-import { BlueGem, Diamond, GreenDiamond } from "../../../images";
+
 import {FaNodeJs, FaReact} from 'react-icons/fa6'
 import { SiSpring } from "react-icons/si";
 function TechStacks() {

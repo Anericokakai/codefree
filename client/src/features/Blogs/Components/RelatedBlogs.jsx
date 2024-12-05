@@ -58,17 +58,17 @@ function RelatedBlogs({ categories, blog_id, id, currentBlog }) {
   );
 
   const { isLoading, isError, data, error } = useQuery({
-    queryKey: ["blogs"],
+    queryKey: ["blogs", blog_id, q],
     queryFn: () => fetchBlogs(blog_id, q),
   });
 
   useEffect(() => {
-    console.log("the id has changed,and we are fetching data");
     fetchBlogs(blog_id, q);
   }, [blog_id, id, categories]);
 
+ 
   return (
-    <section className="flex sm:gap-6 gap-4 overflow-x-auto   px-3">
+    <section className="flex sm:gap-6 gap-4 overflow-x-auto   pb-10 px-3">
       {data?.data
         ?.filter((bl) => bl.id !== currentBlog)
         ?.map((blog, i) => (
@@ -79,20 +79,20 @@ function RelatedBlogs({ categories, blog_id, id, currentBlog }) {
               });
             }}
             key={i}
-            className="  shrink-0 cursor-pointer  relative  bg-primary grid gap-4  rounded-xl border border-slate-700 w-[350px] "
+            className="  shrink-0 cursor-pointer   relative  bg-primary grid gap-4  rounded-xl border border-slate-700 w-[350px] "
           >
-            <div className="relative">
+            <div className="relative ">
               <div className="bg-black-gradient rounded-t-xl   h-[250px] grid place-items-center">
                 <img
                   src={
                     blog?.attributes?.image?.data?.attributes?.formats?.small
-                      ?.url
+                      ?.url||blog?.attributes?.image?.data?.attributes?.formats?.small?.url
                   }
                   className="  h-[250px]    rounded-t-xl object-fit"
                   alt=""
                 />
               </div>
-              <div className="flex flex-col justify-center px-2 pt-2 bg-primary rounded-b-xl">
+              <div className="flex flex-col justify-center px-2 pt-2 bg-primary rounded-b-xl ">
                 <h1 className="text-2xl font-semibold  text-white">
                   {blog?.attributes?.Title}
                 </h1>
@@ -106,9 +106,9 @@ function RelatedBlogs({ categories, blog_id, id, currentBlog }) {
                   {" "}
                   Read More
                 </Link>
-                <p className="text-dimWhite pb-3">
+                {/* <p className="text-dimWhite pb-3">
                   Author: {blog?.attributes?.author}
-                </p>
+                </p> */}
               </div>
             </div>
           </div>

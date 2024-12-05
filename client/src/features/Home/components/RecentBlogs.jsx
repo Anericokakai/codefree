@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
-import { imageA, imageB, imageC } from "../../../images";
+
 import styles from "../../../utils/styles";
 import { concat } from "../../../utils";
 import { SlArrowRight } from "react-icons/sl";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PreloaderCard from "../../Blogs/Components/PreloaderCard";
 import { fetchBlogs } from "../../../lib";
 import { useQuery } from "@tanstack/react-query";
-import qs from 'qs'
+import qs from "qs";
 function RecentBlogs() {
-  const blog_id="spring-boots"
+  const navigate = useNavigate();
+  const blog_id = "spring-boots";
   const q = qs.stringify(
     {
       fields: ["title", "description", "slug", "createdAt", "author"],
@@ -17,6 +18,10 @@ function RecentBlogs() {
         image: {
           fields: ["url", "formats"],
         },
+      },
+      pagination: {
+        start: 0,
+        limit: 3,
       },
     },
     {
@@ -30,7 +35,8 @@ function RecentBlogs() {
   } = useQuery({
     queryKey: ["blogs", blog_id, q],
     queryFn: () => fetchBlogs(blog_id, q),
-  retry:2 });
+    retry: 2,
+  });
 
   useEffect(() => {
     console.log("effect is runnign");
@@ -38,7 +44,7 @@ function RecentBlogs() {
   }, []);
 
   return (
-    <div className="relative px-2">
+    <div className="relative px-2 grid place-items-center ">
       <header className=" grid  place-items-center">
         <h1 className="text-3xl sm:text-5xl font-bold text-white">
           Recent <span className="text-gradient-blue">Blogs </span>
@@ -48,7 +54,7 @@ function RecentBlogs() {
         </p>
       </header>
       {blogsData && !loadingBlogs && (
-        <article className="grid   relative z-[5] xs:grid-cols-2 sm:grid-cols-3   gap-4">
+        <article className="grid   relative z-[5] xs:grid-cols-2 sm:grid-cols-3   gap-4 max-w-6xl">
           {blogsData?.data?.map((blog, index) => (
             <div
               onClick={() => {
@@ -95,14 +101,16 @@ function RecentBlogs() {
       )}
       {loadingBlogs && <PreloaderCard />}
 
-      <div className=" grid place-items-end py-10 pr-10 relative">
-        <button className=" flex items-center  justify-center gap-3     rounded-xl relative group">
-          <div className="absolute bg-gradient-to-r from-purple-600  animate-tilt blur-sm to-pink-600 inset-0 rounded-xl opacity-70 duration-1000 group-hover:duration-200 group-hover:opacity-100">
-            
-          </div>
-          <Link to={'/blogs/nodejs-blogs'} className="relative bg-primary py-2 px-7 rounded-xl w-full h-full flex items-center justify-center divide-x-2 divide-dimWhite">
-            <span className=" text-blue-600 font-semibold text-[1.1rem] px-2">Read More</span>
-            <SlArrowRight className="text-[#7f4ca5] size-6 mx-2" />
+      <div className=" grid place-items-center py-10 pr-10 relative">
+        <button className=" bg-blue-700 flex items-center  justify-center gap-3  py-2  sm:py-2  rounded-full relative group">
+          <Link
+            to={"/blogs/spring-boots"}
+            className="relative py-2 px-5 rounded-xl w-full h-full flex items-center justify-center divide-x-2 divide-dimWhite"
+          >
+            <span className=" text-white font-semibold text-[1.1rem] px-2">
+              Read More
+            </span>
+            <SlArrowRight className="text-white size-6 mx-2" />
           </Link>
         </button>
       </div>
@@ -112,5 +120,4 @@ function RecentBlogs() {
     </div>
   );
 }
-
 export default RecentBlogs;
