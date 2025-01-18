@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { concat, styles } from "../../../utils";
 import { Link, useNavigate } from "react-router-dom";
 import qs from "qs";
@@ -7,8 +7,6 @@ import { fetchBlogs } from "../../../lib";
 import { useQuery } from "@tanstack/react-query";
 
 function RelatedBlogs({ categories, blog_id, id, currentBlog }) {
-  
-
   const navigate = useNavigate();
   let filters;
   if (categories?.length > 0) {
@@ -54,19 +52,18 @@ function RelatedBlogs({ categories, blog_id, id, currentBlog }) {
     },
     {
       encodeValuesOnly: true,
-    }
+    },
   );
 
-  const { isLoading, isError, data, error } = useQuery({
+  const { data } = useQuery({
     queryKey: ["blogs", blog_id, q],
     queryFn: () => fetchBlogs(blog_id, q),
   });
 
   useEffect(() => {
     fetchBlogs(blog_id, q);
-  }, [blog_id, id, categories]);
+  }, [blog_id, id, categories, q]);
 
- 
   return (
     <section className="flex sm:gap-6 gap-4 overflow-x-auto   pb-10 px-3">
       {data?.data
@@ -86,7 +83,9 @@ function RelatedBlogs({ categories, blog_id, id, currentBlog }) {
                 <img
                   src={
                     blog?.attributes?.image?.data?.attributes?.formats?.small
-                      ?.url||blog?.attributes?.image?.data?.attributes?.formats?.small?.url
+                      ?.url ||
+                    blog?.attributes?.image?.data?.attributes?.formats?.small
+                      ?.url
                   }
                   className="  h-[250px]    rounded-t-xl object-fit"
                   alt=""

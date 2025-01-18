@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import  { useState } from "react";
+import { useState } from "react";
 import { userIcon } from "../../../icons";
 import { FaPersonWalkingArrowRight } from "react-icons/fa6";
 import { HiXMark } from "react-icons/hi2";
@@ -35,7 +35,10 @@ function LoginPrompt({ setShowLogin }) {
             hello, Please Login to interact{" "}
           </h1>
 
-          <button onClick={()=>setShowRegister(true)} className=" grid items-center    text-[20px] rounded-2xl mt-5  relative">
+          <button
+            onClick={() => setShowRegister(true)}
+            className=" grid items-center    text-[20px] rounded-2xl mt-5  relative"
+          >
             <div className=" absolute  bg-gradient-to-tr from-violet-700 to-pink-600 -inset-0 rounded-3xl h-full  blur-sm opacity-75 animate-tilt"></div>
             <div className="relative  flex justify-center gap-5  items-center w-full rounded-3xl h-full bg-[#0d37f1] py-2 ">
               sign in to code free{" "}

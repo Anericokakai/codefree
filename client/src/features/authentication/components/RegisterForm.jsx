@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { userIcon } from "../../../icons";
 import { FaPersonWalkingArrowRight } from "react-icons/fa6";
-import { HiXMark, HiUserCircle } from "react-icons/hi2";
+import { HiXMark } from "react-icons/hi2";
 import { styles } from "../../../utils";
 import { VscAccount, VscLock, VscMail } from "react-icons/vsc";
-import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 function RegisterForm({ setShowLogin, login, changeLoginState }) {
   const [focus, setFocus] = useState({
@@ -42,15 +40,16 @@ function RegisterForm({ setShowLogin, login, changeLoginState }) {
       [name]: val,
     });
   };
-//   submit form handler
-const handleSubmit=(e)=>{
-    e.preventDefault()
-if(!login)
-{
-    const submit = useQuery({queryKey:"regitster"})
-}
-    
-}
+  //   submit form handler
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!login) {
+      const submit = useQuery({ queryKey: "regitster" });
+      console.log(submit);
+    }
+  };
+
+  handleSubmit();
 
   return (
     <article className="border relative border-slate-900 w-[100%] bg-[#020617] max-w-[488px] rounded-xl py-10 grid gap-7  px-4">
